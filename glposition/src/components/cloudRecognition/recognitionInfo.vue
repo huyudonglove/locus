@@ -1,0 +1,176 @@
+<template>
+  <div>
+    <div style="height:50px;border-bottom:1px solid #DFDCDC;">
+      <el-page-header @back="$router.push({path:$route.query.databaseId==1?'/localRecognitionList':'/cloudRecognitionList',query:JSON.parse($route.query.oldQuery)})" content="识别图库信息" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
+    </div>
+    <el-form ref="formData" :model="formData" label-width="130px">
+      <el-form-item label="识别图库名称：">
+        {{formData.name}}
+      </el-form-item>
+    </el-form>
+    <el-form ref="formData" :inline="true" :model="formData" label-width="130px">
+      <el-form-item label="识别图库类型：">
+        <span v-if="formData.type==0">无限制</span>
+      </el-form-item>
+      <el-form-item label="识别图库大小：" style="margin-left:296px;">
+        <span v-if="formData.size==0">无限制</span>
+      </el-form-item>
+    </el-form>
+    <el-form ref="formData" :inline="true" :model="formData" label-width="130px">
+      <el-form-item label="创建时间：">
+        {{formData.createTime}}
+      </el-form-item>
+      <el-form-item label="修改时间：" style="margin-left:200px;">
+        {{formData.updateTime}}
+      </el-form-item>
+    </el-form>
+    <el-form ref="formData" :inline="true" :model="formData" label-width="130px">
+      <el-form-item label="识别图库密钥：">
+        <span ref="imageDatabaseId">{{formData.secret}}</span> <el-button type="text" @click="copy('imageDatabaseId')">复制密钥</el-button>
+      </el-form-item>
+    </el-form>
+    <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
+      <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入识别图名称/ID"></el-input>
+      <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg">下载识别图</el-button>
+      <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button>
+    </el-row>
+    <el-table ref="imageRef" :data="imageTable" border style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id">
+      <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true"></el-table-column>
+      <el-table-column prop="identifiedImageId" label="ID" align="center"></el-table-column>
+      <el-table-column prop="name" label="识别图名称" align="center"></el-table-column>
+      <el-table-column prop="type" label="类型" width="100" align="center">
+        <template slot-scope="scope">
+          <span v-if="scope.row.type==1">单张图片</span>
+          <span v-if="scope.row.type==2">双面图片</span>
+          <span v-if="scope.row.type==3">正三棱柱</span>
+          <span v-if="scope.row.type==4">长方体</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="status" label="状态" width="160" align="center">
+        <template slot-scope="scope">
+          <span v-if="scope.row.status==1">正常</span>
+          <span v-if="scope.row.status===0">待生效</span>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createTime" label="创建时间" width="160" align="center"></el-table-column>
+      <el-table-column prop="updateTime" label="修改时间" width="160" align="center"></el-table-column>
+      <el-table-column label="操作" fixed="right" width="150" align="center">
+        <template slot-scope="scope">
+          <el-button type="warning" size="mini" @click="$router.push({path:'/recognitionMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}})">管理</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div>
+      <pagination v-if="showPagination"></pagination>
+    </div>
+    <div v-if="isShowUp">
+      <upImgDialog @upImgDialogClose="upImgDialogClose"></upImgDialog>
+    </div>
+  </div>
+</template>
+<script>
+import {mapState} from 'vuex';
+import {getImageList,downloadIdentifiedImage} from '../../http/request'
+import pagination from '../../share/pagination'
+import upImgDialog from './upImgDialog'
+import VueCookies from 'vue-cookies'
+export default {
+  name:'recognitionInfo',
+  inject:['replace','reload'],
+  components:{
+    pagination,
+    upImgDialog
+  },
+  data(){
+    return{
+      inputX:'',
+      formData:{
+        name:'',
+        type:0,
+        size:0,
+        createTime:'',
+        updateTime:'',
+        secret:''
+      },
+      imgIdList:[],
+      imageTable:[],
+      showPagination:false,
+      isShowUp:false
+    }
+  },
+  computed:{
+    ...mapState('pagination',{page:'clickPage',limit:'limitPage'}),
+  },
+  watch:{
+    page(){
+      this.replace('page',this.page);
+    },
+    limit(){
+      this.replace('limit',this.limit);
+    },
+    inputX(){
+      this.$store.commit('pagination/setClickPage',1);//重置第1页
+      this.replace('inputX',this.inputX);
+    },
+    $route(){//判断路由query变化执行请求
+      if(this.$route.name=='recognitionInfo'){
+        this.listData();
+      }
+    }
+  },
+  methods:{
+    copy(ref){
+      window.getSelection().removeAllRanges();
+      var r = document.createRange(); 
+      r.selectNode(this.$refs[ref]); 
+      window.getSelection().addRange(r); 
+      document.execCommand("Copy");
+      window.getSelection().removeAllRanges();
+      this.$message({
+        message: '复制成功',
+        duration: 500,
+        type: 'success'
+      })
+    },
+    upImgDialogClose(){
+      this.isShowUp = false;
+    },
+    handleSelectionChange(val) {
+      this.imgIdList=val.map(v=>v.identifiedImageId)
+    },
+    downloadImg(){
+        let aTag = document.createElement('a');
+        // aTag.download = '识别图包.zip';
+        aTag.href = `/api/location/middleground/IdentifiedImage/Database/download?databaseID=${this.formData.secret}&ids=${this.imgIdList.join(',')}`;
+        aTag.click();
+    },
+    listData(){
+      getImageList({"identifiedImageDatabaseId":this.formData.secret,...this.$route.query}).then(res=>{
+        this.imageTable=res.data.items;
+        this.$store.commit('pagination/setTotal', res.data.total);
+      })
+    },
+  },
+  created(){
+    let paramsData = JSON.parse(this.$route.query.myData);
+    this.formData.name = paramsData.name;
+    this.formData.type = paramsData.type;
+    this.formData.size = paramsData.size;
+    this.formData.createTime = paramsData.createTime;
+    this.formData.updateTime = paramsData.updateTime;
+    this.formData.secret = paramsData.identifiedImageDatabaseId; 
+    this.listData();
+    let pageRecord = this.$route.query.page||1;//记录上一次页码操作
+    let limitRecord = this.$route.query.limit||20;//记录上一次limit操作
+    this.inputX = this.$route.query.inputX||'';
+    this.$nextTick(()=>{
+      this.$store.commit('pagination/setClickPage',pageRecord);
+      this.$store.commit('pagination/setLimitPage',limitRecord);
+      this.showPagination = true;//加载分页组件
+    })
+  }
+}
+</script>
+<style scoped>
+
+</style>
