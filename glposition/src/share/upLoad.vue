@@ -31,11 +31,7 @@
         </div>
       </el-dialog>
       <div>
-<<<<<<< HEAD
         <el-dialog title="上传中" :visible.sync="upLoad" width="30%"  :close-on-click-modal="false" :show-close="false">
-=======
-        <el-dialog title="上传中" :visible.sync="upLoad" width="30%" :before-close="handleClose">
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
           <span>正在上传中，请不要关闭页面及浏览器</span>
           <span slot="footer" class="dialog-footer">
@@ -71,11 +67,7 @@
             upBreak:false,
             msg:{},
             header:{
-<<<<<<< HEAD
               Authorization:this.$cookies.get('locationMiddlegroundToken')
-=======
-              Authorization:this.$cookies.get('backgroundToken')
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
             },
             fileArray:[],
             mapVisibleUp:false,

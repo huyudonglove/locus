@@ -25,11 +25,7 @@
             limit:5
           },
           header:{
-<<<<<<< HEAD
             Authorization:this.$cookies.get('locationMiddlegroundToken')
-=======
-            Authorization:this.$cookies.get('backgroundToken')
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           }
         };
       },

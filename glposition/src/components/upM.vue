@@ -7,11 +7,7 @@
         </div>
         <div>
           <p>备注：</p>
-<<<<<<< HEAD
           <el-input v-model="description" type="textarea" maxlength="500" :disabled="true" show-word-limit></el-input>
-=======
-          <el-input v-model="description" type="textarea" maxlength="500" show-word-limit></el-input>
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
         </div>
         <div style="text-align: center">
           <p >
@@ -115,11 +111,7 @@
 
             },
             header:{
-<<<<<<< HEAD
               Authorization:this.$cookies.get('locationMiddlegroundToken')
-=======
-              Authorization:this.$cookies.get('backgroundToken')
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
             },
             fileArray:[],
             fileArr:[],//偏差数组列表
@@ -259,11 +251,7 @@
     created(){
       window.onbeforeunload = ()=> {
         //窗口关闭前
-<<<<<<< HEAD
         if(this.upLoad){
-=======
-        if(this.upload){
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           return '文件正在上传，离开页面将会终止上传，你确定离开吗？';
         }
       };

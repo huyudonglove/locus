@@ -13,11 +13,7 @@
       :on-success="successCallback">
       <el-button style="width:400px;background-color:#c9c9c9;color:#409eff;">{{imgName?imgName:'选择文件上传'}}</el-button>
     </el-upload>
-<<<<<<< HEAD
     <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
-=======
-    <el-dialog title="上传中" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
       <span>图片正在上传中，请不要关闭页面及浏览器</span>
       <span slot="footer" class="dialog-footer">
@@ -37,20 +33,12 @@ export default {
         moduleCode:'locus_position_identifiedImage'
       },
       header:{
-<<<<<<< HEAD
         Authorization:this.$cookies.get('locationMiddlegroundToken')
       },
       isUpload:false,
       percent:0,
       imgName:'',
       fileName:''
-=======
-        Authorization:this.$cookies.get('backgroundToken')
-      },
-      isUpload:false,
-      percent:0,
-      imgName:''
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
     }
   },
   watch:{
@@ -100,10 +88,7 @@ export default {
       })
     },
     beforeCallback(file){
-<<<<<<< HEAD
       this.fileName = file.name;
-=======
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       if(!(file.type=='image/jpg'||file.type=='image/jpeg'||file.type=='image/png')){
         this.$message.error(`上传图片格式必须为jpg或png!`);
         return false;
@@ -146,11 +131,7 @@ export default {
               }).catch(r=>{
                 console.log('取消')
               })
-<<<<<<< HEAD
             }else{
-=======
-            }else{            
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
               this.imgName = response.data.originFileName.slice(0,30)
               this.$alert('上传成功', {
                 dangerouslyUseHTMLString: true
@@ -160,11 +141,7 @@ export default {
           }
         }).catch(err=>{
           this.isUpload = false;
-<<<<<<< HEAD
         })
-=======
-        })      
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       }
     },
     upClose(){
@@ -193,8 +170,4 @@ export default {
 </script>
 <style scoped>
 
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
