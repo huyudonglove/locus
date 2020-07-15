@@ -22,20 +22,12 @@
           </el-table-column>
           <el-table-column prop="address" label="下载地址">
               <template slot-scope="scope">
-<<<<<<< HEAD
                 <span style="cursor: pointer" @click="downFile(scope.row,'sdkFileId','name')">{{scope.row.downloadUrl}}</span>
-=======
-                <span style="cursor: pointer" @click="downFile(scope.row.sdkFileId,scope.row.name)">{{scope.row.downloadUrl}}</span>
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
               </template>
           </el-table-column>
           <el-table-column  label="文档">
             <template slot-scope="scope">
-<<<<<<< HEAD
               <span style="cursor: pointer" @click="downFile(scope.row,'documentFileId','documentFileName')">{{scope.row.documentFileName}}</span>
-=======
-              <span style="cursor: pointer" @click="downFile(scope.row.documentFileId,scope.row.documentFileName)">{{scope.row.documentFileName}}</span>
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
             </template>
           </el-table-column>
           <el-table-column prop="address" label="上下架">
@@ -119,7 +111,6 @@
                 !res.code&&this.$message.success(res.msg)&&this.getSdk();
               })
             },
-<<<<<<< HEAD
           downFile(row,myProperty,fileName){
             let decodeUrl=`/static/${Base64.decode(row[myProperty])}`;
             let aTag = document.createElement('a');
@@ -136,16 +127,6 @@
             aTag.click();
             URL.revokeObjectURL(aTag.href);    // 释放URL 对象
             document.body.removeChild(aTag);
-=======
-          downFile(id,name){
-            var link = document.createElement('a');
-            let decodeUrl = `/static/${Base64.decode(id)}`;
-            let pathArr = decodeUrl.split('/');
-            let nameArr = pathArr[pathArr.length-1].split('.');
-            link.href = decodeUrl;
-            link.download = name+'.'+nameArr[nameArr.length-1];
-            link.click();
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           }
         },
         watch:{

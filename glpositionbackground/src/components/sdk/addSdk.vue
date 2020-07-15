@@ -25,17 +25,10 @@
             </el-select>
           </el-form-item>
           <el-form-item label="下载地址" prop="sdkFileId">
-<<<<<<< HEAD
             <uploadFile button-name="文件" moduleCode="locusSdk" type="sdk" @getSdkId="getSdkId" :parentName="downloadUrl"></uploadFile>
           </el-form-item>
           <el-form-item label="文档" prop="documentFileId">
             <uploadFile button-name="文件" moduleCode="locusPdf" type="pdf" @getSdkId="getSdkId" :parentName="ruleForm.documentFileName"></uploadFile>
-=======
-            <uploadFile button-name="文件" moduleCode="locusSdk" type="sdk" @getSdkId="getSdkId" :parentName="this.downloadUrl"></uploadFile>
-          </el-form-item>
-          <el-form-item label="文档" prop="documentFileId">
-            <uploadFile button-name="文件" moduleCode="locusPng" type="png" @getSdkId="getSdkId" :parentName="this.ruleForm.documentFileName"></uploadFile>
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')" v-if="!msg.id">确定</el-button>
@@ -94,11 +87,7 @@
             type=='sdk'&&(()=>{
               this.ruleForm.sdkFileId=id;
             })();
-<<<<<<< HEAD
             type=='pdf'&&(()=>{
-=======
-            type=='png'&&(()=>{
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
               this.ruleForm.documentFileId=id;
               this.ruleForm.documentFileName=name.split('.').slice(0,-1).join('.');
             })();

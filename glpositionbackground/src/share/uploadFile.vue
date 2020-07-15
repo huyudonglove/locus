@@ -233,11 +233,7 @@ export default {
                 this.packageId = res.data.fileId;
                 this.inputPackage = res.data.originFileName;
                 this.size=res.data.size;
-<<<<<<< HEAD
                 this.$emit('getSdkId',res.data.fileId,this.inputPackage,this.size,res.data.durationTime,'pdf');
-=======
-                this.$emit('getSdkId',res.data.fileId,this.inputPackage,this.size,res.data.durationTime,'png');
->>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
               })();
               loading.close();
             })
