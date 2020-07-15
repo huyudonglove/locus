@@ -10,6 +10,10 @@ import mapManageList from '@/components/mapManage/mapManageList'
 import mapInfoList from '@/components/mapManage/mapInfoList'
 import mapInfo from '@/components/mapManage/mapInfo'
 Vue.use(Router)
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default new Router({
   routes: [
