@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import * as THREE from 'three'
+window.THREE = THREE
 export default {
   name: 'App',
   data(){

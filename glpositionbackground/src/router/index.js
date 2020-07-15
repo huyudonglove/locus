@@ -6,6 +6,9 @@ import firstPage from  '../components/firstPage'
 import sdkList from '../components/sdk/sdkList'
 import addSdk from '../components/sdk/addSdk'
 import logout from '../components/log/logout'
+import mapManageList from '@/components/mapManage/mapManageList'
+import mapInfoList from '@/components/mapManage/mapInfoList'
+import mapInfo from '@/components/mapManage/mapInfo'
 Vue.use(Router)
 
 export default new Router({
@@ -39,6 +42,50 @@ export default new Router({
           path: '/serviceList',
           name: 'serviceList',
           component: ()=>import('@/components/serviceResourceManagement/serviceList')
+        },
+        {
+          path: '/cloudRecognitionList',
+          name: 'cloudRecognitionList',
+          component: ()=>import('@/components/cloudRecognition/recognitionList')
+        },
+        {
+          path: '/localRecognitionList',
+          name: 'localRecognitionList',
+          component: ()=>import('@/components/cloudRecognition/recognitionList')
+        },
+        {
+          path: '/createRecognition',
+          name: 'createRecognition',
+          component: ()=>import('@/components/cloudRecognition/createRecognition')
+        },
+        {
+          path: '/recognitionInfo',
+          name: 'recognitionInfo',
+          component: ()=>import('@/components/cloudRecognition/recognitionInfo')
+        },
+        {
+          path: '/recognitionMsg',
+          name: 'recognitionMsg',
+          component: ()=>import('@/components/cloudRecognition/recognitionMsg')
+        },
+        {
+          path: '/mapManageList',
+          name: 'mapManageList',
+          component: mapManageList,
+          children:[
+            {
+              path: '/mapManageList/mapInfoList',
+              name: 'mapInfoList',
+              component: mapInfoList,
+              children:[
+                {
+                  path: '/mapManageList/mapInfoList/mapInfo',
+                  name: 'mapInfo',
+                  component: mapInfo,
+                },
+              ]
+            }
+          ]
         },
       ]
 

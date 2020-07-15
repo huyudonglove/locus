@@ -1,10 +1,6 @@
 <template>
     <div>
-<<<<<<< HEAD
       <!-- 欢迎使用locusAR管理后台 -->
-=======
-      欢迎使用空间定位后台
->>>>>>> b01c2caf2f67a880b15209acbcef681fb6731687
     </div>
 </template>
 
