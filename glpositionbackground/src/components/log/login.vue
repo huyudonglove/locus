@@ -12,6 +12,7 @@
         <i class="h-pass"></i>
         <input type="password" placeholder="请输入密码" v-model="password" >
       </div>
+<<<<<<< HEAD
 <!--      <div>-->
 <!--        <span style="padding-right: 20px;"></span>-->
 <!--        <span>-->
@@ -19,6 +20,15 @@
 <!--           <img :src="`data:image/png;base64,${img}`" alt="" width="100px" height="30px" @click="getCode()">-->
 <!--        </span>-->
 <!--      </div>-->
+=======
+      <div>
+        <span style="padding-right: 20px;"></span>
+        <span>
+           <input type="input" placeholder="请输入验证码" v-model="code" style="width: 100px" @keyup.enter='login()'>
+           <img :src="`data:image/png;base64,${img}`" alt="" width="100px" height="30px" @click="getCode()">
+        </span>
+      </div>
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       <div style="display: flex;justify-content: space-between;padding-left: 40px;padding-right: 40px;">
         <div class="h-size">
           <el-checkbox v-model="checked"></el-checkbox>
@@ -101,7 +111,11 @@
         })();
         this.checked=Boolean(this.$cookies.get('checked'));
       })();
+<<<<<<< HEAD
       //this.getCode();
+=======
+      this.getCode();
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
     }
   }
 </script>

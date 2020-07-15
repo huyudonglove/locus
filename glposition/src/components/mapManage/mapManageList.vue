@@ -94,9 +94,12 @@ import {mapList} from "../../http/request";
       }
     },
     $route(){//判断路由query变化执行请求
+<<<<<<< HEAD
       let query=this.$route.query
       let pageRecord = query.page||1;//记录上一次页码操作
       let limitRecord = query.limit||20;//记录上一次limit操作
+=======
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       if(this.$route.name=='mapManageList'){
          if(this.$route.query.id){
           this.dataTable({...this.$route.query,licnese:this.$route.query.id})
@@ -105,6 +108,12 @@ import {mapList} from "../../http/request";
         }
       }
       this.$nextTick(()=>{
+<<<<<<< HEAD
+=======
+      let query=this.$route.query
+      let pageRecord = query.page||1;//记录上一次页码操作
+      let limitRecord = query.limit||20;//记录上一次limit操作
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       this.$store.commit('pagination/setClickPage',pageRecord);
       this.$store.commit('pagination/setLimitPage',limitRecord);
       this.showPagination = true;//加载分页组件 

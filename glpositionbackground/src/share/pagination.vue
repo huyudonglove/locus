@@ -34,7 +34,10 @@
         //console.log(val)
         console.log(2222)
         this.replace('limit',val);
+<<<<<<< HEAD
         this.replace('page',1)
+=======
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       }
     },
     data() {
@@ -53,8 +56,13 @@
     },
     watch:{
       $route(){
+<<<<<<< HEAD
         this.page=this.$route.query.page||1;
         this.limit=this.$route.query.limit||20;
+=======
+        this.page=this.$route.query.page;
+        this.limit=this.$route.query.limit;
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       }
     }
   }

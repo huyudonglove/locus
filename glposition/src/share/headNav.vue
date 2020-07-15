@@ -31,7 +31,11 @@ export default {
       var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
   　　 return (arr=document.cookie.match(reg))?unescape(arr[2]):null;
     }
+<<<<<<< HEAD
     let  token = getCookie('locationMiddlegroundToken')
+=======
+    let  token = getCookie('backgroundToken')
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
     if(token){
     let arr=token.split('.')
     let tokenMsg=arr[1];

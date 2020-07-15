@@ -63,7 +63,11 @@
         apple.password=encrypted.toString();
         login(apple).then(res=>{
           res.code?this.$message.error(res.msg):(()=>{
+<<<<<<< HEAD
             this.$cookies.set('locationMiddlegroundToken',res.data.token)
+=======
+            this.$cookies.set('backgroundToken',res.data.token)
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
             this.$router.push('/licenseManage')
           })();
         })
@@ -71,7 +75,11 @@
     },
     created() {
       //检查登录
+<<<<<<< HEAD
       let token=this.$cookies.get('locationMiddlegroundToken');
+=======
+      let token=this.$cookies.get('backgroundToken');
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       token?this.$router.push('/'):(()=>{
         this.loginName=this.$cookies.get('loginName');
         this.password=this.$cookies.get('password');

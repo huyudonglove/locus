@@ -106,7 +106,11 @@ export default {
   },
   created(){
     this.listData();
+<<<<<<< HEAD
     this.mySetInterval = setInterval(this.listData,30000);
+=======
+    this.mySetInterval = setInterval(this.listData,5000);
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
     let pageRecord = this.$route.query.pageNum||1;//记录上一次页码操作
     let limitRecord = this.$route.query.pageSize||20;//记录上一次limit操作
     this.inputX = this.$route.query.mapLocation||'';

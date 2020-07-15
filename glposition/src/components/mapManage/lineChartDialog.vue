@@ -1,7 +1,11 @@
 <template>
   <div>
     <el-dialog title="误差折线图" :visible.sync="dialogVisible" @close="close" width="1100px">
+<<<<<<< HEAD
       <div style="text-align: center;color: red;" v-if="!(oldY.length||newY.length)">{{msg}}</div>
+=======
+      <div style="text-align: center;color: red;">{{msg}}</div>
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
       <div ref="myEchart" style="width: 1000px;height: 500px;transform:translateX(-50%);margin-left:50%;"></div>
 
       <div v-if="mapStatus==1" class="myWords" style="color: red;text-align: center;margin-bottom: 10px">地图运行中，不能更新地图!</div>
@@ -21,8 +25,13 @@
         </el-image>
         <div style="text-align:center;">误差评估图</div>
       </div>
+<<<<<<< HEAD
       <div class="imgDiv" v-if="relateOld">
         <el-image style="width:200px;height:200px;border:1px solid #DCDFE6" :src="relateOld" >
+=======
+      <div class="imgDiv">
+        <el-image style="width:200px;height:200px;border:1px solid #DCDFE6" :src="relateOld">
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline"></i>
           </div>
@@ -113,12 +122,18 @@ export default {
           //this.name=param.name;
           this.dataIndex=param.dataIndex;
           var oldM=this.oldData[this.dataIndex];
+<<<<<<< HEAD
           this.oldData.length>0&&(()=>{
             this.source=`/line/${this.oldUuid}/source_images/${oldM.source_image}`;
             this.relateOld=`/line/${this.oldUuid}/relate_images/${oldM.relate_image}`;
           })();
 
           //console.log(this.source,'source')
+=======
+          this.source=`/line/${this.oldUuid}/source_images/${oldM.source_image}`;
+          this.relateOld=`/line/${this.oldUuid}/relate_images/${oldM.relate_image}`;
+          console.log(this.source,'source')
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           this.newData.length>0&&(()=>{
             var newM=this.newData[this.dataIndex];
             this.relateNew=`/line/${this.newUuid}/relate_images/${newM.relate_image}`
@@ -211,7 +226,11 @@ export default {
               })
           })();
           !res.data.length&&(()=>{
+<<<<<<< HEAD
               !(this.oldUuid||this.newUuid)&&(()=>{
+=======
+              type=='new'&&(()=>{
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
                   this.msg='没有地图测试视频'
               })();
           })();

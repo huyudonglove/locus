@@ -25,7 +25,11 @@ axios.interceptors.request.use(
     //const token = sessionStorage.getItem('token');
     //const  token=Cookies.get('token')
     //console.log(VueCookies,9999)
+<<<<<<< HEAD
     const token=VueCookies.get('locationMiddlegroundToken');
+=======
+    const token=VueCookies.get('backgroundToken');
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
     if (token) {
       config.headers.Authorization = token;
     }
@@ -112,7 +116,11 @@ export default {
         })
         instance.post(url,data,{headers: {
             "Content-Type":"multipart/form-data",
+<<<<<<< HEAD
             "Authorization": VueCookies.get('locationMiddlegroundToken')
+=======
+            "Authorization": VueCookies.get('backgroundToken')
+>>>>>>> 42788f962f62a120c25743f6f850a987a4c519d4
           }})
           .then(response => {
             resolve(response.data);
