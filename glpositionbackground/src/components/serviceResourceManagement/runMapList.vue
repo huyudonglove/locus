@@ -91,16 +91,20 @@
           </template>
         </el-table-column>
       </el-table>
-      <pagination :totalNum="total"></pagination>
+      <pagination v-if="showPagination"></pagination>
     </div>
   </div>
 </template>
 
 <script>
+
 import pagination from "../../share/pagination";
+import {mapActions,mapState} from 'vuex';
 import {
- mapState,autoStopMap
+ mapState2,autoStopMap
 } from "../../http/request";
+
+
 export default {
   name: "runMapList",
   inject: ["replace", "reload"],
@@ -110,10 +114,12 @@ export default {
       ],
       tableHeight: 250,
       total: 0,
-
+      showPagination:true
     };
   },
   computed: {
+     ...mapState('pagination',{page:'clickPage',limit:'limitPage'}),
+
   },
   watch: {
     $route() {
@@ -121,13 +127,24 @@ export default {
       if (this.$route.name == "runMapList") {
         this.listData();
       }
-    }
+    },
+    page(){
+      if(this.$route.name=='runMapList'){
+      this.replace("page",this.page);
+      }
+      },
+    limit(){
+      if(this.$route.name=='runMapList'){
+      this.replace('limit',this.limit);
+      }
+    },
   },
   methods: {
     listData() {
-      mapState({...this.$route.query}).then(res => {
+      mapState2({...this.$route.query}).then(res => {
         this.tableData =res.items
         this.total = res.total;
+        this.$store.commit('pagination/setTotal',this.total);
       });
     },
     del(id) {
@@ -141,7 +158,15 @@ export default {
     },
   },
   created() {
-    this.listData();
+     let query=this.$route.query
+     let pageRecord = query.page||1;//记录上一次页码操作
+     let limitRecord = query.limit||20;//记录上一次limit操作
+     this.listData();
+     this.$nextTick(()=>{
+      this.$store.commit('pagination/setClickPage',pageRecord);
+      this.$store.commit('pagination/setLimitPage',limitRecord);
+      this.showPagination = true;//加载分页组件 
+     })
   },
   updated() {
     if (this.$route.name == "runMapList") {

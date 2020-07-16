@@ -54,7 +54,7 @@ export function serverList(params) {
 }
 
 /**服务器资源管理 -  分页获取地图运行状态 w*/
-export function mapState(params) {
+export function mapState2(params) {
   let pageNum = parseInt(params.page)||1;
   let pageSize = parseInt(params.limit)||20;
   return new Promise((resolve,reject)=>{
@@ -221,7 +221,7 @@ let pageSize = params.limit||20;
 let name = params.inputX||'';
 let identifiedType = params.identifiedType;
 return new Promise((resolve,reject)=>{
-  http.post('/api/location/middleground/IdentifiedImage/Database/list/page',{pageNum,pageSize,name,identifiedType}).then(res=>{
+  http.post('/api/location/background/IdentifiedImage/Database/list/page',{pageNum,pageSize,name,identifiedType}).then(res=>{
     if(res.code){
       Message.error(res.msg);
     }else{
@@ -243,7 +243,7 @@ let pageSize = params.limit||20;
 let name = params.inputX||'';
 let identifiedImageDatabaseId = params.identifiedImageDatabaseId;
 return new Promise((resolve,reject)=>{
-  http.post('/api/location/middleground/IdentifiedImage/list/page',{pageNum,pageSize,name,identifiedImageDatabaseId}).then(res=>{
+  http.post('/api/location/background/IdentifiedImage/list/page',{pageNum,pageSize,name,identifiedImageDatabaseId}).then(res=>{
     if(res.code){
       Message.error(res.msg);
     }else{

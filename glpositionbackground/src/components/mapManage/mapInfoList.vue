@@ -39,8 +39,8 @@
              <el-option label="未更新" value="4"></el-option>
           </el-select>
           </span>
-          <el-button style="float:right;margin-left:15px" type="primary" @click="mapLoad()">上传地图包
-      </el-button>
+          <!-- <el-button style="float:right;margin-left:15px" type="primary" @click="mapLoad()">上传地图包
+      </el-button> -->
         </el-row>
            <!-- 数据展示 -->
         <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"  border>
@@ -89,7 +89,7 @@
                 @click="$router.push({path:'/mapManageList/mapInfoList/mapInfo',query:{id:scope.row.id,oldQuery:JSON.stringify($route.query)}})"
               v-if="scope.row.status==3||scope.row.status==4||scope.row.status==-1"
               >管理</el-button>
-              <el-button type="primary"
+              <!-- <el-button type="primary"
                          @click="isShowChart=true;mapCode=scope.row.mapCode;mapKey=scope.row.mapKey;mapStatus=scope.row.runState"
                          size="mini" v-if="scope.row.status==4||scope.row.status==3||scope.row.status==-1"
                          :disabled="scope.row.status==3||scope.row.status==-1">更新</el-button>
@@ -99,7 +99,7 @@
                 @click="del(scope.row.id)"
                 :key="1"
               v-if="scope.row.status==3||scope.row.status==-1||scope.row.status==4"
-               >删除</el-button>
+               >删除</el-button> -->
             </template>
           </el-table-column>
         </el-table>

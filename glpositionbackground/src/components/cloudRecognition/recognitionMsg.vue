@@ -48,7 +48,7 @@
     </el-col>
     <el-col :span="12">
       <div>
-        <el-button type="danger" @click="del(formSize.id,formSize.name)">删除</el-button>
+        <!-- <el-button type="danger" @click="del(formSize.id,formSize.name)">删除</el-button> -->
         <el-button type="primary" @click="isShowUp=true;">查看识别度和识别点</el-button>
       </div>
       <div style="margin-top:20px;position:relative">
@@ -89,12 +89,12 @@
             </div>
           </div>
       </div>
-      <div style="margin-top:30px;">
+      <!-- <div style="margin-top:30px;">
          <el-button v-if="type==3||type==4" @click="save('left');isShow=true;">更换左⾯识别图</el-button>
          <el-button @click="save('front');isShow=true">更换正面识别图</el-button>
          <el-button v-if="type==3||type==4" @click="save('right');isShow=true">更换右⾯识别图</el-button>
          <el-button v-if="type==2||type==4" @click="save('back');isShow=true">更换背面识别图</el-button>
-      </div>
+      </div> -->
       <div v-if="isShowUp">
        <showImgDialog @showDialogClose="showDialogClose" :id="formSize.id" :types="formSize.type" ></showImgDialog>
       </div>
@@ -114,9 +114,10 @@
           show-word-limit
           maxlength="500"
           style="width:80%"
+          :disabled="true"
           >
           </el-input>
-          <el-button type="text" @click="edit()">修改</el-button>  
+          <!-- <el-button type="text" @click="edit()">修改</el-button>   -->
           </div>
         
         </el-form-item>
