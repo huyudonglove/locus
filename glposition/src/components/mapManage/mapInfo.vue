@@ -19,13 +19,16 @@
                 <el-button type="primary" size="mini" @click="download(sparsePointCloudFileId,'稀疏')">下载稀疏点云数据</el-button>
               </el-dropdown-item>
               <el-dropdown-item>
-                <el-button type="primary" size="mini" @click="download(mapFileId,'模型')">&nbsp;&nbsp;&nbsp;下载模型数据&nbsp;&nbsp;&nbsp;&nbsp;</el-button>
+                <el-button :disabled="!mapFileId" type="primary" size="mini" @click="download(mapFileId,'模型')">&nbsp;&nbsp;&nbsp;下载模型数据&nbsp;&nbsp;&nbsp;&nbsp;</el-button>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-form-item>
         <el-form-item label="">
           <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==4)">更新地图</el-button>
+        </el-form-item>
+        <el-form-item label="">
+          <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==3)">上传激光扫描结果</el-button>
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
@@ -122,6 +125,9 @@
       <div v-if="visible">
         <upM  :form-size="msg" @show="show"></upM>
       </div>
+      <div  v-if="isUpResult">
+        <upResult :form-size="msg" @showUpResult="showUpResult"></upResult>
+      </div>
     </div>
     <el-dialog title="误差图对比" :visible.sync="dialogSmall" @close="dialogSmall=false" width="800px">
       <div></div>
@@ -149,7 +155,8 @@ import { Base64 } from 'js-base64';
 import upMe from '../../share/upLoad'
 import lineChartDialog from './lineChartDialog'
 import upM from '../upM'
-import {getMapVersion,getMapLine,checkMapEnableUpdate} from "../../http/request";
+import upResult from '../upResult'
+import {getMapVersion,getMapLine,checkMapEnableUpdate,getMapUpdate} from "../../http/request";
 let scene,camera,controls,scene2,camera2,controls2;
 
 export default {
@@ -199,10 +206,14 @@ export default {
       relateOld:'',
       dialogSmall:false,
       enableUpdateMap:false,
-      enableUpdateLine:false
+      enableUpdateLine:false,
+      isUpResult:false,
     }
   },
   methods:{
+    showUpResult(){
+      this.isUpResult = false;
+    },
     show(){
       this.visible=false;
     },
@@ -227,32 +238,42 @@ export default {
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         });
-        getMapInfo({id:this.$route.query.id}).then(res=>{
-          this.loading.close();
-          resolve();
-          if(res.code){
+        getMapUpdate({"mapId":this.$route.query.id}).then(result=>{
+          if(result.code){
+            this.loading.close();
             this.$message.error(res.msg);
           }else{
-            console.log(res,'res');
-            this.msg=res.data;
-            this.mapName = res.data.name;
-            this.packageSize = res.data.size;
-            this.mapId = res.data.mapKey;
-            this.status = res.data.status;
-            this.gps = res.data.gps;
-            this.createTime = res.data.createTime;
-            this.updateTime = res.data.updateTime;
-            this.decription = res.data.description;
-            this.sparsePointCloudFileId = res.data.sparsePointCloudFileId;//稀疏
-            this.densePointCloudFileId = res.data.densePointCloudFileId;//稠密
-            this.mapFileId = res.data.mapFileId;//模型
-            this.sparseMapPath = Base64.decode(res.data.sparsePointCloudFileId);
-            this.denseMapPath = Base64.decode(res.data.densePointCloudFileId);
-            this.mapKey=res.data.mapKey
-            this.mapCode=res.data.mapCode;
-            console.log(this.sparseMapPath,this.denseMapPath,'路径');
+            console.log(result,'result');
+            getMapInfo({id:this.$route.query.id}).then(res=>{
+              this.loading.close();
+              resolve();
+              if(res.code){
+                this.$message.error(res.msg);
+              }else{
+                console.log(res,'res');
+                this.msg=res.data;
+                this.mapName = res.data.name;
+                this.packageSize = res.data.size;
+                this.mapId = res.data.mapKey;
+                this.status = res.data.status;
+                this.gps = res.data.gps;
+                this.createTime = res.data.createTime;
+                this.updateTime = res.data.updateTime;
+                this.decription = res.data.description;
+                this.sparsePointCloudFileId = result.resource?result.resource.sparsePlyId_new?result.resource.sparsePlyId_new:res.data.sparsePointCloudFileId:res.data.sparsePointCloudFileId;//稀疏
+                this.densePointCloudFileId = result.resource?result.resource.densePlyId_new?result.resource.densePlyId_new:res.data.densePointCloudFileId:res.data.densePointCloudFileId;//稠密
+                this.mapFileId = result.resource?result.resource.modelId_new?result.resource.modelId_new:'':'';//模型
+                this.sparseMapPath = Base64.decode(this.sparsePointCloudFileId);
+                this.denseMapPath = Base64.decode(this.densePointCloudFileId);
+                this.mapKey=res.data.mapKey
+                this.mapCode=res.data.mapCode;
+                console.log(this.sparseMapPath,this.denseMapPath,'路径');
+              }
+            }).catch(u=>{
+              this.loading.close();
+            })
           }
-        }).catch(u=>{
+        }).catch(()=>{
           this.loading.close();
         })
       })
@@ -580,7 +601,8 @@ export default {
   components: {
     upMe,
     lineChartDialog,
-    upM
+    upM,
+    upResult
 }
 }
 </script>

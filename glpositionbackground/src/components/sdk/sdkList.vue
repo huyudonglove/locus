@@ -45,14 +45,14 @@
         </el-table>
       </div>
       <div>
-        <pagination :totalNum='totalNum' ></pagination>
+        <page :totalNum='totalNum' ></page>
       </div>
     </div>
 </template>
 
 <script>
   import {getSdk,operationSdk,deleteSdk} from "../../http/request";
-  import pagination from  '../../share/pagination'
+  import page from  '../../share/page'
   import { Base64 } from 'js-base64';
   export default {
         name: "sdkList",
@@ -65,7 +65,7 @@
           }
         },
         components:{
-          pagination
+          page
         },
         inject:['replace','reload'],
         methods:{

@@ -19,14 +19,14 @@
                 <el-button type="primary" size="mini" @click="download(sparsePointCloudFileId,'稀疏')">下载稀疏点云数据</el-button>
               </el-dropdown-item>
               <el-dropdown-item>
-                <el-button type="primary" size="mini" @click="download(mapFileId,'模型')">&nbsp;&nbsp;&nbsp;下载模型数据&nbsp;&nbsp;&nbsp;&nbsp;</el-button>
+                <el-button :disabled="!mapFileId" type="primary" size="mini" @click="download(mapFileId,'模型')">&nbsp;&nbsp;&nbsp;下载模型数据&nbsp;&nbsp;&nbsp;&nbsp;</el-button>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </el-form-item>
-        <el-form-item label="">
+        <!-- <el-form-item label="">
           <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==4)">更新地图</el-button>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-form-item label="地图名称：">
@@ -46,7 +46,8 @@
           <span  v-if="status==4">未更新</span>
         </el-form-item>
         <el-form-item label="GPS：">
-          <span>{{gps}}</span> <el-button type="text" @click="showDialog('GPS')">修改</el-button>
+          <span>{{gps}}</span> 
+          <!-- <el-button type="text" @click="showDialog('GPS')">修改</el-button> -->
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
@@ -64,11 +65,11 @@
             disabled
             v-model="decription">
           </el-input>
-          <el-button type="text" @click="showDialog('备注')">修改</el-button>
+          <!-- <el-button type="text" @click="showDialog('备注')">修改</el-button> -->
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
-        <el-button size="mini" @click="visible=true" :disabled="!enableUpdateMap" type="primary">上传更新地图包</el-button>
+        <!-- <el-button size="mini" @click="visible=true" :disabled="!enableUpdateMap" type="primary">上传更新地图包</el-button> -->
         <el-form-item label="预览：">
           <div id="webglId">
             <div class="title">稀疏点云</div>
@@ -113,7 +114,7 @@
           <el-button @click="isShow = false">取 消</el-button>
         </span>
       </el-dialog>
-      <el-button style="float:right;margin-left:15px" type="primary" @click="mapLoad()"  :disabled="!enableUpdateLine">更新误差评估视频</el-button>
+      <!-- <el-button style="float:right;margin-left:15px" type="primary" @click="mapLoad()"  :disabled="!enableUpdateLine">更新误差评估视频</el-button> -->
       <div ref="myEchart" style="width: 1000px;height: 500px;transform:translateX(-50%);margin-left:50%;"></div>
       <upMe :mapKey="mapKey" :mapVisible="mapVisible"></upMe>
       <div v-if="isShowChart">
@@ -149,7 +150,7 @@ import { Base64 } from 'js-base64';
 import upMe from '../../share/upLoad'
 import lineChartDialog from './lineChartDialog'
 import upM from '../upM'
-import {getMapVersion,getMapLine,checkMapEnableUpdate} from "../../http/request";
+import {getMapVersion,getMapLine,checkMapEnableUpdate,getMapUpdate} from "../../http/request";
 let scene,camera,controls,scene2,camera2,controls2;
 
 export default {
@@ -227,32 +228,42 @@ export default {
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
         });
-        getMapInfo({id:this.$route.query.id}).then(res=>{
-          this.loading.close();
-          resolve();
-          if(res.code){
+        getMapUpdate({"mapId":this.$route.query.id}).then(result=>{
+          if(result.code){
+            this.loading.close();
             this.$message.error(res.msg);
           }else{
-            console.log(res,'res');
-            this.msg=res.data;
-            this.mapName = res.data.name;
-            this.packageSize = res.data.size;
-            this.mapId = res.data.mapKey;
-            this.status = res.data.status;
-            this.gps = res.data.gps;
-            this.createTime = res.data.createTime;
-            this.updateTime = res.data.updateTime;
-            this.decription = res.data.description;
-            this.sparsePointCloudFileId = res.data.sparsePointCloudFileId;//稀疏
-            this.densePointCloudFileId = res.data.densePointCloudFileId;//稠密
-            this.mapFileId = res.data.mapFileId;//模型
-            this.sparseMapPath = Base64.decode(res.data.sparsePointCloudFileId);
-            this.denseMapPath = Base64.decode(res.data.densePointCloudFileId);
-            this.mapKey=res.data.mapKey
-            this.mapCode=res.data.mapCode;
-            console.log(this.sparseMapPath,this.denseMapPath,'路径');
+            console.log(result,'result')
+            getMapInfo({id:this.$route.query.id}).then(res=>{
+              this.loading.close();
+              resolve();
+              if(res.code){
+                this.$message.error(res.msg);
+              }else{
+                console.log(res,'res');
+                this.msg=res.data;
+                this.mapName = res.data.name;
+                this.packageSize = res.data.size;
+                this.mapId = res.data.mapKey;
+                this.status = res.data.status;
+                this.gps = res.data.gps;
+                this.createTime = res.data.createTime;
+                this.updateTime = res.data.updateTime;
+                this.decription = res.data.description;
+                this.sparsePointCloudFileId = result.resource?result.resource.sparsePlyId_new?result.resource.sparsePlyId_new:res.data.sparsePointCloudFileId:res.data.sparsePointCloudFileId;//稀疏
+                this.densePointCloudFileId = result.resource?result.resource.densePlyId_new?result.resource.densePlyId_new:res.data.densePointCloudFileId:res.data.densePointCloudFileId;//稠密
+                this.mapFileId = result.resource?result.resource.modelId_new?result.resource.modelId_new:'':'';//模型
+                this.sparseMapPath = Base64.decode(this.sparsePointCloudFileId);
+                this.denseMapPath = Base64.decode(this.densePointCloudFileId);
+                this.mapKey=res.data.mapKey
+                this.mapCode=res.data.mapCode;
+                console.log(this.sparseMapPath,this.denseMapPath,'路径');
+              }
+            }).catch(u=>{
+              this.loading.close();
+            })
           }
-        }).catch(u=>{
+        }).catch(()=>{
           this.loading.close();
         })
       })

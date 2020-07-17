@@ -31,11 +31,11 @@
     </el-form>
     <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入识别图名称/ID"></el-input>
-      <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg">下载识别图</el-button>
-      <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button>
+      <!-- <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg">下载识别图</el-button> -->
+      <!-- <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button> -->
     </el-row>
     <el-table ref="imageRef" :data="imageTable" border style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id">
-      <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true"></el-table-column>
+      <!-- <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true"></el-table-column> -->
       <el-table-column prop="identifiedImageId" label="ID" align="center"></el-table-column>
       <el-table-column prop="name" label="识别图名称" align="center"></el-table-column>
       <el-table-column prop="type" label="类型" width="100" align="center">

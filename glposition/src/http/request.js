@@ -240,6 +240,14 @@ export function downloadIdentifiedImage(params){
 export function getMapInfo(params){
   return http.get('/api/location/map/info/queryById',params)
 }
+/** 地图信息-获取是否有最新模型数据 Author:minggui*/
+export function getMapUpdate(params){
+  return http.get('/api/location/map/info/mapresource/info',params)
+}
+/*上传地图信息 Author:minggui*/
+export function upResult(params){
+  return http.post('/api/location/map/info/mapResource/update',params)
+}
 /** 地图信息-修改地图 Author:minggui*/
 export function editMapInfo(params){
   return http.post('/api/location/map/info/update',params)

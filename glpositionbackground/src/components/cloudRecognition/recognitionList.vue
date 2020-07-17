@@ -2,11 +2,11 @@
   <div>
     <div style="height:50px;border-bottom:1px solid #DFDCDC;" v-if="$route.name=='cloudRecognitionList'">
       <span style="font-size:24px;font-weight:bold;color:#614a4d;">图像云识别管理</span>
-      <el-button style="float:right;" type="primary" @click="$router.push({path:'/createRecognition',query:{databaseId:2}})">新建识别图库</el-button>
+      <!-- <el-button style="float:right;" type="primary" @click="$router.push({path:'/createRecognition',query:{databaseId:2}})">新建识别图库</el-button> -->
     </div>
     <div style="height:50px;border-bottom:1px solid #DFDCDC;" v-if="$route.name=='localRecognitionList'">
       <span style="font-size:24px;font-weight:bold;color:#614a4d;">图像本地识别管理</span>
-      <el-button style="float:right;" type="primary" @click="$router.push({path:'/createRecognition',query:{databaseId:1}})">新建识别图库</el-button>
+      <!-- <el-button style="float:right;" type="primary" @click="$router.push({path:'/createRecognition',query:{databaseId:1}})">新建识别图库</el-button> -->
     </div>
     <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入识别图库名称"></el-input>
