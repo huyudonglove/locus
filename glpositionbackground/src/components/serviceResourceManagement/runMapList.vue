@@ -114,7 +114,7 @@ export default {
       ],
       tableHeight: 250,
       total: 0,
-      showPagination:true
+      showPagination:false
     };
   },
   computed: {
