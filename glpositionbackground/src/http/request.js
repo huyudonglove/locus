@@ -75,7 +75,7 @@ export function mapList(params){
   let pageSize = parseInt(params.limit)||20;
   let licenseAuthId = parseInt(params.licnese)||'';
   return new Promise((resolve,reject)=>{
-    http.post('/api/location/map/database/list/page',{pageNum,pageSize,licenseAuthId}).then(res=>{
+    http.post('/api/location/background/map/database/list/page',{pageNum,pageSize,licenseAuthId}).then(res=>{
       if(res.code){
         Message.error(res.msg);
       }else{
@@ -96,7 +96,7 @@ export function mapInfoList(params){
   let status = params.status||'';
   let mapDatabaseId = params.mapDatabaseId||'';
   return new Promise((resolve,reject)=>{
-    http.post('/api/location/map/info/list/page',{pageNum,pageSize,mapName,mapKey,status,mapDatabaseId}).then(res=>{
+    http.post('/api/location/background/map/mapinfo/list/page',{pageNum,pageSize,mapName,mapKey,status,mapDatabaseId}).then(res=>{
       if(res.code){
         Message.error(res.msg);
       }else{
@@ -269,6 +269,10 @@ return loadRequest('/api/location/middleground/IdentifiedImage/Database/download
 /** 地图信息-地图信息 Author:minggui*/
 export function getMapInfo(params){
 return http.get('/api/location/map/info/queryById',params)
+}
+/** 地图信息-获取是否有最新模型数据 Author:minggui*/
+export function getMapUpdate(params){
+  return http.get('/api/location/map/info/mapresource/info',params)
 }
 /** 地图信息-修改地图 Author:minggui*/
 export function editMapInfo(params){
