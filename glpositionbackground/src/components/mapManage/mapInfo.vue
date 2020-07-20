@@ -231,7 +231,7 @@ export default {
         getMapUpdate({"mapId":this.$route.query.id}).then(result=>{
           if(result.code){
             this.loading.close();
-            this.$message.error(res.msg);
+            this.$message.error(result.msg);
           }else{
             console.log(result,'result')
             getMapInfo({id:this.$route.query.id}).then(res=>{
