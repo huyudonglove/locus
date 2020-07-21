@@ -8,7 +8,7 @@
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-form-item label="">
           <el-dropdown placement="bottom-start">
-            <el-button size="mini" type="primary">
+            <el-button size="mini" type="primary" :disabled="status==-1">
               下载地图数据<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -250,9 +250,9 @@ export default {
                 this.createTime = res.data.createTime;
                 this.updateTime = res.data.updateTime;
                 this.decription = res.data.description;
-                this.sparsePointCloudFileId = result.resource?result.resource.sparsePlyId_new?result.resource.sparsePlyId_new:res.data.sparsePointCloudFileId:res.data.sparsePointCloudFileId;//稀疏
-                this.densePointCloudFileId = result.resource?result.resource.densePlyId_new?result.resource.densePlyId_new:res.data.densePointCloudFileId:res.data.densePointCloudFileId;//稠密
-                this.mapFileId = result.resource?result.resource.modelId_new?result.resource.modelId_new:'':'';//模型
+                this.sparsePointCloudFileId = result.data.resource?result.data.resource.sparsePlyId_new?result.data.resource.sparsePlyId_new:res.data.sparsePointCloudFileId:res.data.sparsePointCloudFileId;//稀疏
+                this.densePointCloudFileId = result.data.resource?result.data.resource.densePlyId_new?result.data.resource.densePlyId_new:res.data.densePointCloudFileId:res.data.densePointCloudFileId;//稠密
+                this.mapFileId = result.data.resource?result.data.resource.modelId_new?result.data.resource.modelId_new:'':'';//模型
                 this.sparseMapPath = Base64.decode(this.sparsePointCloudFileId);
                 this.denseMapPath = Base64.decode(this.densePointCloudFileId);
                 this.mapKey=res.data.mapKey
