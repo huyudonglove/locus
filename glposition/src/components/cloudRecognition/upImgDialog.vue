@@ -78,16 +78,16 @@
             </div>
           </div>
         </el-form-item>
-        <el-form-item :label="formOne.type==1?'上传识别图：':'上传正面识别图：'" :prop="formOne.type==1?'frontImgFileId':''">
+        <el-form-item :label="formOne.type==1?'上传识别图：':'上传正面识别图：'" prop="frontImgFileId">
           <upComponent @getImgId="getImgId" :imgType="formOne.type" :width="formOne.imgWidth" :length="formOne.imgLength" :height="formOne.imgHeight" :bottom="formOne.imgBottomSideLength" :direction="'front'"></upComponent>
         </el-form-item>
-        <el-form-item v-if="formOne.type==3||formOne.type==4" label="上传左面识别图：">
+        <el-form-item v-if="formOne.type==3||formOne.type==4" label="上传左面识别图：" prop="leftImgFileId">
           <upComponent @getImgId="getImgId" :imgType="formOne.type"  :width="formOne.imgWidth" :length="formOne.imgLength" :height="formOne.imgHeight" :bottom="formOne.imgBottomSideLength" :direction="'left'"></upComponent>
         </el-form-item>
-        <el-form-item  v-if="formOne.type==3||formOne.type==4" label="上传右面识别图：">
+        <el-form-item  v-if="formOne.type==3||formOne.type==4" label="上传右面识别图：" prop="rightImgFileId">
           <upComponent @getImgId="getImgId" :imgType="formOne.type" :width="formOne.imgWidth" :length="formOne.imgLength" :height="formOne.imgHeight" :bottom="formOne.imgBottomSideLength" :direction="'right'"></upComponent>
         </el-form-item>
-        <el-form-item v-if="formOne.type==2||formOne.type==4" label="上传背面识别图：">
+        <el-form-item v-if="formOne.type==2||formOne.type==4" label="上传背面识别图：" prop="backImgFileId">
           <upComponent @getImgId="getImgId" :imgType="formOne.type" :width="formOne.imgWidth" :length="formOne.imgLength" :height="formOne.imgHeight" :bottom="formOne.imgBottomSideLength" :direction="'back'"></upComponent>
         </el-form-item>
         <el-form-item label="">
@@ -142,7 +142,10 @@ export default {
         backImgFileId:undefined,
       },
       ruleSecond:{
-        frontImgFileId:[{required: true, message: '请上传识别图', trigger: 'change'},{required: true, message: '请上传识别图', trigger: 'blur'}],
+        frontImgFileId:[{required: true, validator: this.frontValidator, trigger: ['change','blur']}],
+        leftImgFileId:[{required: true, message: '请上传左面识别图', trigger: ['change','blur']}],
+        rightImgFileId:[{required: true, message: '请上传右面识别图', trigger: ['change','blur']}],
+        backImgFileId:[{required: true, message: '请上传背面识别图', trigger: ['change','blur']}],
       },
       frontImgUrl:'',
       leftImgUrl:'',
@@ -181,8 +184,17 @@ export default {
       this.$emit("upImgDialogClose");
     },
     getImgId(fileId,type,direction){
-      if(direction=='front'&&type==1){
+      if(direction=='front'){
         this.$refs.formSecond.clearValidate('frontImgFileId');//清除表单验证消息
+      }
+      if(direction=='left'){
+        this.$refs.formSecond.clearValidate('leftImgFileId');//清除表单验证消息
+      }
+      if(direction=='right'){
+        this.$refs.formSecond.clearValidate('rightImgFileId');//清除表单验证消息
+      }
+      if(direction=='back'){
+        this.$refs.formSecond.clearValidate('backImgFileId');//清除表单验证消息
       }
       this.formSecond[direction+'ImgFileId'] = fileId;
       this[direction+'ImgUrl'] = Base64.decode(fileId);
@@ -207,6 +219,15 @@ export default {
           return false;
         }
       });
+    },
+    frontValidator(rule, value, callback){
+      if (this.formOne.type==1&&!value) {
+        callback(new Error('请上传识别图'));
+      }else if(!value){
+        callback(new Error('请上传正面识别图'));
+      }else{
+        callback();
+      }
     },
     myValidator(rule, value, callback){
       if (Number(value)==0) {

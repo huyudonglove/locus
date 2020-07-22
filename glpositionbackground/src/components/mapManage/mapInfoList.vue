@@ -68,6 +68,8 @@
           </el-table-column>
 		      <el-table-column prop="createTime" label="创建时间" width="200" align="center">
           </el-table-column>
+          <el-table-column prop="updateTime" label="修改时间" width="200" align="center">
+          </el-table-column>
            <el-table-column prop="runState" label="运行/停止" align="center" width="180">
           <template slot-scope="scope">
            <el-switch
