@@ -19,6 +19,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="identifiedImageCount" label="图片个数" align="center"></el-table-column>
+      <el-table-column prop="createBy" label="创建者" align="center"></el-table-column>
       <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
       <el-table-column prop="updateTime" label="修改时间" align="center"></el-table-column>
       <el-table-column label="操作" fixed="right" width="150" align="center">

@@ -16,7 +16,7 @@
           </el-table-column>
           <el-table-column prop="name" label="地图库名称 "  align="center">
           </el-table-column>
-          <el-table-column prop="type" label="库类型" width="150" align="center">
+          <el-table-column prop="type" label="地图库类型" width="150" align="center">
             <template slot-scope="scope">
               <span v-if="scope.row.type==0">无限制</span>
             </template>

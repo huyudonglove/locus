@@ -82,7 +82,7 @@
         </el-table-column>
            <el-table-column  label="操作" width="240" align="center">
             <template slot-scope="scope">
-              <el-button type="danger" size="mini" v-if="scope.row.status==1||scope.row.status==2" @click="stopMap(scope.row.mapKey)">停止</el-button>
+              <!-- <el-button type="danger" size="mini" v-if="scope.row.status==1||scope.row.status==2" @click="stopMap(scope.row.mapKey)">停止</el-button> -->
                <el-button
                 type="success"
                 size="mini"

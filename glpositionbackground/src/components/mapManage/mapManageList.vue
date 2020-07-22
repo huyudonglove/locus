@@ -16,7 +16,7 @@
           </el-table-column>
           <el-table-column prop="name" label="地图库名称 "  align="center">
           </el-table-column>
-          <el-table-column prop="type" label="库类型" width="150" align="center">
+          <el-table-column prop="type" label="地图库类型" width="150" align="center">
             <template slot-scope="scope">
               <span v-if="scope.row.type==0">无限制</span>
             </template>
@@ -31,11 +31,13 @@
               <span v-if="scope.row.status==1">使用中</span>
             </template>
           </el-table-column>
+          <el-table-column prop="createBy" label="创建者" width="200" align="center">
+          </el-table-column>
 		      <el-table-column prop="createTime" label="创建时间" width="200" align="center">
           </el-table-column>
           <el-table-column prop="updateTime" label="修改时间" width="200" align="center">
           </el-table-column>
-           <el-table-column  label="操作" width="240" align="center">
+           <el-table-column  label="操作" width="180" align="center">
             <template slot-scope="scope">
               <el-button
                 type="primary"
