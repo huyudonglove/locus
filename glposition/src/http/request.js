@@ -244,6 +244,14 @@ export function getMapInfo(params){
 export function getMapUpdate(params){
   return http.get('/api/location/map/info/mapresource/info',params)
 }
+/** 地图信息-获取地图尺寸大小 Author:minggui*/
+export function getMapScale(params){
+  return http.get('/api/location/map/info/get/mapmodel/scale',params)
+}
+/** 地图信息-修改地图尺寸大小 Author:minggui*/
+export function updateMapScale(params){
+  return http.post('/api/location/map/info/update/mapmodel/scale',params)
+}
 /*上传地图信息 Author:minggui*/
 export function upResult(params){
   return http.post('/api/location/map/info/mapResource/update',params)

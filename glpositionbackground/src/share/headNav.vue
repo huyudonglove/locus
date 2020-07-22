@@ -5,7 +5,7 @@
         <div>Locus</div>
       </div>
       <div class="user">
-        <span class="logoTitle">LocusAR</span>
+        <span class="logoTitle">Locus后台</span>
         <span>{{userName}}</span>
         <span class="btn_logout cur" @click="loginOut()" >退出</span>
       </div>

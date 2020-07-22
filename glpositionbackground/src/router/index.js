@@ -103,7 +103,11 @@ export default new Router({
       path:'/logout',
       name:'logout',
       component:logout
+    },
+    {
+      path:'/version',
+      name:'version',
+      component:()=>import('@/components/version')
     }
-
   ]
 })

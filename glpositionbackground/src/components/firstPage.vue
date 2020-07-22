@@ -1,6 +1,6 @@
 <template>
     <div>
-      <!-- 欢迎使用locusAR管理后台 -->
+      欢迎使用Locus后台
     </div>
 </template>
 

@@ -8,7 +8,7 @@
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-form-item label="">
           <el-dropdown placement="bottom-start">
-            <el-button size="mini" type="primary" :disabled="status==-1">
+            <el-button size="mini" type="primary" :disabled="status==-1||(status==4&&!densePointCloudFileId&&!sparsePointCloudFileId)">
               下载地图数据<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -66,6 +66,9 @@
             v-model="decription">
           </el-input>
           <!-- <el-button type="text" @click="showDialog('备注')">修改</el-button> -->
+        </el-form-item>
+        <el-form-item label="尺度：">
+          <span>{{scale}}</span>
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
@@ -150,7 +153,7 @@ import { Base64 } from 'js-base64';
 import upMe from '../../share/upLoad'
 import lineChartDialog from './lineChartDialog'
 import upM from '../upM'
-import {getMapVersion,getMapLine,checkMapEnableUpdate,getMapUpdate} from "../../http/request";
+import {getMapVersion,getMapLine,checkMapEnableUpdate,getMapUpdate,getMapScale} from "../../http/request";
 let scene,camera,controls,scene2,camera2,controls2;
 
 export default {
@@ -170,6 +173,7 @@ export default {
       createTime:'',
       updateTime:'',
       decription:'',
+      scale:'',
       sparsePointCloudFileId:'',
       sparseMapPath:'',
       densePointCloudFileId:'',
@@ -257,7 +261,9 @@ export default {
                 this.denseMapPath = Base64.decode(this.densePointCloudFileId);
                 this.mapKey=res.data.mapKey
                 this.mapCode=res.data.mapCode;
-                console.log(this.sparseMapPath,this.denseMapPath,'路径');
+                getMapScale({"mapKey":this.mapId}).then(scale=>{
+                  this.scale = scale.data;
+                })
               }
             }).catch(u=>{
               this.loading.close();

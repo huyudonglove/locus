@@ -278,6 +278,14 @@ export function getMapUpdate(params){
 export function editMapInfo(params){
 return http.post('/api/location/map/info/update',params)
 }
+/** 地图信息-获取地图尺寸大小 Author:minggui*/
+export function getMapScale(params){
+  return http.get('/api/location/map/info/get/mapmodel/scale',params)
+}
+/** 地图信息-修改地图尺寸大小 Author:minggui*/
+export function updateMapScale(params){
+  return http.post('/api/location/map/info/update/mapmodel/scale',params)
+}
 /*上传地图信息*/
 const upMap=(msg)=>{
 return http.post('/api/location/map/info/add',msg)
