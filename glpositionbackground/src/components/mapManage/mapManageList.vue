@@ -97,20 +97,24 @@ import {mapList} from "../../http/request";
     },
     $route(){//判断路由query变化执行请求
       let query=this.$route.query
-      let pageRecord = query.page||1;//记录上一次页码操作
-      let limitRecord = query.limit||20;//记录上一次limit操作
+      let pageRecord = parseInt(query.page)||1;//记录上一次页码操作
+      let limitRecord =  parseInt(query.limit)||20;//记录上一次limit操作
       if(this.$route.name=='mapManageList'){
          if(this.$route.query.id){
-          this.dataTable({...this.$route.query,licnese:this.$route.query.id})
+          this.dataTable({...this.$route.query,licnese:this.$route.query.id}).then(res=>{
+          this.$store.commit('pagination/setClickPage',pageRecord);
+          this.$store.commit('pagination/setLimitPage',limitRecord);
+          this.showPagination = true;//加载分页组件 
+          })
         }else{
-          this.dataTable({...this.$route.query})
-        }
-      }
-      this.$nextTick(()=>{
-      this.$store.commit('pagination/setClickPage',pageRecord);
-      this.$store.commit('pagination/setLimitPage',limitRecord);
-      this.showPagination = true;//加载分页组件 
+          this.dataTable({...this.$route.query}).then(res=>{ 
+          this.$store.commit('pagination/setClickPage',pageRecord);
+          this.$store.commit('pagination/setLimitPage',limitRecord);
+          this.showPagination = true;//加载分页组件 
      })
+        }
+      
+      }
     }
   },
   computed:{
