@@ -10,7 +10,7 @@
           {{formSize.name}}
         </el-form-item>
         <el-form-item label="识别图ID：">
-          {{formSize.identifiedImageDatabaseId}}
+          {{formSize.identifiedImageId}}
         </el-form-item>
         <el-form-item label="状态：" >
           <span v-if="formSize.status==1">正常</span>
