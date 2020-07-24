@@ -32,7 +32,7 @@
           <span v-if="scope.row.status==3">{{'已完成（正常） '}}<span style="color:#DCDFE6;">{{scope.row.finishTime}}</span></span>
           <span v-if="scope.row.status==-1">异常</span>
           <span  v-if="scope.row.status==2&&scope.row.type==1">误差评估中</span>
-          <span  v-if="scope.row.status==2&&scope.row.type==2">正在转换</span>
+          <span  v-if="scope.row.status==2&&scope.row.type==2">正在转换{{'正在转换'+scope.row.progress+'%'}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="uploadTime" label="上传时间" align="center"></el-table-column>

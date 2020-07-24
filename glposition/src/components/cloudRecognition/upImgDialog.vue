@@ -128,7 +128,7 @@ export default {
         remark:''
       },
       ruleOne:{
-        imgName:[{required: true, message: '请输入识别图名称', trigger: 'change'},{required: true, message: '请输入识别图名称', trigger: 'blur'},{pattern: /^[A-Za-z]+$/, message: '识别图名称必须是英文', trigger: 'blur'}],
+        imgName:[{required: true, message: '请输入识别图名称', trigger: 'change'},{required: true, message: '请输入识别图名称', trigger: 'blur'},{pattern: /^[\_\-0-9A-Za-z]+$/, message: '识别图名称必须是英文、数字0-9、下划线或中划线', trigger: 'blur'}],
         imgLength:[{required: true, message: '请输入长度', trigger: 'change'},{required: true, message: '请输入长度', trigger: 'blur'},{validator: this.myValidator, trigger: 'blur'}],
         imgWidth:[{required: true, message: '请输入宽度', trigger: 'change'},{required: true, message: '请输入宽度', trigger: 'blur'},{validator: this.myValidator, trigger: 'blur'}],
         imgHeight:[{required: true, message: '请输入高度', trigger: 'change'},{required: true, message: '请输入高度', trigger: 'blur'},{validator: this.myValidator, trigger: 'blur'}],

@@ -351,6 +351,23 @@ export default {
           this.isConfirm = false;
         })
       }else if(this.title=='尺度'){
+        if(this.newScale===''){
+          this.$message({
+            type:'error',
+            message:'尺度数值不能为空',
+            duration:600
+          });
+          return;
+        }
+        let reg = /(-)?[0-9]+\.$/g;
+        if(this.newScale=='-'||reg.test(this.newScale)){
+          this.$message({
+            type:'error',
+            message:'请输入正确尺度数值',
+            duration:600
+          });
+          return;
+        }
         this.isConfirm=true;
         updateMapScale({"mapKey":this.mapId,"scale":this.newScale}).then(res=>{
           this.isConfirm = false;

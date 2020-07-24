@@ -36,7 +36,7 @@
         name: [
           {required: true, message: '请输入识别图库名称', trigger: 'change'},
           {required: true, message: '请输入识别图库名称', trigger: 'blur'},
-          {pattern: /^[A-Za-z]+$/, message: '识别图库名称必须是英文', trigger: 'blur'},
+          {pattern: /^[\_\-0-9A-Za-z]+$/, message: '识别图库名称必须是英文、数字0-9、下划线或中划线', trigger: 'blur'},
         ]
       }
     }

@@ -18,7 +18,7 @@ module.exports = {
         pathRewrite: {'^/api': ''}
       },
       '/static':{
-        target: 'http://10.160.128.16:32385',
+        target: 'http://10.160.128.16:31564',
         changeOrigin: true,
         pathRewrite: { '^/static': '/static' }
       }
