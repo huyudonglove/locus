@@ -151,6 +151,7 @@ export default {
       leftImgUrl:'',
       rightImgUrl:'',
       backImgUrl:'',
+      countHeight:'',//计算高度
     }
   },
   watch:{
@@ -183,7 +184,12 @@ export default {
     close(){
       this.$emit("upImgDialogClose");
     },
-    getImgId(fileId,type,direction){
+    getImgId(fileId,type,direction,countHeight){
+      if(type==1){
+        this.countHeight = countHeight;
+      }else{
+        this.countHeight='';
+      }
       if(direction=='front'){
         this.$refs.formSecond.clearValidate('frontImgFileId');//清除表单验证消息
       }
@@ -265,7 +271,7 @@ export default {
             "identifiedImageDatabaseId":JSON.parse(this.$route.query.myData).identifiedImageDatabaseId,
             "identifiedImageLength":this.formOne.imgLength?Number(this.formOne.imgLength):undefined,
             "identifiedImageWidth":this.formOne.imgWidth?Number(this.formOne.imgWidth):undefined,
-            "identifiedImageHeight":this.formOne.imgHeight?Number(this.formOne.imgHeight):undefined,
+            "identifiedImageHeight":this.formOne.imgHeight?Number(this.formOne.imgHeight):this.countHeight?Number(this.countHeight):undefined,
             "identifiedImageBottomSideLength":this.formOne.imgBottomSideLength?Number(this.formOne.imgBottomSideLength):undefined,
             "url1":this.formSecond.frontImgFileId,
             "url2":this.formOne.type==2?this.formSecond.backImgFileId:this.formSecond.leftImgFileId,
