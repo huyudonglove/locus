@@ -145,7 +145,10 @@ export default {
     identifiedImageDegree({id:this.id}).then(res=>{
       this.type=this.types
       this.formSize=JSON.parse(JSON.stringify(res.data))
-      console.log(res,'res',this.types)
+      this.formSize.score1!==null ?this.formSize.score1=this.formSize.score1+1:null
+      this.formSize.score2!==null ?this.formSize.score2=this.formSize.score2+1:null
+      this.formSize.score3!==null ?this.formSize.score3=this.formSize.score3+1:null
+      this.formSize.score4!==null ?this.formSize.score4=this.formSize.score4+1:null
       })
   },
 }
