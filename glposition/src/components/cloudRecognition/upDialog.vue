@@ -109,7 +109,7 @@ export default {
     add(){
       this.$refs.formSize.validate((valid) => {
         if (valid) {         
-          identifiedImageUpdate({...this.form,"identifiedImageHeight":this.countHeight?Number(this.countHeight):Number(this.countHeight),
+          identifiedImageUpdate({...this.form,"identifiedImageHeight":this.countHeight?Number(this.countHeight):this.form.identifiedImageHeight,
             "url1":this.formSecond.frontImgFileId?this.formSecond.frontImgFileId:this.$route.query.frontImgFileId?this.$route.query.frontImgFileId:this.form.url1,
             "url2":(()=>{
                if(this.form.type==2){
