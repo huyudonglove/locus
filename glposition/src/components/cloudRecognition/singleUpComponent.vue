@@ -38,7 +38,8 @@ export default {
       isUpload:false,
       percent:0,
       imgName:'',
-      fileName:''
+      fileName:'',
+      countHeight:0
     }
   },
   watch:{
@@ -68,7 +69,9 @@ export default {
           myImage.onload = ()=>{
             let judgeRule;
             if(this.imgType==1){//单张
+              this.countHeight = ((myImage.height/myImage.width)*this.width).toFixed(6);
               judgeRule = true;//单张不需要校验图片
+
             }
            if(this.imgType==2){//双面
               judgeRule = ((myImage.width/myImage.height)==((this.length*1000000)/(this.width*1000000)));
@@ -135,7 +138,7 @@ export default {
                 this.$alert('上传成功', {
                   dangerouslyUseHTMLString: true
                 });
-                this.$emit('changeImg',response.data.fileId,this.imgType,this.direction)
+                this.$emit('changeImg',response.data.fileId,this.imgType,this.direction,this.countHeight)
               }).catch(r=>{
                 console.log('取消')
               })
@@ -145,7 +148,7 @@ export default {
                 dangerouslyUseHTMLString: true
               });
               console.log(response.data.fileId,'response.data.fileId')
-              this.$emit('changeImg',response.data.fileId,this.imgType,this.direction)
+              this.$emit('changeImg',response.data.fileId,this.imgType,this.direction,this.countHeight)
             }
           }
         }).catch((err)=>{
