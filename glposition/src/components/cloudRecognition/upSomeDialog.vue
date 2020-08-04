@@ -24,6 +24,13 @@
         <el-form-item label="地图包上传：" prop="resourceFileId" ref="map22">
          <upLoad @changeMap="changeMap" :mapName="mapName"></upLoad>
         </el-form-item>
+        <el-form-item label="地图类型：">
+         <el-radio-group v-model="formSize.mapTypeId">
+          <el-radio :label="0">普通室内场景</el-radio>
+          <el-radio :label="1">多植物场景</el-radio>
+        </el-radio-group>
+        </el-form-item>
+
         <el-form-item label="备注：" >
          <el-input
           type="textarea"
@@ -63,10 +70,10 @@ export default {
         name:'',
         remark:'',
         resourceFileId:'' ,
-        fileList:[{ width:'',fileId:'',identifiedIndex:0,imageUrl:''},{ width:'',fileId:'',identifiedIndex:1,imageUrl:''},{ width:'',fileId:'',identifiedIndex:2,imageUrl:''},{ width:'',fileId:'',identifiedIndex:3,imageUrl:''},{ width:'',fileId:'',identifiedIndex:4,imageUrl:''}],
-        identifiedImageDatabaseId:''
+        fileList:[{ width:'',fileId:'',identifiedIndex:0,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:1,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:2,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:3,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:4,imageUrl:'',imgName:''}],
+        identifiedImageDatabaseId:'',mapTypeId:0,size:0,mpaName:''
       },
-      size:0,
+     
       isCreate:true,
       isCreateWidth:true,
       rules: {
@@ -97,7 +104,7 @@ export default {
          let  count = [0,1,2,3,4]
          let  d = count.filter(function(v){ return arr.indexOf(v) == -1})
          d.forEach((v)=>{
-           this.formSize.fileList.splice(v,0,{ width:'',fileId:'',identifiedIndex:v,imageUrl:''})
+           this.formSize.fileList.splice(v,0,{ width:'',fileId:'',identifiedIndex:v,imageUrl:'',imgName:''})
          })
          this.formSize.fileList.forEach((v,index)=>{
            v.imageUrl=Base64.decode(v.fileId)
@@ -125,9 +132,10 @@ export default {
      this.formSize.fileList[num].fileId=fileId
      this.formSize.fileList[num].imgName=imgName
     },
-    changeMap(fileId,num,size){
+    changeMap(fileId,num,size,name){
      this.formSize.resourceFileId=fileId
-     this.size=size
+     this.formSize.size=size
+     this.formSize.mpaName=name
      this.$refs.map22.clearValidate()
     },
     myValidator(rule, value, callback){
@@ -144,7 +152,7 @@ export default {
          }else{
            
            let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
-           addIdentifiedImage({name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.size}).then(res=>{
+           addIdentifiedImage({name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId}).then(res=>{
                 if(res.code){
                   this.$message.error(res.msg);
                 }else{
@@ -166,7 +174,7 @@ export default {
            return
          }else{
            let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
-           identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.size}).then(res=>{
+           identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId}).then(res=>{
                 if(res.code){
                   this.$message.error(res.msg);
                 }else{
@@ -183,26 +191,6 @@ export default {
     //判断是否至少有一个图片
     isHasImg(){
      return this.formSize.fileList.filter(v=>v.fileId).length
-    },
-    judge(value){//保留6位小数
-    console.log(value,222)
-      var p1 = /[^\d\.]/g;	// 过滤非数字及小数点 /g :所有范围中过滤
-      var p2 = /(\.\d{6})\d*$/g;
-      var p4 = /(\.)(\d*)\1/g;
-      var newValue = value;
-      newValue = newValue.replace(p1, "").replace(p2, "$1").replace(p4,"$1$2");
-      newValue=newValue.replace(/[^0-9.]/g, '');
-      if(newValue.length===1){
-        newValue = newValue.replace('.','');
-      }
-      if(newValue.length===2&&newValue!='0.'){
-        newValue = newValue.replace(/\b0/g,'');
-      }
-      var p5 = /\.+/g;	//多个点的话只取1个点，屏蔽1....234的情况
-      newValue = newValue.replace(p5, ".")   
-      var p6 = /(\.+)(\d+)(\.+)/g; //屏蔽1....234.的情况
-      newValue = newValue.replace(p6, "$1$2")// 屏蔽最后一位的.
-      return newValue;
     },
     del(n){
       console.log(n,'n')
