@@ -51,6 +51,7 @@
       <el-table-column prop="status" label="状态" width="160" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.status==1">正常</span>
+          <span v-if="scope.row.status==2">异常</span>
           <span v-if="scope.row.status===0">待生效</span>
         </template>
       </el-table-column>

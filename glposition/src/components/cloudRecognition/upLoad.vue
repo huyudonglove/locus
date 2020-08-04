@@ -92,7 +92,7 @@ export default {
       } else {
         this.isUpload = false;
         this.upSuccess=true;
-        this.$emit("changeMap", response.data.fileId, this.num,response.data.size);
+        this.$emit("changeMap", response.data.fileId, this.num,response.data.size,response.data.originFileName);
       }
     },
     limitAlert(){
