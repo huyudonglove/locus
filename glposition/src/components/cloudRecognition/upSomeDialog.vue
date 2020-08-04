@@ -1,133 +1,224 @@
 <template>
   <div>
-    <el-dialog title="上传空间多图" :visible.sync="dialogVisible" @close="close" width="700px" center>
-      <el-form  ref="formSize" :model="form"  label-width="140px" :rules="rules" >
-        <el-form-item label="宽度："  v-if="direction=='front'" prop="fileIds" ref="fileIds">
-          <singleUpComponent @changeImg="changeImg" :imgType="formSize.type" :width="formSize.identifiedImageWidth" :length="formSize.identifiedImageLength" :height="formSize.identifiedImageHeight" :bottom="formSize.identifiedImageBottomSideLength" :direction="'front'"></singleUpComponent>
+    <el-dialog title="上传空间多图" :visible.sync="dialogVisible" @close="close" width="800px" center>
+      <el-form :model="formSize" :rules="rules" ref="formSize" label-width="120px" class="demo-ruleForm">
+         <el-form-item label="空间名称：" prop="name">
+           <el-input v-model="formSize.name" placeholder="请输入空间名称"  maxlength="30" show-word-limit :disabled="!isCreate"></el-input>
+        </el-form-item> 
+        <el-row v-for="(item,index) in formSize.fileList" :key="index">
+        <el-col :span="8">
+        <el-form-item label="宽度：" :prop="'fileList.'+index+'.width'" :rules="rules.width">
+          <el-input v-model="item.width" placeholder="请输入宽度"  :disabled="!isCreate&&item.width !==''&& !isCreateWidth" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,6})?).*$/g, '$1')"></el-input>
         </el-form-item>
-       
+        </el-col>
+        <el-col :span="12">
+        <el-form-item label="上传识别图：" >
+         <upSomeComponent @changeImg="changeImg" :num="item.identifiedIndex" :ref="`upSome${item.identifiedIndex}`"></upSomeComponent>
+        </el-form-item>
+         </el-col>
+         <el-col :span="4"> <img v-if="item.fileId" :src="`/static/${item.imageUrl}`" style="width:55px;height:55px;" v-focus><span  v-if="item.fileId" style="" class="spanA" @click="del(item.identifiedIndex)">x</span></el-col>
+        </el-row>
+        <el-row style="padding-left:60px;margin-bottom:25px;color:#888;font-size:13px;"> 
+          <span >识别图的高度将由系统根据您的上传的图片自动计算，请上传.JPG或者.PNG(最大2M)</span>
+        </el-row>
+        <el-form-item label="地图包上传：" prop="resourceFileId" ref="map22">
+         <upLoad @changeMap="changeMap" :mapName="mapName"></upLoad>
+        </el-form-item>
+        <el-form-item label="备注：" >
+         <el-input
+          type="textarea"
+          placeholder="请输入备注"
+          v-model="formSize.remark"
+          maxlength="500"
+          show-word-limit
+        >
+        </el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button  type="primary" @click="add('formSize')">保存</el-button>
+        <el-button  type="primary" @click="add('formSize')" v-if="isCreate">创建多图空间</el-button>
+        <el-button  type="primary" @click="edit('formSize')" v-if="!isCreate">编辑多图空间</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import {identifiedImageUpdate} from '../../http/request'
-import singleUpComponent from './singleUpComponent'
+import {identifiedImageUpdate,addIdentifiedImage,dentifiedImageInfo } from '../../http/request'
+import upSomeComponent from './upSomeComponent'
+import upLoad from './upLoad'
 import {Base64} from 'js-base64'
 export default {
-  name:'upImgDialog',
-  props:['formSize','direction'],
+  name:'upSomeDialog',
   inject:['reload','replace'],
+  props:['showSomeUp','mapName'],
   components:{
-    singleUpComponent
+    upSomeComponent,
+    upLoad
   },
   data(){
     return{
-      dialogVisible:true,
-      frontImgUrl:'',
-      leftImgUrl:'',
-      rightImgUrl:'',
-      backImgUrl:'',
-      saveT:false,
-      form:{
-        fileIds:''
+      dialogVisible:false,
+      formSize:{
+        name:'',
+        remark:'',
+        resourceFileId:'' ,
+        fileList:[{ width:'',fileId:'',identifiedIndex:0,imageUrl:''},{ width:'',fileId:'',identifiedIndex:1,imageUrl:''},{ width:'',fileId:'',identifiedIndex:2,imageUrl:''},{ width:'',fileId:'',identifiedIndex:3,imageUrl:''},{ width:'',fileId:'',identifiedIndex:4,imageUrl:''}],
+        identifiedImageDatabaseId:''
       },
-      formSecond:{
-        frontImgFileId:undefined,
-        leftImgFileId:undefined,
-        rightImgFileId:undefined,
-        backImgFileId:undefined,
-        // frontImgUrl:undefined,
-        // leftImgUrl:undefined,
-        // rightImgUrl:undefined,
-        // backImgUrl:undefined,
-      },
+      size:0,
+      isCreate:true,
+      isCreateWidth:true,
       rules: {
-        fileIds: [
-          {required: true, message: '请上传更改识别图'},
+        name: [
+          {required: true, message: '请输入空间名称', trigger: ['change','blur']},{pattern: /^[\_\-0-9A-Za-z]+$/, message: '识别图名称必须是英文、数字0-9、下划线或中划线', trigger: ['blur','change']}
+        ],
+        width:[{validator: this.myValidator, trigger: ['blur','change']}],
+        resourceFileId:[
+          {
+            required: true, message: '请上传地图包'
+          }
         ]
       }
     }
   },
   created(){
-    this.saveT=false;
-    this.form = Object.assign(this.form, this.formSize);
-    // this.form={...this.formSize,fileIds:''}
+    this.dialogVisible = this.showSomeUp;
+    if(this.$route.query.row){
+      this.formSize.identifiedImageDatabaseId=JSON.parse(this.$route.query.row).identifiedImageDatabaseId
+      dentifiedImageInfo({id:JSON.parse(this.$route.query.row).id}).then(res=>{
+       if(res.code){
+          this.$message.error(res.msg);
+        }else{
+         this.isCreate=false
+         this.isCreateWidth=false
+         this.formSize=Object.assign(this.formSize,res.data)
+         let arr=this.formSize.fileList.map(v=>v.identifiedIndex)
+         let  count = [0,1,2,3,4]
+         let  d = count.filter(function(v){ return arr.indexOf(v) == -1})
+         d.forEach((v)=>{
+           this.formSize.fileList.splice(v,0,{ width:'',fileId:'',identifiedIndex:v,imageUrl:''})
+         })
+         this.formSize.fileList.forEach((v,index)=>{
+           v.imageUrl=Base64.decode(v.fileId)
+           this.$refs['upSome'+v.identifiedIndex][0].imgName=v.fileId.slice(0,20)
+           return v
+         })
+        }
+    })
+    }else{
+      this.formSize.identifiedImageDatabaseId=JSON.parse(this.$route.query.myData).identifiedImageDatabaseId
+    }
   },
-  watch:{
+  watch:{ 
+  
   },
   computed:{
-    frontImgFileId(){
-      return this.formSecond.frontImgFileId
-    },
-    leftImgFileId(){
-      return this.formSecond.leftImgFileId
-    },
-    rightImgFileId(){
-      return this.formSecond.rightImgFileId
-    },
-    backImgFileId(){
-      return this.formSecond.backImgFileId
-    },
+   
   },
   methods:{
-    
     close(){
       this.$emit("dialogClose");
     },
-    changeImg(fileId,type,direction){
-     
-     this.formSecond[direction+'ImgFileId'] = fileId;
-     this.form.fileIds=fileId
-     this.$nextTick(() => {
-        this.$refs.fileIds.clearValidate()
-      })
-    //  this.formSecond[direction+'Url'] = fileId;
-    //  console.log(fileId,type,direction,'fileId,type,direction')
+    changeImg(fileId,num,imgName){
+     this.formSize.fileList[num].imageUrl= Base64.decode(fileId);
+     this.formSize.fileList[num].fileId=fileId
+     this.formSize.fileList[num].imgName=imgName
+    },
+    changeMap(fileId,num,size){
+     this.formSize.resourceFileId=fileId
+     this.size=size
+     this.$refs.map22.clearValidate()
+    },
+    myValidator(rule, value, callback){
+      
+      // value=this.judge(value)
+      callback();
     },
     add(){
       this.$refs.formSize.validate((valid) => {
         if (valid) {         
-          identifiedImageUpdate({...this.form,
-            "url1":this.formSecond.frontImgFileId?this.formSecond.frontImgFileId:this.$route.query.frontImgFileId?this.$route.query.frontImgFileId:this.form.url1,
-            "url2":(()=>{
-               if(this.form.type==2){
-               return this.formSecond.backImgFileId?this.formSecond.backImgFileId:this.$route.query.backImgFileId?this.$route.query.backImgFileId:this.form.url1
-              }else if(this.form.type==3 ||this.form.type==4){
-               return  this.formSecond.leftImgFileId?this.formSecond.leftImgFileId:this.$route.query.leftImgFileId?this.$route.query.leftImgFileId:this.form.url2
-              }else{
-               return  null
-              }
-            })(),
-            "url3":this.formSecond.rightImgFileId?this.formSecond.rightImgFileId:this.$route.query.rightImgFileId?this.$route.query.rightImgFileId:this.form.url3,
-            "url4":(()=>{
-              if(this.form.type==4){
-               return this.formSecond.backImgFileId?this.formSecond.backImgFileId:this.$route.query.backImgFileId?this.$route.query.backImgFileId:this.form.url4
-              }else{
-               return null
-              }
-            })()
-            
-            }).then(res=>{
-            this.frontImgFileId? this.replace('frontImgFileId',this.frontImgFileId):undefined;
-            this.leftImgFileId?this.replace('leftImgFileId',this.leftImgFileId):undefined;
-            this.rightImgFileId?this.replace('rightImgFileId',this.rightImgFileId):undefined;
-            this.backImgFileId?this.replace('backImgFileId',this.backImgFileId):undefined;
-            this.reload();
-          })
+        if(!this.isHasImg()){
+           this.$message.error('空间多图必须上传1-5张图片');
+           return
+         }else{
+           
+           let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
+           addIdentifiedImage({name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.size}).then(res=>{
+                if(res.code){
+                  this.$message.error(res.msg);
+                }else{
+                  this.reload()  
+                }
+           })
+         }
         } else {
           console.log('error submit!!');
           return false;
         }
       });
+    },
+    edit(){
+      this.$refs.formSize.validate((valid) => {
+        if (valid) {         
+        if(!this.isHasImg()){
+           this.$message.error('空间多图必须上传1-5张图片');
+           return
+         }else{
+           let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
+           identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.size}).then(res=>{
+                if(res.code){
+                  this.$message.error(res.msg);
+                }else{
+                  this.reload()  
+                }
+           })
+         }
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    //判断是否至少有一个图片
+    isHasImg(){
+     return this.formSize.fileList.filter(v=>v.fileId).length
+    },
+    judge(value){//保留6位小数
+    console.log(value,222)
+      var p1 = /[^\d\.]/g;	// 过滤非数字及小数点 /g :所有范围中过滤
+      var p2 = /(\.\d{6})\d*$/g;
+      var p4 = /(\.)(\d*)\1/g;
+      var newValue = value;
+      newValue = newValue.replace(p1, "").replace(p2, "$1").replace(p4,"$1$2");
+      newValue=newValue.replace(/[^0-9.]/g, '');
+      if(newValue.length===1){
+        newValue = newValue.replace('.','');
+      }
+      if(newValue.length===2&&newValue!='0.'){
+        newValue = newValue.replace(/\b0/g,'');
+      }
+      var p5 = /\.+/g;	//多个点的话只取1个点，屏蔽1....234的情况
+      newValue = newValue.replace(p5, ".")   
+      var p6 = /(\.+)(\d+)(\.+)/g; //屏蔽1....234.的情况
+      newValue = newValue.replace(p6, "$1$2")// 屏蔽最后一位的.
+      return newValue;
+    },
+    del(n){
+      console.log(n,'n')
+      this.formSize.fileList[n].fileId=''
+      this.formSize.fileList[n].imageUrl=''
+      this.formSize.fileList[n].width=''
+      this.$refs['upSome'+n][0].imgName=''
+      this.isCreateWidth=true
     }
-  }
+  },
+  
 }
 </script>
 
 <style scoped>
+.spanA{
+  position:absolute;top:8px;right:30px;font-size:30px;cursor:pointer
+}
 </style>
