@@ -224,6 +224,10 @@ export function getImageList(params){
     })
   })
 }
+/** 图像本地、云识别管理-多图详情 Author:minggui*/
+export function getRecognitionDetails(params){
+  return http.get('/api/location/middleground/IdentifiedImage/info',params)
+}
 /** 图像本地、云识别管理-检查图像是否重复 Author:minggui*/
 export function checkImgIsRepeat(params){
   return http.post('/api/location/middleground/IdentifiedImage/similar',params)

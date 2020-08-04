@@ -523,7 +523,7 @@ export default {
       requestAnimationFrame(this.animate);
       this.render();
       this.delta = this.clock.getDelta();
-      this.delta2 = this.clock.getDelta();
+      this.delta2 = this.clock2.getDelta();
       controls.update(this.delta);
       controls2.update(this.delta2);
     },
