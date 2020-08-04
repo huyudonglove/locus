@@ -8,12 +8,12 @@
         <el-row v-for="(item,index) in formSize.fileList" :key="index">
         <el-col :span="8">
         <el-form-item label="宽度：" :prop="'fileList.'+index+'.width'" :rules="rules.width">
-          <el-input v-model="item.width" placeholder="请输入宽度"  :disabled="!isCreate&&item.width !==''&& !isCreateWidth" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,6})?).*$/g, '$1')"></el-input>
+          <el-input v-model="item.width" placeholder="请输入宽度"  :disabled="!isCreate&&item.data&& !isCreateWidth" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,6})?).*$/g, '$1')"></el-input>
         </el-form-item>
         </el-col>
         <el-col :span="12">
         <el-form-item label="上传识别图：" >
-         <upSomeComponent @changeImg="changeImg" :num="item.identifiedIndex" :ref="`upSome${item.identifiedIndex}`"></upSomeComponent>
+         <upSomeComponent @changeImg="changeImg" :num="item.identifiedIndex" :ref="`upSome${item.identifiedIndex}`" :width="item.width" :isCreate="isCreate" :isCreateWidth="isCreateWidth"></upSomeComponent>
         </el-form-item>
          </el-col>
          <el-col :span="4"> <img v-if="item.fileId" :src="`/static/${item.imageUrl}`" style="width:55px;height:55px;" v-focus><span  v-if="item.fileId" style="" class="spanA" @click="del(item.identifiedIndex)">x</span></el-col>
@@ -70,8 +70,8 @@ export default {
         name:'',
         remark:'',
         resourceFileId:'' ,
-        fileList:[{ width:'',fileId:'',identifiedIndex:0,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:1,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:2,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:3,imageUrl:'',imgName:''},{ width:'',fileId:'',identifiedIndex:4,imageUrl:'',imgName:''}],
-        identifiedImageDatabaseId:'',mapTypeId:0,size:0,mpaName:''
+        fileList:[{ width:'',fileId:'',identifiedIndex:0,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:1,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:2,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:3,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:4,imageUrl:'',imgName:'',height:''}],
+        identifiedImageDatabaseId:'',mapTypeId:0,size:0,mapName:''
       },
      
       isCreate:true,
@@ -100,15 +100,16 @@ export default {
          this.isCreate=false
          this.isCreateWidth=false
          this.formSize=Object.assign(this.formSize,res.data)
+         this.formSize.fileList.forEach(v=>v.data=v.width)
          let arr=this.formSize.fileList.map(v=>v.identifiedIndex)
          let  count = [0,1,2,3,4]
          let  d = count.filter(function(v){ return arr.indexOf(v) == -1})
          d.forEach((v)=>{
-           this.formSize.fileList.splice(v,0,{ width:'',fileId:'',identifiedIndex:v,imageUrl:'',imgName:''})
+           this.formSize.fileList.splice(v,0,{ width:'',fileId:'',identifiedIndex:v,imageUrl:'',imgName:'',height:''})
          })
          this.formSize.fileList.forEach((v,index)=>{
            v.imageUrl=Base64.decode(v.fileId)
-           this.$refs['upSome'+v.identifiedIndex][0].imgName=v.fileId.slice(0,20)
+           this.$refs['upSome'+v.identifiedIndex][0].imgName=v.imgName.slice(0,20)
            return v
          })
         }
@@ -127,20 +128,19 @@ export default {
     close(){
       this.$emit("dialogClose");
     },
-    changeImg(fileId,num,imgName){
+    changeImg(fileId,num,imgName,height){
      this.formSize.fileList[num].imageUrl= Base64.decode(fileId);
      this.formSize.fileList[num].fileId=fileId
      this.formSize.fileList[num].imgName=imgName
+     this.formSize.fileList[num].height=height
     },
     changeMap(fileId,num,size,name){
      this.formSize.resourceFileId=fileId
      this.formSize.size=size
-     this.formSize.mpaName=name
+     this.formSize.mapName=name
      this.$refs.map22.clearValidate()
     },
     myValidator(rule, value, callback){
-      
-      // value=this.judge(value)
       callback();
     },
     add(){
@@ -150,9 +150,8 @@ export default {
            this.$message.error('空间多图必须上传1-5张图片');
            return
          }else{
-           
            let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
-           addIdentifiedImage({name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId}).then(res=>{
+           addIdentifiedImage({name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName}).then(res=>{
                 if(res.code){
                   this.$message.error(res.msg);
                 }else{
@@ -174,7 +173,7 @@ export default {
            return
          }else{
            let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
-           identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId}).then(res=>{
+           identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName,identifiedImageId:this.formSize.identifiedImageId}).then(res=>{
                 if(res.code){
                   this.$message.error(res.msg);
                 }else{
@@ -199,7 +198,7 @@ export default {
       this.formSize.fileList[n].width=''
       this.$refs['upSome'+n][0].imgName=''
       this.isCreateWidth=true
-    }
+    },
   },
   
 }
