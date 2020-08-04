@@ -230,7 +230,12 @@ export function checkImgIsRepeat(params){
 }
 /** 图像本地、云识别管理-添加识别图 Author:minggui*/
 export function addIdentifiedImage(params){
+  if(params.type==5){
+    return loadRequest('/api/location/middleground/IdentifiedImage/add',params,'添加空间多图',http,'post')
+}else{
   return loadRequest('/api/location/middleground/IdentifiedImage/add',params,'添加识别图',http,'post')
+}
+ 
 }
 /** 图像本地、云识别管理-下载识别图 Author:minggui*/
 export function downloadIdentifiedImage(params){
@@ -304,6 +309,11 @@ export function identifiedImageDelete(params){
  /** 获取识别度和识别点 w*/
  export function identifiedImageDegree(params) {
   return http.get(`/api/location/middleground/IdentifiedImage/degree`, params)
+}
+
+ /** 获取详细 w*/
+ export function dentifiedImageInfo(params) {
+  return http.get(`/api/location/middleground/IdentifiedImage/info`, params)
 }
 
 /** 更换识别图  w*/

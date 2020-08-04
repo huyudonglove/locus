@@ -33,7 +33,7 @@
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入识别图名称/ID"></el-input>
       <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg">下载识别图</el-button>
       <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button>
-      <!-- <el-button style="float:right;margin-right:15px" type="primary" @click="showSomeUp=true;">上传空间多图</el-button> -->
+      <el-button style="float:right;margin-right:15px" type="primary" @click="showSomeUp=true;">上传空间多图</el-button>
     </el-row>
     <el-table ref="imageRef" :data="imageTable" border style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id">
       <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true"></el-table-column>
@@ -45,6 +45,7 @@
           <span v-if="scope.row.type==2">双面图片</span>
           <span v-if="scope.row.type==3">正三棱柱</span>
           <span v-if="scope.row.type==4">长方体</span>
+           <span v-if="scope.row.type==5">空间多图</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" width="160" align="center">
@@ -57,7 +58,7 @@
       <el-table-column prop="updateTime" label="修改时间" width="160" align="center"></el-table-column>
       <el-table-column label="操作" fixed="right" width="150" align="center">
         <template slot-scope="scope">
-          <el-button type="warning" size="mini" @click="$router.push({path:'/recognitionMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}})">管理</el-button>
+          <el-button type="warning" size="mini" @click="scope.row.type==5?$router.push({path:'/recognitionSomeMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}}):$router.push({path:'/recognitionMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}})">管理</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -67,9 +68,9 @@
     <div v-if="isShowUp">
       <upImgDialog @upImgDialogClose="upImgDialogClose"></upImgDialog>
     </div>
-    <div v-if="showSomeUp">
-
-    </div>
+    
+      <upSomeDialog @dialogClose="dialogClose"  :showSomeUp="showSomeUp" v-if="showSomeUp"></upSomeDialog>
+   
   </div>
 </template>
 <script>
@@ -77,13 +78,15 @@ import {mapState} from 'vuex';
 import {getImageList,downloadIdentifiedImage} from '../../http/request'
 import pagination from '../../share/pagination'
 import upImgDialog from './upImgDialog'
+import upSomeDialog from './upSomeDialog'
 import VueCookies from 'vue-cookies'
 export default {
   name:'recognitionInfo',
   inject:['replace','reload'],
   components:{
     pagination,
-    upImgDialog
+    upImgDialog,
+    upSomeDialog
   },
   data(){
     return{
@@ -154,6 +157,10 @@ export default {
         this.imageTable=res.data.items;
         this.$store.commit('pagination/setTotal', res.data.total);
       })
+    },
+    dialogClose(){
+      // this.reload()
+      this.showSomeUp = false;
     },
   },
   created(){
