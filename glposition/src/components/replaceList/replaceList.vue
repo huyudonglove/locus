@@ -33,6 +33,14 @@
           <span v-if="scope.row.status==-1">异常</span>
           <span  v-if="scope.row.status==2&&scope.row.type==1">误差评估中</span>
           <span  v-if="scope.row.status==2&&scope.row.type==2">{{'正在转换'+scope.row.progress+'%'}}</span>
+          <span v-if="scope.row.status==6">等待空间多图构筑</span>
+          <span v-if="scope.row.status==7">空间多图构筑中</span>
+          <span v-if="scope.row.status==8">空间多图构筑完成</span>
+          <span v-if="scope.row.status==9">空间多图构筑异常</span>
+          <span v-if="scope.row.status==10">等待空间多图更新</span>
+          <span v-if="scope.row.status==11">空间多图更新中</span>
+          <span v-if="scope.row.status==12">空间多图更新完成</span>
+          <span v-if="scope.row.status==13">空间多图更新异常</span>
         </template>
       </el-table-column>
       <el-table-column prop="uploadTime" label="上传时间" align="center"></el-table-column>
