@@ -14,6 +14,7 @@
         <el-form-item label="状态：" >
           <span v-if="formSize.status==1">正常</span>
           <span v-if="formSize.status==0">待生效</span>
+          <span v-if="formSize.status==2">异常</span>
         </el-form-item>
         <el-form-item label="类型：" >
           <span v-if="formSize.type==1">单张图片</span>
@@ -154,13 +155,10 @@ export default {
       this.score=score+1
     },
     aa(){
-       this.mapName=this.formSize.resourceFileId
-       console.log(this.mapName,'this.mapName')
+       this.mapName=this.formSize.mapName
     }
   },
   created(){
-   
-    console.log(JSON.parse(this.$route.query.msg).databaseId,'this.$route.query')
     this.formSize=JSON.parse(this.$route.query.row)
     this.type=this.formSize.type
     this.form=JSON.parse(this.$route.query.row)
@@ -175,10 +173,6 @@ export default {
       }
     })
     }
-    // this.formSize.url1?this.formSize.url1=`/static/${Base64.decode(this.formSize.url1)}`:null
-    // this.formSize.url2?this.formSize.url2=`/static/${Base64.decode(this.formSize.url2)}`:null
-    // this.formSize.url3?this.formSize.url3=`/static/${Base64.decode(this.formSize.url3)}`:null
-    // this.formSize.url4?this.formSize.url4=`/static/${Base64.decode(this.formSize.url4)}`:null
     this.$route.query.remark?this.formSize.remark =this.$route.query.remark:this.formSize.remark =this.formSize.remark
   }
 }

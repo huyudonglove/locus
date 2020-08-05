@@ -6,6 +6,13 @@
           <el-input v-model="name" placeholder="请输入名称"  maxlength="20"></el-input>
         </div>
         <div>
+          <p>地图类型:</p>
+          <p>
+            <el-radio v-model="sceneId" :label="1">普通室内场景</el-radio>
+            <el-radio v-model="sceneId" :label="2">多植物场景</el-radio>
+          </p>
+        </div>
+        <div>
           <p>备注：</p>
           <el-input v-model="description" type="textarea" maxlength="500" show-word-limit></el-input>
         </div>
@@ -124,7 +131,8 @@
             dataMsg:{
               type:'file',
               moduleCode:'location'
-            }
+            },
+            sceneId:1
           }
         },
         inject:['reload'],
@@ -140,7 +148,8 @@
               this.msg.name=this.name;
               this.msg.description=this.description;
               this.msg.mapDatabaseKey=this.formSize.secret;
-              this.msg.testFileId=this.msg.testFileId
+              this.msg.testFileId=this.msg.testFileId;
+              this.msg.sceneId=this.sceneId;
               this.name?(()=>{
                 this.upLoad=true;
                 this.$refs.upload.submit();
