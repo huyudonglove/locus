@@ -22,13 +22,12 @@
           </el-dropdown>
         </el-form-item>
       </el-form>
-      <el-form :inline="true" label-position="right" label-width="120px" style="width: 100%">
+      <!-- <el-form :inline="true" label-position="right" label-width="120px" style="width: 100%">
         <el-form-item label="空间多图名称：">
           <span>{{recognitionName}}</span>
         </el-form-item>
         <el-form-item label="空间多图ID：">
           <span ref="gps">{{identifiedImageId}}</span> 
-          <!-- <el-button type="text" @click="copy('gps')">复制MapID</el-button> -->
         </el-form-item>
         <el-form-item label="状态：">
          <span v-if="status==1">正常</span>
@@ -60,9 +59,9 @@
         <el-form-item label="宽度：" v-for="(item,i) in imgList" :key="i">
           <span style="vertical-align:top;">{{item.width}}</span>
           <div :style="{'background-image':item.imgPath?`url(/static/${item.imgPath})`:''}" style="width:100px;height:100px;display:inline-block;border:#606266 solid 1px;background-size:100% 100%;background-repeat:no-repeat;"></div>
-          <el-button style="vertical-align:top;" type="primary" size="mini" @click="isShowDot=true;">查看识别度和识别点</el-button>
+          <el-button style="vertical-align:top;" type="primary" size="mini" @click="lookDot(item)">查看识别度和识别点</el-button>
         </el-form-item>
-      </el-form>
+      </el-form> -->
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-button size="mini" type="primary">上传更新地图包</el-button>
         <el-form-item label="预览：">
@@ -88,7 +87,7 @@
           </div>
         </el-form-item>
       </el-form>
-      <el-dialog :title="title+'修改'" :visible.sync="isShow" width="550px" center>
+      <!-- <el-dialog :title="title+'修改'" :visible.sync="isShow" width="550px" center>
         <div style="text-align:center;">
           <el-input
             v-if="title=='备注'"
@@ -105,9 +104,18 @@
           <el-button @click="isShow = false">取 消</el-button>
         </span>
       </el-dialog>
-      <div v-if="isShowDot">
-       <showImgDialog @showDialogClose="showDialogClose" :id="imgDialogId" :types="imgDialogType" ></showImgDialog>
-      </div>
+      <el-dialog title="识别度和识别点" :visible.sync="isShowDot" width="700px">
+          <div  id="myImageEchart" style="overflow:hidden">
+            <div>
+            <div   :style="{'background-image':imgFileUrl?`url(/static/${imgFileUrl})`:''}" style="width:250px;height:250px;border:#606266 solid 1px;margin:0 auto;background-size:100% 100%;background-repeat:no-repeat;">
+             </div>
+             <div style="clear:both;padding-top:10px;width:200px;margin:0px auto">识别度：
+              <img   src="../../assets/starton.png" v-for="(item,i) in score" :key="i" /> 
+              <img  src="../../assets/startonOther.png" v-for="(item,i) in 5-score"  :key="'_'+i"/>
+              </div>
+            </div>           
+          </div>
+    </el-dialog> -->
     </div>
   </div>
 </template>
@@ -152,8 +160,8 @@ export default {
       delta2:'',
       isShowDot:false,
       imgList:[],
-      imgDialogId:'',
-      imgDialogType:''
+      imgFileUrl:'',
+      score:''
     }
   },
   watch:{
@@ -204,42 +212,47 @@ export default {
         })
       })
     },
-    copy(ref){
-      window.getSelection().removeAllRanges();
-      var r = document.createRange();
-      r.selectNode(this.$refs[ref]);
-      window.getSelection().addRange(r);
-      document.execCommand("Copy");
-      window.getSelection().removeAllRanges();
-      this.$message({
-        message: '复制成功',
-        duration: 500,
-        type: 'success'
-      })
-    },
-    showDialog(title){
-      this.title = title;
-      if(title=='尺度'){
-      }else{
-        this.newDecription = this.decription;
-      }
-      this.isShow = true;
-    },
-    confirm(){
-      // this.isConfirm=true;
-      updateRemark({"id":this.$route.query.id,"remark":this.newDecription}).then(res=>{
-        // this.isConfirm = false;
-        // if(res.code){
-        //   this.$message.error(res.msg);
-        // }else{
-        //   this.$message.success(res.msg);
-          this.decription = this.newDecription;
-          this.isShow = false;
-        // }
-      // }).catch(err=>{
-        // this.isConfirm = false;
-      })
-    },
+    // copy(ref){
+    //   window.getSelection().removeAllRanges();
+    //   var r = document.createRange();
+    //   r.selectNode(this.$refs[ref]);
+    //   window.getSelection().addRange(r);
+    //   document.execCommand("Copy");
+    //   window.getSelection().removeAllRanges();
+    //   this.$message({
+    //     message: '复制成功',
+    //     duration: 500,
+    //     type: 'success'
+    //   })
+    // },
+    // lookDot(row){
+    //   this.imgFileUrl=Base64.decode(row.featurePointFile),
+    //   this.score=row.score*1+1,
+    //   this.isShowDot=true;
+    // },
+    // showDialog(title){
+    //   this.title = title;
+    //   if(title=='尺度'){
+    //   }else{
+    //     this.newDecription = this.decription;
+    //   }
+    //   this.isShow = true;
+    // },
+    // confirm(){
+    //   // this.isConfirm=true;
+    //   updateRemark({"id":this.$route.query.id,"remark":this.newDecription}).then(res=>{
+    //     // this.isConfirm = false;
+    //     // if(res.code){
+    //     //   this.$message.error(res.msg);
+    //     // }else{
+    //     //   this.$message.success(res.msg);
+    //       this.decription = this.newDecription;
+    //       this.isShow = false;
+    //     // }
+    //   // }).catch(err=>{
+    //     // this.isConfirm = false;
+    //   })
+    // },
     resetPosition(){
       controls.reset();
     },
@@ -454,5 +467,22 @@ export default {
   margin: 3px 0;
   font-size: 14px;
   line-height: 20px;
+}
+#myImageEchart .cub{
+  font-size: 14px;
+  width:120px;
+  height:120px;
+  border:#606266 solid 1px;
+  text-align:center;
+  line-height:80px;
+  display:inline-block;
+  background-size:100% 100%;
+  background-repeat:no-repeat;
+}
+#myImageEchart .cubSide{
+  width:120px;
+  height:120px;
+  border:#606266 solid 1px;
+  margin-left:322px
 }
 </style>
