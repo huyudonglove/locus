@@ -8,7 +8,7 @@
         <el-row v-for="(item,index) in formSize.fileList" :key="index">
         <el-col :span="8">
         <el-form-item label="宽度：" :prop="'fileList.'+index+'.width'" :rules="rules.width">
-          <el-input v-model="item.width" placeholder="请输入宽度"  :disabled="!isCreate&&item.data&& !isCreateWidth" onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,6})?).*$/g, '$1')"></el-input>
+          <el-input v-model="item.width" @input="changeWidth(item.width,item.identifiedIndex)" placeholder="请输入宽度"  :disabled="!isCreate&&item.data&& !isCreateWidth"></el-input>
         </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -80,7 +80,7 @@ export default {
         name: [
           {required: true, message: '请输入空间名称', trigger: ['change','blur']},{pattern: /^[\_\-0-9A-Za-z]+$/, message: '识别图名称必须是英文、数字0-9、下划线或中划线', trigger: ['blur','change']}
         ],
-        width:[{validator: this.myValidator, trigger: ['blur','change']}],
+        width:[{trigger: ['change']}],
         resourceFileId:[
           {
             required: true, message: '请上传地图包'
@@ -128,6 +128,28 @@ export default {
     close(){
       this.$emit("dialogClose");
     },
+    changeWidth(data,index){
+      this.formSize.fileList[index].width=this.judge(data)
+    },
+    judge(value){//保留6位小数
+      var p1 = /[^\d\.]/g;	// 过滤非数字及小数点 /g :所有范围中过滤
+      var p2 = /(\.\d{6})\d*$/g;
+      var p4 = /(\.)(\d*)\1/g;
+      var newValue = value;
+      newValue = newValue.replace(p1, "").replace(p2, "$1").replace(p4,"$1$2");
+      newValue=newValue.replace(/[^0-9.]/g, '');
+      if(newValue.length===1){
+        newValue = newValue.replace('.','');
+      }
+      if(newValue.length===2&&newValue!='0.'){
+        newValue = newValue.replace(/\b0/g,'');
+      }
+      var p5 = /\.+/g;	//多个点的话只取1个点，屏蔽1....234的情况
+      newValue = newValue.replace(p5, ".")   
+      var p6 = /(\.+)(\d+)(\.+)/g; //屏蔽1....234.的情况
+      newValue = newValue.replace(p6, "$1$2")// 屏蔽最后一位的.
+      return newValue;
+    },
     changeImg(fileId,num,imgName,height){
      this.formSize.fileList[num].imageUrl= Base64.decode(fileId);
      this.formSize.fileList[num].fileId=fileId
@@ -141,6 +163,7 @@ export default {
      this.$refs.map22.clearValidate()
     },
     myValidator(rule, value, callback){
+      console.log(value,'value')
       callback();
     },
     add(){
