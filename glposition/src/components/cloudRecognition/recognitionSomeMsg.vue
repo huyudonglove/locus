@@ -1,7 +1,7 @@
 <template>
   <div >
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="识别图详情" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
+      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="多空间图详情" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
     </div>
     <div class="mapDiv">
       <!-- <div style="margin-top:20px"><el-button type="primary">下载地图数据</el-button></div> -->
@@ -100,18 +100,13 @@
 
   <el-dialog
   :visible.sync="imgDialogVisible"
-  width="30%"
+   width="700px"
   center>
-   <img :src="`/static/${featurePointFile}`" style="width:100%;height:300px;"/>
+   <img :src="`/static/${featurePointFile}`" style="width:650px;"/>
    <div>
     <img   src="../../assets/starton.png" v-for="(item,index) in score" :key="index" /> 
     <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-score"  :key="index+10"/>
    </div>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="imgDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="imgDialogVisible = false">确 定</el-button>
-   
-  </span>
 </el-dialog>
 </div>
   </div>
@@ -144,7 +139,6 @@ export default {
       },
       featurePointFile:'',
       score:0,
-      isShowUp:false,
       isShow:false,
       form:{},
       remark:'',
@@ -190,15 +184,6 @@ export default {
       this.reload()
       this.isShow = false;
     },
-    del(id,name){
-      identifiedImageDelete({id,name}).then(res=>{
-        if(res.code){
-          this.$message.error(res.msg);
-        }else{
-          this.$router.push({path:'/recognitionInfo',query:JSON.parse(this.$route.query.msg)})
-        }
-      })
-    },
     edit(){
       updateRemark({...this.form,remark:this.formSize.remark}).then(res=>{
          if(res.code){
@@ -209,9 +194,6 @@ export default {
           this.reload()  
         }
       })
-    },
-    save(msg){
-     this.direction=msg
     },
     imgShow(img,score){
       this.imgDialogVisible=true

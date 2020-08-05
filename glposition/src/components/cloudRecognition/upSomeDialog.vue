@@ -192,7 +192,6 @@ export default {
      return this.formSize.fileList.filter(v=>v.fileId).length
     },
     del(n){
-      console.log(n,'n')
       this.formSize.fileList[n].fileId=''
       this.formSize.fileList[n].imageUrl=''
       this.formSize.fileList[n].width=''

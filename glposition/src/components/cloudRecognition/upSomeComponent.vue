@@ -13,7 +13,8 @@
       :on-success="successCallback"
       :disabled="!width"
       >
-      <el-button style="width:240px;background-color:#fff;color:#409eff;">{{imgName?imgName:'选择上传文件'}}</el-button>
+    <el-button :style="{'width':'240px','background-color':'#fff','color':'#409eff'}"  v-if="width">{{imgName?imgName:'选择上传文件'}}</el-button>
+    <el-button  v-if="!width" :disabled="!width" :style="{'width':'240px'}">{{imgName?imgName:'选择上传文件'}}</el-button>
     </el-upload>
     <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
       <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
