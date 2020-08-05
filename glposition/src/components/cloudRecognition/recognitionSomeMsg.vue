@@ -3,7 +3,21 @@
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
       <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="识别图详情" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
     </div>
-      <div style="margin-top:20px"><el-button type="primary">下载地图数据</el-button></div>
+    <div class="mapDiv">
+      <!-- <div style="margin-top:20px"><el-button type="primary">下载地图数据</el-button></div> -->
+      <el-dropdown placement="bottom-start" style="margin-top:20px">
+        <el-button size="mini" type="primary">
+          下载地图数据<i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>
+            <el-button type="primary" size="mini" @click="download(densePointCloudFileId,'稠密')">下载稠密点云数据</el-button>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <el-button type="primary" size="mini" @click="download(sparsePointCloudFileId,'稀疏')">下载稀疏点云数据</el-button>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
       <el-form  :model="formSize" label-width="120px">
         <el-form-item label="识别图名称：">
           {{formSize.name}}
@@ -52,9 +66,34 @@
       <span style="float:left;padding-top:30px;padding-right:10px">宽度：{{item.width}}</span><img :src="`/static/${item.fileId}`" style="width:80px;height:80px;float:left;margin-right:15px"/><el-button type="primary" style="float:left;margin-top:25px" @click="imgShow(item.featurePointFile,item.score)">查看识别度和识别点</el-button>
     </div>
   </div>
-  <div style="clear:both">
+  <!-- <div style="clear:both">
     <el-button type="primary"  @click="aa();showSomeUp=true;">上传更新地图包</el-button>
-  </div>
+  </div> -->
+  <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
+    <el-button size="mini" type="primary" @click="aa();showSomeUp=true;">上传更新地图包</el-button>
+    <el-form-item label="预览：">
+      <div id="webglId">
+        <div class="title">稀疏点云</div>
+        <div class="cover" v-if="maploading">
+          <div class="loading">
+            <i class=" iconI el-icon-loading"></i>
+            <p class="text">预览加载中...</p>
+          </div>
+        </div>
+        <div class="reset" @click="resetPosition">重置</div>
+      </div>
+      <div id="webglId2">
+        <div class="title">稠密点云</div>
+        <div class="cover" v-if="maploading2">
+          <div class="loading">
+            <i class=" iconI el-icon-loading"></i>
+            <p class="text">预览加载中...</p>
+          </div>
+        </div>
+        <div class="reset" @click="resetPosition2">重置</div>
+      </div>
+    </el-form-item>
+  </el-form>
   <div v-if="showSomeUp">
       <upSomeDialog @dialogClose="dialogClose" :showSomeUp="showSomeUp" :mapName="mapName"></upSomeDialog>
     </div>
@@ -74,6 +113,7 @@
    
   </span>
 </el-dialog>
+</div>
   </div>
 
 </template>
@@ -84,6 +124,9 @@ import upSomeDialog from './upSomeDialog'
 import showImgDialog from './showImgDialog'
 import upDialog from './upDialog'
 import { Base64 } from 'js-base64'
+import 'three/examples/js/controls/TrackballControls'
+import 'three/examples/js/loaders/PLYLoader'
+let scene,camera,controls,scene2,camera2,controls2,worker,worker2;
 export default {
   name:'recognitionSomeMsg',
   inject:['replace','reload'],
@@ -109,8 +152,19 @@ export default {
       imgDialogVisible:false,
       showImgData:[
       ],
-      mapName:''
-      
+      mapName:'',
+      sparsePointCloudFileId:'',
+      sparseMapPath:'',
+      densePointCloudFileId:'',
+      denseMapPath:'',
+      maploading:true,
+      maploading2:true,
+      renderer:'',
+      clock:'',
+      delta:'',
+      renderer2:'',
+      clock2:'',
+      delta2:'',
     }
   },
   computed:{
@@ -119,6 +173,16 @@ export default {
     
   },
   methods:{
+    download(id,name){
+      let url=`/static/${Base64.decode(id)}`;
+      let path = Base64.decode(id);
+      let arr = path.split('/');
+      let aTag = document.createElement('a')
+      let packageName =name+this.mapId+'.'+arr[arr.length-1].split('.')[1]
+      aTag.download = packageName;
+      aTag.href = url;
+      aTag.click();
+    },
     showDialogClose(){
       this.isShowUp = false;
     },
@@ -156,7 +220,137 @@ export default {
     },
     aa(){
        this.mapName=this.formSize.mapName
-    }
+    },
+    resetPosition(){
+      controls.reset();
+    },
+    resetPosition2(){
+      controls2.reset();
+    },
+    initRender(){
+       //创建渲染器
+      this.renderer=new THREE.WebGLRenderer();
+      this.renderer.setSize(800,600);
+      this.renderer.setClearColor(0x000000, 1.0);
+      this.renderer2=new THREE.WebGLRenderer();
+      this.renderer2.setSize(800,600);
+      this.renderer2.setClearColor(0x000000, 1.0);
+      document.getElementById('webglId').appendChild(this.renderer.domElement);
+      document.getElementById('webglId2').appendChild(this.renderer2.domElement);
+    },
+    initScene(){
+      //创造场景
+      scene=new THREE.Scene();
+      scene2=new THREE.Scene();
+    },
+    initLight(){
+      //添加灯光
+      var light=new THREE.PointLight(0x000000);
+      light.position.set(300,400,200);//光源的位置
+      scene.add(light);//将光源加入到场景中
+      scene.add(new THREE.AmbientLight(0x333333));
+      //添加灯光
+      var light2=new THREE.PointLight(0x000000);
+      light2.position.set(300,400,200);//光源的位置
+      scene2.add(light2);//将光源加入到场景中
+      scene2.add(new THREE.AmbientLight(0x333333));
+    },
+    initCamera(){
+      //添加相机
+      camera=new THREE.PerspectiveCamera(40,800/600,1,1000);
+      camera.position.set(0, 0, 128);
+      camera.lookAt(scene.position);
+      //添加相机
+      camera2=new THREE.PerspectiveCamera(40,800/600,1,1000);
+      camera2.position.set(0, 0, 128);
+      camera2.lookAt(scene2.position);
+    },
+    initMesh(){
+      //外部模型加载 没有材质的
+      var self=this;
+      var loader = new THREE.PLYLoader();
+        loader.load(`/static/${this.sparseMapPath}`, function (geometry) {
+
+          //更新顶点的法向量
+          geometry.computeVertexNormals();
+          // geometry.computeFaceNormals();
+          geometry.computeBoundingBox();
+          geometry.center();
+          //创建纹理，并将模型添加到场景道中
+          var material = new THREE.PointsMaterial( {size: 0.05,transparent: true,vertexColors:THREE.VertexColors,alphaTest: 0.5} );
+          var mesh = new THREE.Points( geometry, material );
+
+					mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          self.maploading=false;
+          scene.add( mesh );
+        },function ( xhr ) {
+          console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+          self.loadedData = Math.floor(xhr.loaded/xhr.total*100)
+        },function ( error ) {
+          console.log( 'An error happened' );
+      });
+      var axes = new THREE.AxesHelper(100);
+      scene.add(axes);
+
+      var loader2 = new THREE.PLYLoader();
+        loader2.load(`/static/${this.denseMapPath}`, function (geometry) {
+
+          //更新顶点的法向量
+          geometry.computeVertexNormals();
+          // geometry.computeFaceNormals();
+          geometry.computeBoundingBox();
+          geometry.center();
+          //创建纹理，并将模型添加到场景道中
+          var material = new THREE.PointsMaterial( {size: 0.05,transparent: true,vertexColors:THREE.VertexColors,alphaTest: 0.5} );
+          var mesh = new THREE.Points( geometry, material );
+
+					mesh.castShadow = true;
+          mesh.receiveShadow = true;
+          self.maploading2=false;
+          scene2.add( mesh );
+        },function ( xhr ) {
+          console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        },function ( error ) {
+          console.log( 'An error happened' );
+      });
+      var axes2 = new THREE.AxesHelper(100);
+      scene2.add(axes2);
+    },
+    initControls(){
+      controls = new THREE.TrackballControls(camera, this.renderer.domElement);
+      controls.rotateSpeed = 2.5;
+      controls.zoomSpeed = 1.2;
+      controls.panSpeed = 0.8;
+      controls.noZoom = false;
+      controls.noPan = false;
+      controls.staticMoving = true;
+      controls.dynamicDampingFactor = 0.3;
+      this.clock = new THREE.Clock();
+      controls2 = new THREE.TrackballControls(camera2, this.renderer2.domElement);
+      controls2.rotateSpeed = 2.5;
+      controls2.zoomSpeed = 1.2;
+      controls2.panSpeed = 0.8;
+      controls2.noZoom = false;
+      controls2.noPan = false;
+      controls2.staticMoving = true;
+      controls2.dynamicDampingFactor = 0.3;
+      this.clock2 = new THREE.Clock();
+    },
+    //渲染
+    render(){
+      this.renderer.render(scene,camera);
+      this.renderer2.render(scene2,camera2);
+    },
+    //动画执行
+    animate() {
+      requestAnimationFrame(this.animate);
+      this.render();
+      this.delta = this.clock.getDelta();
+      this.delta2 = this.clock.getDelta();
+      controls.update(this.delta);
+      controls2.update(this.delta2);
+    },
   },
   created(){
     this.formSize=JSON.parse(this.$route.query.row)
@@ -174,10 +368,87 @@ export default {
     })
     }
     this.$route.query.remark?this.formSize.remark =this.$route.query.remark:this.formSize.remark =this.formSize.remark
+  },
+  mounted(){
+    this.initScene();
+    this.initCamera();
+    this.initMesh();
+    this.initLight();
+    this.initRender();
+    this.initControls();
+    this.animate();
   }
 }
 </script>
 <style>
+.mapDiv .decription{
+  width: 500px;
+  text-overflow: ellipsis;
+  line-height: 26px;
+}
+.mapDiv .el-textarea .el-textarea__inner{
+  resize: none;
+}
+.mapDiv #webglId{
+  display: inline-block;
+  width: 800px;
+  height: 600px;
+  position: relative;
+}
+.mapDiv #webglId2{
+  display: inline-block;
+  width: 800px;
+  height: 600px;
+  position: relative;
+}
+.mapDiv .title{
+  position: absolute;
+  z-index: 50;
+  left: 5px;
+  top: 3px;
+  color: #409EFF;
+  font-size: 18px;
+  font-weight: bold;
+}
+.mapDiv .reset{
+  position: absolute;
+  z-index: 50;
+  right: 15px;
+  top: 3px;
+  color: #409EFF;
+  font-size: 18px;
+  font-weight: bold;
+}
+.mapDiv .cover {
+  position: absolute;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity .3s;
+}
+.mapDiv .loading {
+  top: 50%;
+  margin-top: -21px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+}
+.mapDiv .iconI {
+  color: #409eff;
+  font-size: 20px;
+  animation: rotating 2s linear infinite;
+}
+
+.mapDiv .loading .text {
+  color: #409eff;
+  margin: 3px 0;
+  font-size: 14px;
+  line-height: 20px;
+}
 .imgDiv{
   width:200px;
   display:inline-block;

@@ -117,11 +117,6 @@ export default new Router({
           component: ()=>import('@/components/cloudRecognition/recognitionMsg')
         },
         {
-          path:'/recognitionDetails',
-          name:'recognitionDetails',
-          component:()=>import('@/components/cloudRecognition/recognitionDetails')
-        },
-        {
           path: '/sdkList',
           name: 'sdkList',
           component: ()=>import('@/components/sdk/sdkList')
