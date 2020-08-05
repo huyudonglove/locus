@@ -203,6 +203,25 @@ export default {
     aa(){
        this.mapName=this.formSize.mapName
     },
+    getInfo(){
+      return new Promise((resolve,reject)=>{
+        dentifiedImageInfo({id:JSON.parse(this.$route.query.row).id}).then(res=>{
+          resolve();
+          if(res.code){
+            this.$message.error(res.msg);
+          }else{
+            this.showImgData=res.data.fileList
+            this.showImgData.forEach(v=>v.fileId=Base64.decode(v.fileId))
+            this.sparsePointCloudFileId = res.data.sparsePlyId;//稀疏
+            this.densePointCloudFileId = res.data.densePlyId;//稠密
+            this.sparseMapPath = Base64.decode(res.data.sparsePlyId);
+            this.denseMapPath = Base64.decode(res.data.densePlyId);
+          }
+        }).catch(err=>{
+          reject();
+        })
+      })
+    },
     resetPosition(){
       controls.reset();
     },
@@ -338,20 +357,14 @@ export default {
     this.formSize=JSON.parse(this.$route.query.row)
     this.type=this.formSize.type
     this.form=JSON.parse(this.$route.query.row)
-    if(this.$route.query.row){
-    dentifiedImageInfo({id:JSON.parse(this.$route.query.row).id}).then(res=>{
-      if(res.code){
-        this.$message.error(res.msg);
-      }else{
-        this.showImgData=res.data.fileList
-        this.showImgData.forEach(v=>v.fileId=Base64.decode(v.fileId))
-       
-      }
-    })
-    }
     this.$route.query.remark?this.formSize.remark =this.$route.query.remark:this.formSize.remark =this.formSize.remark
   },
-  mounted(){
+  async mounted(){
+    try{
+      await this.getInfo();
+    }catch(err){
+      console.log(err)
+    }
     this.initScene();
     this.initCamera();
     this.initMesh();
