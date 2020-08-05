@@ -57,6 +57,12 @@
           <el-table-column prop="size" label="地图大小" width="180" align="center">
              <template slot-scope="scope"> {{scope.row.size?(scope.row.size/(1024*1024)).toFixed(2)+'M':'-'}}</template>
           </el-table-column>
+           <el-table-column prop="sceneId" label="地图类型" width="120" align="center">
+             <template slot-scope="scope">
+               <span  v-if="scope.row.sceneId==1">普通室内场景</span>
+               <span  v-if="scope.row.sceneId==2">多植物场景</span>
+             </template>
+          </el-table-column>
            <el-table-column prop="status" label="状态" width="180" align="center">
               <template slot-scope="scope">
                <span  v-if="scope.row.status==1">等待转换</span>
