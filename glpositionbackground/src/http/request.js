@@ -327,6 +327,10 @@ return loadRequest('/api/location/background/IdentifiedImage/delete',{id:params.
 export function identifiedImageDegree(params) {
 return http.get(`/api/location/middleground/IdentifiedImage/degree`, params)
 }
+/** 获取详细 w*/
+export function dentifiedImageInfo(params) {
+  return http.get(`/api/location/middleground/IdentifiedImage/info`, params)
+}
 
 /** 更换识别图  w*/
 export function identifiedImageUpdate(params){

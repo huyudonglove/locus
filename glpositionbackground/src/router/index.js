@@ -73,6 +73,11 @@ export default new Router({
           component: ()=>import('@/components/cloudRecognition/recognitionMsg')
         },
         {
+          path: '/recognitionSomeMsg',
+          name: 'recognitionSomeMsg',
+          component: ()=>import('@/components/cloudRecognition/recognitionSomeMsg')
+        },
+        {
           path: '/mapManageList',
           name: 'mapManageList',
           component: mapManageList,

@@ -59,9 +59,10 @@
           show-word-limit
           maxlength="500"
           style="width:80%"
+          :disabled="true"
           >
           </el-input>
-          <el-button type="text" @click="edit()">修改</el-button>  
+          <!-- <el-button type="text" @click="edit()">修改</el-button>   -->
           </div>
         </el-form-item>
   </el-form>
@@ -74,7 +75,7 @@
     <el-button type="primary"  @click="aa();showSomeUp=true;">上传更新地图包</el-button>
   </div> -->
   <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
-    <el-button size="mini" type="primary" @click="aa();showSomeUp=true;">上传更新地图包</el-button>
+    <!-- <el-button size="mini" type="primary" @click="aa();showSomeUp=true;">上传更新地图包</el-button> -->
     <el-form-item label="预览：">
       <div id="webglId">
         <div class="title">稀疏点云</div>
@@ -177,7 +178,7 @@ export default {
       let path = Base64.decode(id);
       let arr = path.split('/');
       let aTag = document.createElement('a')
-      let packageName =name+'.'+arr[arr.length-1].split('.')[1]
+      let packageName =name+this.mapId+'.'+arr[arr.length-1].split('.')[1]
       aTag.download = packageName;
       aTag.href = url;
       aTag.click();
