@@ -70,11 +70,10 @@
       <span style="float:left;padding-top:30px;padding-right:10px">宽度：{{item.width}}</span><img :src="`/static/${item.fileId}`" style="width:80px;height:80px;float:left;margin-right:15px"/><el-button type="primary" style="float:left;margin-top:25px" @click="imgShow(item.featurePointFile,item.score)"  size="mini">查看识别度和识别点</el-button>
     </div>
   </div>
-  <!-- <div style="clear:both">
-    <el-button type="primary"  @click="aa();showSomeUp=true;">上传更新地图包</el-button>
-  </div> -->
+  <div style="clear:both">
+    <el-button size="mini" type="primary"  @click="aa();showSomeUp=true;">上传更新地图包</el-button>
+  </div>
   <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
-    <el-button size="mini" type="primary" @click="aa();showSomeUp=true;">上传更新地图包</el-button>
     <el-form-item label="预览：">
       <div id="webglId">
         <div class="title">稀疏点云</div>
