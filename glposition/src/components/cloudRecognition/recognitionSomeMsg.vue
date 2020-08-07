@@ -172,7 +172,7 @@ export default {
       let path = Base64.decode(id);
       let arr = path.split('/');
       let aTag = document.createElement('a')
-      let packageName =name+this.mapId+'.'+arr[arr.length-1].split('.')[1]
+      let packageName =name+'.'+arr[arr.length-1].split('.')[1]
       aTag.download = packageName;
       aTag.href = url;
       aTag.click();
