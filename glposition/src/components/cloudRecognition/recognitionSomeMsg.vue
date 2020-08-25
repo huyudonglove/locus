@@ -98,9 +98,19 @@
     </el-form-item>
   </el-form>
   <div v-if="showSomeUp">
-      <upSomeDialog @dialogClose="dialogClose" :showSomeUp="showSomeUp" :mapName="mapName"></upSomeDialog>
+      <upSomeDialog @dialogClose="dialogClose" :showSomeUp="showSomeUp" :mapName="mapName" @showImg="showImg"></upSomeDialog>
     </div>
-
+   <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
+      <img src="../../assets/ok.png" alt="" width="100" height="100">
+      <p>
+        <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者地图库列表看到你的空间多图</span>
+      </p>
+      <p>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="upEnd = false;reload();">确 定</el-button>
+      </span>
+      </p>
+    </el-dialog>
   <el-dialog
   :visible.sync="imgDialogVisible"
    width="700px"
@@ -141,6 +151,7 @@ export default {
         createTime:'',
         updateTime:'',
       },
+      upEnd:false,
       featurePointFile:'',
       score:0,
       isShow:false,
@@ -356,6 +367,11 @@ export default {
       controls.update(this.delta);
       controls2.update(this.delta2);
     },
+    showImg(){
+      this.showSomeUp=false
+      this.upEnd=true
+      this.getInfo();
+    }
   },
   created(){
     this.formSize=JSON.parse(this.$route.query.row)

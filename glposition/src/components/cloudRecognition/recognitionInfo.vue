@@ -70,8 +70,18 @@
       <upImgDialog @upImgDialogClose="upImgDialogClose"></upImgDialog>
     </div>
     
-      <upSomeDialog @dialogClose="dialogClose"  :showSomeUp="showSomeUp" v-if="showSomeUp"></upSomeDialog>
-   
+      <upSomeDialog @dialogClose="dialogClose"  :showSomeUp="showSomeUp" v-if="showSomeUp" @showImg="showImg"></upSomeDialog>
+      <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
+      <img src="../../assets/ok.png" alt="" width="100" height="100">
+      <p>
+        <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者地图库列表看到你的空间多图</span>
+      </p>
+      <p>
+        <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="upEnd = false;reload();">确 定</el-button>
+      </span>
+      </p>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -100,6 +110,7 @@ export default {
         updateTime:'',
         secret:''
       },
+      upEnd:false,
       showSomeUp:false,
       imgIdList:[],
       imageTable:[],
@@ -163,6 +174,11 @@ export default {
       // this.reload()
       this.showSomeUp = false;
     },
+    showImg(){
+      this.showSomeUp=false
+      this.upEnd=true
+      this.listData();
+    }
   },
   created(){
     let paramsData = JSON.parse(this.$route.query.myData);

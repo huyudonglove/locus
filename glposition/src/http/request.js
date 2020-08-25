@@ -104,18 +104,28 @@ export function getReplaceList(params){
   let pageNum = params.pageNum||1;
   let pageSize = params.pageSize||20;
   let status = params.status||'';
-  let type;
-  if(params.status==5){
-    type=1;
-    status =2;
-  }else if(params.status==2){
-    type=0;
-  }
+  let type = params.type;
+  let sortField = params.sortField;
+  let sortType = params.sortType;
   let mapLocation = params.mapLocation||'';
   return new Promise((resolve,reject)=>{
-    http.post('/api/location/map/transform/list/page',{pageNum,pageSize,status,mapLocation,type}).then(res=>{
+    http.post('/api/location/map/transform/list/page',{pageNum,pageSize,status,mapLocation,type,sortField,sortType}).then(res=>{
       if(res.code){
-          Message.error(res.msg);
+          Message.error(res.message);
+      }else{
+          resolve(res);
+      }
+    }).catch(err=>{
+      reject(err);
+    })
+  })
+}
+/** 转换列表-获取状态列表 Author:minggui*/
+export function getStatusList(params){
+  return new Promise((resolve,reject)=>{
+    http.get('/api/location/map/transform/status/list',params).then(res=>{
+      if(res.code){
+          Message.error(res.message);
       }else{
           resolve(res);
       }

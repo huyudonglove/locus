@@ -32,11 +32,12 @@
              状态：
             <el-select v-model="status" placeholder="请选择">
              <el-option label="全部" value></el-option>
-             <el-option label="等待转换" value="1"></el-option>
-             <el-option label="正在转换" value="2"></el-option>
-             <el-option label="已完成（正常）" value="3"></el-option>
-             <el-option label="异常" value="-1"></el-option>
-             <el-option label="未更新" value="4"></el-option>
+             <el-option label="等待建图" value="1"></el-option>
+             <el-option label="建图中" value="5"></el-option>
+             <el-option label="正常" value="9"></el-option>
+             <el-option label="未更新" value="15"></el-option>
+             <el-option label="已停止" value="-5"></el-option>
+             <el-option label="建图异常" value="-10"></el-option>
           </el-select>
           </span>
           <el-button style="float:right;margin-left:15px" type="primary" @click="mapLoad()">上传地图包
@@ -65,11 +66,12 @@
           </el-table-column>
            <el-table-column prop="status" label="状态" width="120" align="center">
               <template slot-scope="scope">
-               <span  v-if="scope.row.status==1">等待转换</span>
-               <span  v-if="scope.row.status==2">正在转换</span>
-               <span  v-if="scope.row.status==3">已完成（正常）</span>
-               <span  v-if="scope.row.status==-1">异常</span>
-               <span  v-if="scope.row.status==4">未更新</span>
+               <span  v-if="scope.row.status==1">等待建图</span>
+               <span  v-if="scope.row.status==5">建图中</span>
+               <span  v-if="scope.row.status==9">正常</span>
+               <span  v-if="scope.row.status==15">未更新</span>
+               <span  v-if="scope.row.status==-5">已停止</span>
+               <span  v-if="scope.row.status==-10">建图异常</span>
             </template>
           </el-table-column>
 		      <el-table-column prop="createTime" label="创建时间" width="200" align="center">
