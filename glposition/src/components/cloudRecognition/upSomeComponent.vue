@@ -43,7 +43,7 @@ export default {
       imgName:'',
       percent:0,
       fileName:'',
-      height:0
+      height:0,
     }
   },
   watch:{

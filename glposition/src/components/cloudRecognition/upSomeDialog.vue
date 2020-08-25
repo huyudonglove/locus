@@ -47,11 +47,22 @@
         <el-button  type="primary" @click="edit('formSize')" v-if="!isCreate">编辑多图空间</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
+    <img src="../../assets/ok.png" alt="" width="100" height="100">
+    <p>
+      <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者地图库列表看到你的地图</span>
+    </p>
+    <p>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="upEnd = false;reload();">确 定</el-button>
+    </span>
+    </p>
+  </el-dialog>
   </div>
 </template>
 
 <script>
-import {identifiedImageUpdate,addIdentifiedImage,dentifiedImageInfo } from '../../http/request'
+import {identifiedImageUpdate,addIdentifiedImage,dentifiedImageInfo ,getImageList} from '../../http/request'
 import upSomeComponent from './upSomeComponent'
 import upLoad from './upLoad'
 import {Base64} from 'js-base64'
@@ -73,7 +84,7 @@ export default {
         fileList:[{ width:'',fileId:'',identifiedIndex:0,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:1,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:2,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:3,imageUrl:'',imgName:'',height:''},{ width:'',fileId:'',identifiedIndex:4,imageUrl:'',imgName:'',height:''}],
         identifiedImageDatabaseId:'',mapTypeId:0,size:0,mapName:'',identifiedImageDatabaseName:''
       },
-     
+      upEnd:false,
       isCreate:true,
       isCreateWidth:true,
       rules: {
@@ -180,7 +191,7 @@ export default {
                 if(res.code){
                   this.$message.error(res.msg);
                 }else{
-                  this.reload()  
+                  this.$emit('showImg',false)  
                 }
            })
          }
@@ -202,7 +213,7 @@ export default {
                 if(res.code){
                   this.$message.error(res.msg);
                 }else{
-                  this.reload()  
+                  this.$emit('showImg',false)  
                 }
            })
          }
