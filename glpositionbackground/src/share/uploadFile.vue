@@ -187,7 +187,6 @@ export default {
         })():'';
       //上传sdk
         this.type=='sdk'?(()=>{
-          name[1]=='unitypackage'?(()=>{
             const loading = this.$loading({
               lock: true,
               text: '上传中',
@@ -210,7 +209,6 @@ export default {
               })();
               loading.close();
             })
-          })():this.$message.error('sdk格式错误，必须unitypackage');
         })():'';
         //上传文档
         this.type=='pdf'?(()=>{
