@@ -43,27 +43,28 @@
       </el-button>
         </el-row>
            <!-- 数据展示 -->
-        <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"  border>
+        <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"  border @sort-change="changeTableSort">
           <el-table-column
             prop="id" label="id "  align="center" width="80"
+            sortable
             >
           </el-table-column>
-          <el-table-column prop="name" label="地图名称" width="" align="center">
+          <el-table-column prop="name" label="地图名称" width="" align="center" sortable>
             <template slot-scope="scope">{{ scope.row.name?scope.row.name:'无'}}</template>
           </el-table-column>
-          <el-table-column prop="mapKey" label="MapID" width="" align="center">
+          <el-table-column prop="mapKey" label="MapID" width="" align="center" sortable>
             <template slot-scope="scope">{{ scope.row.mapKey?scope.row.mapKey:'无'}}</template>
           </el-table-column>
-          <el-table-column prop="size" label="地图大小" width="180" align="center">
+          <el-table-column prop="size" label="地图大小" width="180" align="center" sortable>
              <template slot-scope="scope"> {{scope.row.size?(scope.row.size/(1024*1024)).toFixed(2)+'M':'-'}}</template>
           </el-table-column>
-          <el-table-column prop="sceneId" label="地图类型" width="120" align="center">
+          <el-table-column prop="sceneId" label="地图类型" width="120" align="center" sortable>
              <template slot-scope="scope">
                <span  v-if="scope.row.sceneId==1">普通室内场景</span>
                <span  v-if="scope.row.sceneId==2">多植物场景</span>
              </template>
           </el-table-column>
-           <el-table-column prop="status" label="状态" width="120" align="center">
+           <el-table-column prop="status" label="状态" width="120" align="center" sortable>
               <template slot-scope="scope">
                <span  v-if="scope.row.status==1">等待转换</span>
                <span  v-if="scope.row.status==2">正在转换</span>
@@ -72,14 +73,14 @@
                <span  v-if="scope.row.status==4">未更新</span>
             </template>
           </el-table-column>
-		      <el-table-column prop="createTime" label="创建时间" width="200" align="center">
+		      <el-table-column prop="createTime" label="创建时间" width="200" align="center" sortable>
           </el-table-column>
-          <el-table-column prop="updateTime" label="修改时间" width="200" align="center">
+          <el-table-column prop="updateTime" label="修改时间" width="200" align="center" sortable>
           </el-table-column>
-           <el-table-column prop="runState" label="运行/停止" align="center" width="180">
+           <el-table-column prop="runState" label="运行/停止" align="center" width="180" sortable>
           <template slot-scope="scope">
            <el-switch
-                :disabled="!(scope.row.status ==3||scope.row.status ==4)"
+                :disabled="!(scope.row.status ==9||scope.row.status ==15)"
                 v-model="scope.row.runState"
                 :active-value='1'
                 :inactive-value='0'
@@ -88,25 +89,25 @@
               </el-switch>
           </template>
         </el-table-column>
-           <el-table-column  label="操作" width="240" align="center">
+           <el-table-column  label="操作" width="240" align="center" >
             <template slot-scope="scope">
-              <el-button type="danger" size="mini" v-if="scope.row.status==1||scope.row.status==2" @click="stopMap(scope.row.mapKey)">停止</el-button>
+              <el-button type="danger" size="mini" v-if="scope.row.status==1||scope.row.status==5" @click="stopMap(scope.row.mapKey)">停止</el-button>
                <el-button
                 type="success"
                 size="mini"
                 @click="$router.push({path:'/mapManageList/mapInfoList/mapInfo',query:{id:scope.row.id,oldQuery:JSON.stringify($route.query)}})"
-              v-if="scope.row.status==3||scope.row.status==4||scope.row.status==-1"
+              v-if="scope.row.status==-10||scope.row.status==-5||scope.row.status==9||scope.row.status==15"
               >管理</el-button>
               <el-button type="primary"
                          @click="isShowChart=true;mapCode=scope.row.mapCode;mapKey=scope.row.mapKey;mapStatus=scope.row.runState"
-                         size="mini" v-if="scope.row.status==4||scope.row.status==3||scope.row.status==-1"
-                         :disabled="scope.row.status==3||scope.row.status==-1">更新</el-button>
+                         size="mini" v-if="scope.row.status==-10||scope.row.status==-5||scope.row.status==9||scope.row.status==15"
+                         :disabled="scope.row.status==-10||scope.row.status==-5||scope.row.status==9">更新</el-button>
               <el-button
                 type="danger"
                 size="mini"
                 @click="del(scope.row.id)"
                 :key="1"
-              v-if="scope.row.status==3||scope.row.status==-1||scope.row.status==4"
+              v-if="scope.row.status==-10||scope.row.status==-5||scope.row.status==9||scope.row.status==15"
                >删除</el-button>
             </template>
           </el-table-column>
@@ -152,7 +153,10 @@ import upMe from '../up'
       total2:0,
       mapCode:'',
       mapKey:'',
-      mapStatus:''
+      mapStatus:'',
+      sortType:'',
+      sortField:''
+
     }
   },
    created(){
@@ -164,7 +168,7 @@ import upMe from '../up'
       this.status=query.status||''
       let pageRecord = query.page||1;//记录上一次页码操作
       let limitRecord =query.limit||20;//记录上一次limit操作
-       this.dataTable({page:query.page,limit:query.limit,q:query.q,wd:query.wd,status:query.status,mapDatabaseId:query.ids}).then(res=>{
+       this.dataTable({page:query.page,limit:query.limit,q:query.q,wd:query.wd,status:query.status,mapDatabaseId:query.ids,sortType:this.sortType,sortField:this.sortField}).then(res=>{
         this.tableData2=res.data.items
         this.$store.commit('pagination/setTotal',res.data.total);
         this.$store.commit('pagination/setClickPage',pageRecord);
@@ -308,7 +312,14 @@ import upMe from '../up'
         v.code&&this.$message.error(v.msg)&&this.reload();
         !v.code&&this.reload();
       })
-    }
+    },
+     changeTableSort(col){
+      this.sortField = col.prop.replace(/[A-Z]/g,(a,b)=>{
+          return '_'+a.toLowerCase();
+        });
+      this.sortType = col.order=='ascending'?'asc':'desc';
+    },
+
   },
   computed:{
     ...mapState('pagination',{page:'clickPage',limit:'limitPage'}),
@@ -337,12 +348,20 @@ import upMe from '../up'
     status(){
       this.$store.commit('pagination/setClickPage',1);
       this.replace('status',this.status);
-	},
+  },
+   sortField(){
+      this.$store.commit('pagination/setClickPage',1);//重置第1页
+      this.replace('sortField',this.sortField);
+    },
+    sortType(){
+      this.$store.commit('pagination/setClickPage',1);//重置第1页
+      this.replace('sortType',this.sortType);
+    },
    $route(){//判断路由query变化执行请求
 
      if(this.$route.name=='mapInfoList'){
        let query=this.$route.query
-       this.dataTable({page:query.page,limit:query.limit,q:query.q,wd:query.wd,status:query.status,mapDatabaseId:query.ids}).then(res=>{
+       this.dataTable({page:query.page,limit:query.limit,q:query.q,wd:query.wd,status:query.status,mapDatabaseId:query.ids,sortType:this.sortType,sortField:this.sortField}).then(res=>{
         this.$nextTick(()=>{
         this.tableData2=res.data.items
         this.$store.commit('pagination/setTotal',res.data.total);

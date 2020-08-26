@@ -25,7 +25,7 @@
           </el-dropdown>
         </el-form-item>
         <el-form-item label="">
-          <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==4)">更新地图</el-button>
+          <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==15)">更新地图</el-button>
         </el-form-item>
         <el-form-item label="">
           <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==3)">上传激光扫描结果</el-button>
