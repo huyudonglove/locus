@@ -213,7 +213,7 @@ export default {
                 if(res.code){
                   this.$message.error(res.msg);
                 }else{
-                  this.$emit('showImg',false)  
+                  this.$emit('showImg',false)
                 }
            })
          }
