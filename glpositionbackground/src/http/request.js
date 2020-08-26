@@ -95,8 +95,10 @@ export function mapInfoList(params){
   let mapKey = params.q||'';
   let status = params.status||'';
   let mapDatabaseId = params.mapDatabaseId||'';
+  let sortType = params.sortType||'desc';
+  let sortField = params.sortField||'create_time';
   return new Promise((resolve,reject)=>{
-    http.post('/api/location/background/map/mapinfo/list/page',{pageNum,pageSize,mapName,mapKey,status,mapDatabaseId}).then(res=>{
+    http.post('/api/location/background/map/mapinfo/list/page',{pageNum,pageSize,mapName,mapKey,status,mapDatabaseId,sortType,sortField}).then(res=>{
       if(res.code){
         Message.error(res.msg);
       }else{
