@@ -69,7 +69,8 @@ export default {
       relateNew:'',
       oldUuid:'',
       newUuid:'',
-      msg:''
+      msg:'',
+      routeId:''
     }
   },
   watch:{
@@ -144,6 +145,7 @@ export default {
               this.mapAble=false;
               this.mapKeyNew=res.data[0].mapKey;
               this.mapCodeNew=res.data[0].mapCode;
+              this.routeId=res.data[0].id;
               this.getMapLine(this.mapKeyNew,'new');
             })();
             res.data[0].status!=3&&(()=>{
@@ -165,7 +167,10 @@ export default {
         };
         changeMainMap(msg).then(res=>{
           res.code&&this.$message.error(res.msg);
-          !res.code&&this.$message.success(res.msg)&&this.reload();
+          !res.code&&this.$message.success(res.msg);
+          console.log(this.$route.query,'this.$route.query');
+          this.$router.push({path:'/mapManageList/mapInfoList/mapInfo',query:{id:this.routeId,oldQuery:this.$route.query.oldQuery}});
+          // this.reload();
         })
       }).catch(()=>{
 
