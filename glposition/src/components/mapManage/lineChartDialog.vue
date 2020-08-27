@@ -168,8 +168,7 @@ export default {
         changeMainMap(msg).then(res=>{
           res.code&&this.$message.error(res.msg);
           !res.code&&this.$message.success(res.msg);
-          console.log(this.$route.query,'this.$route.query');
-          this.$router.push({path:'/mapManageList/mapInfoList/mapInfo',query:{id:this.routeId,oldQuery:this.$route.query.oldQuery}});
+          if(this.$route.name=='mapInfo'){this.$router.push({path:'/mapManageList/mapInfoList/mapInfo',query:{id:this.routeId,oldQuery:this.$route.query.oldQuery}});}
           this.reload();
         })
       }).catch(()=>{
