@@ -140,7 +140,7 @@ export default {
           res.data.length!=0&&(()=>{
             this.mapAble=false;
             this.deleteAble=false;
-            res.data[0].status==3&&(()=>{
+            res.data[0].status==9&&(()=>{
               this.mapAble=false;
               this.mapKeyNew=res.data[0].mapKey;
               this.mapCodeNew=res.data[0].mapCode;
