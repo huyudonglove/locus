@@ -6,9 +6,9 @@
 
       <div v-if="mapStatus==1" class="myWords" style="color: red;text-align: center;margin-bottom: 10px">地图运行中，不能更新地图!</div>
       <div style="text-align:center;">
-        <el-button type="primary" :disabled="mapAble||mapStatus==1" @click="changeMainMap">是，马上更新到原版本地</el-button>
+        <el-button type="primary"  @click="changeMainMap">是，马上更新到原版本地</el-button>
         <el-button type="primary" @click="close">否，暂不更新</el-button>
-        <el-button type="primary" :disabled="deleteAble" @click="deleteVersion()">我要删除新版本地图</el-button>
+        <el-button type="primary" @click="deleteVersion()">我要删除新版本地图</el-button>
       </div>
     </el-dialog>
     <el-dialog title="误差图对比" :visible.sync="dialogSmall" @close="closeSmall" width="800px">
@@ -141,7 +141,7 @@ export default {
           res.data.length!=0&&(()=>{
             this.mapAble=false;
             this.deleteAble=false;
-            res.data[0].status==3&&(()=>{
+            res.data[0].status==9&&(()=>{
               this.mapAble=false;
               this.mapKeyNew=res.data[0].mapKey;
               this.mapCodeNew=res.data[0].mapCode;

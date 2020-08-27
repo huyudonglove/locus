@@ -8,7 +8,7 @@
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-form-item label="">
           <el-dropdown placement="bottom-start">
-            <el-button size="mini" type="primary" :disabled="status==-1||(status==4&&!densePointCloudFileId&&!sparsePointCloudFileId)">
+            <el-button size="mini" type="primary" :disabled="status==-10||(status==15&&!densePointCloudFileId&&!sparsePointCloudFileId)">
               下载地图数据<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
@@ -25,10 +25,10 @@
           </el-dropdown>
         </el-form-item>
         <el-form-item label="">
-          <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==4)">更新地图</el-button>
+          <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==15)">更新地图</el-button>
         </el-form-item>
         <el-form-item label="">
-          <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==3)">上传激光扫描结果</el-button>
+          <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==9)">上传激光扫描结果</el-button>
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
@@ -42,11 +42,12 @@
           <span ref="gps">{{mapId}}</span> <el-button type="text" @click="copy('gps')">复制MapID</el-button>
         </el-form-item>
         <el-form-item label="状态：">
-         <span  v-if="status==1">等待转换</span>
-          <span  v-if="status==2">正在转换</span>
-          <span  v-if="status==3">已完成（正常）</span>
-          <span  v-if="status==-1">异常</span>
-          <span  v-if="status==4">未更新</span>
+          <span  v-if="status==1">等待建图</span>
+          <span  v-if="status==5">建图中</span>
+          <span  v-if="status==9">正常</span>
+          <span  v-if="status==15">未更新</span>
+          <span  v-if="status==-5">已停止</span>
+          <span  v-if="status==-10">建图异常</span>
         </el-form-item>
         <el-form-item label="GPS：">
           <span>{{gps}}</span> <el-button type="text" @click="showDialog('GPS')">修改</el-button>

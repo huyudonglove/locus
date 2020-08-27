@@ -1,7 +1,7 @@
 <template>
   <div class="h-div">
     <div class="h-login">
-      <div class="h-head">空间定位</div>
+      <div class="h-head">locus</div>
       <div>
         <el-input  placeholder="请输入用户名" class="h-input" v-model="loginName" style="display: none"></el-input>
         <i class="h-user"></i>
