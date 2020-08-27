@@ -170,7 +170,7 @@ export default {
           !res.code&&this.$message.success(res.msg);
           console.log(this.$route.query,'this.$route.query');
           this.$router.push({path:'/mapManageList/mapInfoList/mapInfo',query:{id:this.routeId,oldQuery:this.$route.query.oldQuery}});
-          // this.reload();
+          this.reload();
         })
       }).catch(()=>{
 
