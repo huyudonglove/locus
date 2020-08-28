@@ -58,7 +58,7 @@
       <el-table-column prop="uploadTime" label="上传时间" align="center" sortable></el-table-column>
       <el-table-column label="操作" fixed="right" width="100" align="center">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.status===6||scope.row.status===5" type="danger" size="mini" @click="stop(scope.row.id)">停止</el-button>
+          <el-button v-if="scope.row.status===6||scope.row.status===5||scope.row.status===1||scope.row.status===2" type="danger" size="mini" @click="stop(scope.row.id)">停止</el-button>
           <span v-else>--</span>
         </template>
       </el-table-column>
@@ -88,8 +88,8 @@ export default {
       statusList:[],
       mySetInterval:null,
       activeName:'地图转换',
-      sortType:'',
-      sortField:''
+      sortType:'desc',
+      sortField:'upload_time'
     }
   },
   computed:{
@@ -148,8 +148,8 @@ export default {
       }
       this.inputX = '';
       this.status = '';
-      this.sortField = '';
-      this.sortType = '';
+      this.sortField = 'upload_time';
+      this.sortType = 'desc';
       this.$refs.ReplaceRef.clearSort();
       this.$store.commit('pagination/setClickPage',1);
       this.$store.commit('pagination/setLimitPage',20);
@@ -178,6 +178,7 @@ export default {
     },
     listData(){
       let params = this.$route.query.type?this.$route.query:{type:0,...this.$route.query}
+      params= this.$route.query.sortType&&this.$route.query.sortField?params:{sortType:'desc',sortField:'upload_time',...params}
       getReplaceList(params).then(res=>{
         this.table=res.data.items;
         this.$store.commit('pagination/setTotal', res.data.total);
@@ -196,8 +197,8 @@ export default {
     let limitRecord = this.$route.query.pageSize||20;//记录上一次limit操作
     this.inputX = this.$route.query.mapLocation||'';
     this.status = Number(this.$route.query.status)||'';
-    this.sortField = this.$route.query.sortField||'';
-    this.sortType = this.$route.query.sortType||'';
+    this.sortField = this.$route.query.sortField||'upload_time';
+    this.sortType = this.$route.query.sortType||'desc';
     this.$nextTick(()=>{
       this.$store.commit('pagination/setClickPage',pageRecord);
       this.$store.commit('pagination/setLimitPage',limitRecord);
