@@ -13,7 +13,7 @@
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入地图名称"></el-input>
       <span class="myWords">
         状态
-        <el-select v-model="status" clearable style="width:150px;">
+        <el-select v-model="status" clearable style="width:200px;">
           <el-option v-for="(item,i) in statusList" :key="i" :label="item.msg" :value="item.code"></el-option>
         </el-select>
       </span>
