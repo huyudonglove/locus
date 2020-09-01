@@ -7,7 +7,7 @@
       <el-tab-pane label="地图转换" name="地图转换"></el-tab-pane>
       <el-tab-pane label="误差评估" name="误差评估"></el-tab-pane>
       <el-tab-pane label="激光扫描" name="激光扫描"></el-tab-pane>
-      <!-- <el-tab-pane label="空间多图" name="空间多图"></el-tab-pane> -->
+      <el-tab-pane label="空间多图" name="空间多图"></el-tab-pane>
     </el-tabs>
     <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入地图名称"></el-input>
