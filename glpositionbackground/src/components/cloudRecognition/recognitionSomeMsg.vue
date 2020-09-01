@@ -25,7 +25,7 @@
         <el-form-item label="空间多图ID：">
           {{formSize.identifiedImageId}}
         </el-form-item>
-         <el-form-item label="地图状态：">
+         <el-form-item label="地图类型：">
           <span v-if="formSize.mapTypeId==0">普通室内场景</span>
           <span v-if="formSize.mapTypeId==1">多植物场景</span>
         </el-form-item>
