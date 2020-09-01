@@ -25,7 +25,7 @@
         <el-form-item label="空间多图ID：">
           {{formSize.identifiedImageId}}
         </el-form-item>
-         <el-form-item label="地图状态：">
+         <el-form-item label="地图类型：">
           <span v-if="formSize.mapTypeId==0">普通室内场景</span>
           <span v-if="formSize.mapTypeId==1">多植物场景</span>
         </el-form-item>
@@ -103,7 +103,7 @@
    <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
       <img src="../../assets/ok.png" alt="" width="100" height="100">
       <p>
-        <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者地图库列表看到你的空间多图</span>
+        <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者识别图库列表看到你的空间多图</span>
       </p>
       <p>
         <span slot="footer" class="dialog-footer">

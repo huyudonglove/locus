@@ -44,11 +44,14 @@ export default {
       percent:0,
       fileName:'',
       height:0,
+      timeout:null
     }
   },
   watch:{
     isUpload(val){
+      console.log(val,234)
       if(!val){
+        clearTimeout(this.timeout);
         this.percent=0;
       }
     }
@@ -71,15 +74,19 @@ export default {
           var imgData = e.target.result;
           var myImage = new Image();
           myImage.src=imgData;
+         
           myImage.onload = ()=>{
+           console.log('before')
+           this.isUpload = true;
           //  console.log(myImage.width,'width',myImage.height,'height')
            this.height = ((myImage.height/myImage.width)*this.width).toFixed(6);
           }
         }
-       this.isUpload = true;
+      
     },
     progress(event){
       this.percent=parseInt(event.percent);
+      console.log('progress',this.percent)
     },
     abortFile(){
       this.$refs.imgUpload.abort();
@@ -89,9 +96,13 @@ export default {
         this.isUpload = false;
         this.$alert(response.msg, '上传失败', {confirmButtonText: '确定'})
       }else{
-        this.isUpload = false;
+        console.log(response,'response')
         this.imgName = response.data.originFileName.slice(0,20)
         this.$emit('changeImg',response.data.fileId,this.num,response.data.originFileName,this.height)
+        this.timeout=setTimeout(()=>{
+        this.isUpload = false;
+       }, 450);
+        console.log('successCallback')
       }
     },
     upClose(){
@@ -101,12 +112,13 @@ export default {
         confirmButtonText:'确定离开',
         cancelButtonText:'不'
         }).then(u=>{
+        clearTimeout(this.timeout);
         this.isUpload=false;
         this.abortFile();
       }).catch(r=>{
         console.log('取消')
       })
-    }
+    },
   },
   created(){
     window.onbeforeunload = (e)=> {
@@ -115,7 +127,10 @@ export default {
         return '图片正在上传，离开页面将会终止上传，你确定离开吗？';
       }
     };
-  }
+  },
+  destroyed() {
+     clearTimeout(this.timeout);
+  },
 }
 </script>
 <style scoped>
