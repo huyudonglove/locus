@@ -8,7 +8,7 @@
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-form-item label="">
           <el-dropdown placement="bottom-start">
-            <el-button size="mini" type="primary" :disabled="status==-10||(status==15&&!densePointCloudFileId&&!sparsePointCloudFileId)">
+            <el-button size="mini" type="primary" :disabled="status==-5||status==-10||(status==15&&!densePointCloudFileId&&!sparsePointCloudFileId)">
               下载地图数据<i class="el-icon-arrow-down el-icon--right"></i>
             </el-button>
             <el-dropdown-menu slot="dropdown">
