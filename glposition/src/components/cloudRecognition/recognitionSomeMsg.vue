@@ -1,7 +1,7 @@
 <template>
   <div >
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="多空间图详情" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
+      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="空间多图详情" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
     </div>
     <div class="mapDiv">
       <!-- <div style="margin-top:20px"><el-button type="primary">下载地图数据</el-button></div> -->
