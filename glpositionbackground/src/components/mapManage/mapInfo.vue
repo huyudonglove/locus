@@ -50,6 +50,10 @@
           <span>{{gps}}</span> 
           <!-- <el-button type="text" @click="showDialog('GPS')">修改</el-button> -->
         </el-form-item>
+        <el-form-item label="地图类型：">
+          <span  v-if="sceneId==1">普通室内场景</span>
+          <span  v-if="sceneId==2">多植物场景</span>
+        </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-form-item label="创建时间：">
@@ -171,6 +175,7 @@ export default {
       mapId:'',
       status:'',
       gps:'',
+      sceneId:'',
       createTime:'',
       updateTime:'',
       decription:'',
@@ -262,6 +267,7 @@ export default {
                 this.denseMapPath = Base64.decode(this.densePointCloudFileId);
                 this.mapKey=res.data.mapKey
                 this.mapCode=res.data.mapCode;
+                this.sceneId=res.data.sceneId;
                 getMapScale({"mapKey":this.mapId}).then(scale=>{
                   this.scale = scale.data;
                 })
