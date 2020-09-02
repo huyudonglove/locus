@@ -43,8 +43,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button  type="primary" @click="add('formSize')" v-if="isCreate">创建多图空间</el-button>
-        <el-button  type="primary" @click="edit('formSize')" v-if="!isCreate">编辑多图空间</el-button>
+        <el-button  type="primary" @click="add('formSize')" v-if="isCreate">创建空间多图</el-button>
+        <el-button  type="primary" @click="edit('formSize')" v-if="!isCreate">编辑空间多图</el-button>
       </div>
     </el-dialog>
   </div>
