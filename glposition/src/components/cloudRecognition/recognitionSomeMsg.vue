@@ -6,7 +6,7 @@
     <div class="mapDiv">
       <!-- <div style="margin-top:20px"><el-button type="primary">下载地图数据</el-button></div> -->
       <el-dropdown placement="bottom-start" style="margin-top:20px">
-        <el-button size="mini" type="primary">
+        <el-button size="mini" type="primary" :disabled="!densePointCloudFileId||!sparsePointCloudFileId">
           下载地图数据<i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
         <el-dropdown-menu slot="dropdown">
