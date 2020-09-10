@@ -260,9 +260,9 @@ export default {
                 this.createTime = res.data.createTime;
                 this.updateTime = res.data.updateTime;
                 this.decription = res.data.description;
-                this.sparsePointCloudFileId = result.data.resource?result.data.resource.sparsePlyId_new?result.data.resource.sparsePlyId_new:res.data.sparsePointCloudFileId:res.data.sparsePointCloudFileId;//稀疏
-                this.densePointCloudFileId = result.data.resource?result.data.resource.densePlyId_new?result.data.resource.densePlyId_new:res.data.densePointCloudFileId:res.data.densePointCloudFileId;//稠密
-                this.mapFileId = result.data.resource?result.data.resource.modelId_new?result.data.resource.modelId_new:'':'';//模型
+                this.sparsePointCloudFileId = result.data.resource?result.data.resource.sparsePlyIdNew?result.data.resource.sparsePlyIdNew:res.data.sparsePointCloudFileId:res.data.sparsePointCloudFileId;//稀疏
+                this.densePointCloudFileId = result.data.resource?result.data.resource.densePlyIdNew?result.data.resource.densePlyIdNew:res.data.densePointCloudFileId:res.data.densePointCloudFileId;//稠密
+                this.mapFileId = result.data.resource?result.data.resource.modelIdNew?result.data.resource.modelIdNew:'':'';//模型
                 this.sparseMapPath = Base64.decode(this.sparsePointCloudFileId);
                 this.denseMapPath = Base64.decode(this.densePointCloudFileId);
                 this.mapKey=res.data.mapKey
