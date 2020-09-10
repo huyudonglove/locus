@@ -54,7 +54,7 @@
           <span v-if="scope.row.status==2">异常</span>
           <span v-if="scope.row.status===0">待生效</span>
           <span v-if="scope.row.status==3">更新</span>
-          <span v-if="scope.row.status==4">停止</span>
+          <span v-if="scope.row.status==4">已停止</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="160" align="center"></el-table-column>
