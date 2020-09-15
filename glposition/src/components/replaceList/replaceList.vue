@@ -28,7 +28,7 @@
       </el-table-column>
       <el-table-column prop="status" label="状态" align="center" sortable>
         <template slot-scope="scope">
-          <span v-if="scope.row.status==1&&scope.row.type==0">等待建图</span>
+          <!-- <span v-if="scope.row.status==1&&scope.row.type==0">等待建图</span>
           <span v-if="scope.row.status==5&&scope.row.type==0">{{'建图中'+scope.row.progress+'%'}}</span>
           <span v-if="scope.row.status==9&&scope.row.type==0">{{'已完成建图（'+scope.row.finishTime+'）'}}</span>
           <span v-if="scope.row.status==-10&&scope.row.type==0">建图异常</span>
@@ -52,7 +52,10 @@
           <span v-if="scope.row.status==6&&scope.row.type==3">{{'空间多图更新中'+scope.row.progress+'%'}}</span>
           <span v-if="scope.row.status==10&&scope.row.type==3">{{'空间多图更新完成（'+scope.row.finishTime+'）'}}</span>
           <span v-if="scope.row.status==-9&&scope.row.type==3">空间多图更新异常</span>
-          <span v-if="scope.row.status==-5">已停止</span> 
+          <span v-if="scope.row.status==-5">已停止</span>  -->
+          <span>{{statusList.find(v=>v.code==scope.row.status)?statusList.find(v=>v.code==scope.row.status).msg:''}}</span>
+          <span v-if="scope.row.status==9||scope.row.status==10">{{'（'+scope.row.finishTime+'）'}}</span>
+          <span v-if="scope.row.status==5||scope.row.status==6">{{scope.row.progress+'%'}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="uploadTime" label="上传时间" align="center" sortable></el-table-column>

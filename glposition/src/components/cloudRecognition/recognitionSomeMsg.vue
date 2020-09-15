@@ -34,7 +34,7 @@
           <span v-if="formSize.status==0">待生效</span>
           <span v-if="formSize.status==2">异常</span>
           <span v-if="formSize.status==3">更新</span>
-          <span v-if="formSize.status==4">停止</span>
+          <span v-if="formSize.status==4">已停止</span>
         </el-form-item>
         <el-form-item label="类型：" >
           <span v-if="formSize.type==1">单张图片</span>
