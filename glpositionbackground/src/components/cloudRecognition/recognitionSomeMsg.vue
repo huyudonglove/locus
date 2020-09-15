@@ -389,9 +389,9 @@ export default {
   text-overflow: ellipsis;
   line-height: 26px;
 }
-.mapDiv .el-textarea .el-textarea__inner{
+/* .mapDiv .el-textarea .el-textarea__inner{
   resize: none;
-}
+} */
 .mapDiv #webglId{
   display: inline-block;
   width: 800px;

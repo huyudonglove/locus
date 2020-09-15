@@ -21,8 +21,8 @@
         <el-row style="padding-left:60px;margin-bottom:25px;color:#888;font-size:13px;"> 
           <span >识别图的高度将由系统根据您的上传的图片自动计算，请上传.JPG或者.PNG(最大2M)</span>
         </el-row>
-        <el-form-item label="地图包上传：" prop="resourceFileId" ref="map22">
-         <upLoad @changeMap="changeMap" :mapName="mapName"></upLoad>
+        <el-form-item label="地图包上传："  ref="map22">
+         <upLoad @changeMap="changeMap" :mapName="formSize.mapName" ref="mychild" :formSize="formSize" :isCreate="isCreate"></upLoad>
         </el-form-item>
         <el-form-item label="地图类型：">
          <el-radio-group v-model="formSize.mapTypeId">
@@ -43,8 +43,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button  type="primary" @click="add('formSize')" v-if="isCreate">创建空间多图</el-button>
-        <el-button  type="primary" @click="edit('formSize')" v-if="!isCreate">编辑空间多图</el-button>
+        <el-button  type="primary" @click="submitUpload('formSize',1)" v-if="isCreate">创建空间多图</el-button>
+        <el-button  type="primary" @click="submitUpload('formSize',2)" v-if="!isCreate">编辑空间多图</el-button>
       </div>
     </el-dialog>
     <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
@@ -69,7 +69,7 @@ import {Base64} from 'js-base64'
 export default {
   name:'upSomeDialog',
   inject:['reload','replace'],
-  props:['showSomeUp','mapName'],
+  props:['showSomeUp',''],
   components:{
     upSomeComponent,
     upLoad
@@ -97,7 +97,10 @@ export default {
             required: true, message: '请上传地图包'
           }
         ]
-      }
+      },
+      dataType:0,
+      valid:null,
+      // mapName:''
     }
   },
   created(){
@@ -115,6 +118,7 @@ export default {
          this.formSize.fileList.forEach(v=>v.data=v.width)
          let arr=this.formSize.fileList.map(v=>v.identifiedIndex)
          let  count = [0,1,2,3,4]
+         console.log('fuqin',this.formSize)
          let  d = count.filter(function(v){ return arr.indexOf(v) == -1})
          d.forEach((v)=>{
            this.formSize.fileList.splice(v,0,{ width:'',fileId:'',identifiedIndex:v,imageUrl:'',imgName:'',height:''})
@@ -173,55 +177,72 @@ export default {
      this.formSize.resourceFileId=fileId
      this.formSize.size=size
      this.formSize.mapName=name
+     this.$refs.mychild.fileId=fileId
      this.$refs.map22.clearValidate()
+     this.type==1?this.add():this.type==2?this.edit():null
     },
     myValidator(rule, value, callback){
-      console.log(value,'value')
       callback();
     },
     add(){
-      this.$refs.formSize.validate((valid) => {
-        if (valid) {         
-        if(!this.isHasImg()){
-           this.$message.error('空间多图必须上传1-5张图片');
-           return
-         }else{
-           let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
-           addIdentifiedImage({name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName}).then(res=>{
-                if(res.code){
-                  this.$message.error(res.msg);
-                }else{
-                  this.$emit('showImg',false)  
-                }
-           })
-         }
-        } else {
-          console.log('error submit!!');
-          return false;
-        }
-      });
+        let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
+        addIdentifiedImage({name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName}).then(res=>{
+            if(res.code){
+              this.$message.error(res.msg);
+              this.$refs.mychild.upSuccess=false
+              this.$refs.mychild.fileId=this.formSize.resourceFileId
+              this.$refs.mychild.size=this.formSize.size
+              this.$refs.mychild.originFileName=this.formSize.mapName
+              // console.log(111,222,3333)
+            }else{
+              this.$emit('showImg',false)  
+            }
+           }).catch(err=>{
+         this.$refs.mychild.upSuccess=false
+         this.$refs.mychild.fileId=this.formSize.resourceFileId
+         this.$refs.mychild.size=this.formSize.size
+         this.$refs.mychild.originFileName=this.formSize.mapName
+      })
     },
     edit(){
+      let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
+      identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName,identifiedImageId:this.formSize.identifiedImageId}).then(res=>{
+          if(res.code){
+            this.$message.error(res.msg);
+            this.$refs.mychild.upSuccess=false
+            this.$refs.mychild.fileId=this.formSize.resourceFileId
+            this.$refs.mychild.size=this.formSize.size
+            this.$refs.mychild.originFileName=this.formSize.mapName
+            // console.log(88888888888)
+          }else{
+            this.$emit('showImg',false)
+          }
+      }).catch(err=>{
+         this.$refs.mychild.upSuccess=false
+         this.$refs.mychild.fileId=this.formSize.resourceFileId
+         this.$refs.mychild.size=this.formSize.size
+         this.$refs.mychild.originFileName=this.formSize.mapName
+      })
+    },
+     submitUpload(valid,dataType) {
+    
+      this.type=dataType
+      this.valid=valid
       this.$refs.formSize.validate((valid) => {
-        if (valid) {         
+       
+        if (valid) { 
         if(!this.isHasImg()){
            this.$message.error('空间多图必须上传1-5张图片');
            return
          }else{
-           let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
-           identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName,identifiedImageId:this.formSize.identifiedImageId}).then(res=>{
-                if(res.code){
-                  this.$message.error(res.msg);
-                }else{
-                  this.$emit('showImg',false)
-                }
-           })
+           this.$refs.mychild.submitUpload();
+          //  console.log(111,22,3333)
          }
-        } else {
+        }else {
           console.log('error submit!!');
           return false;
         }
-      });
+    })
     },
     //判断是否至少有一个图片
     isHasImg(){
@@ -232,6 +253,7 @@ export default {
       this.formSize.fileList[n].imageUrl=''
       this.formSize.fileList[n].width=''
       this.$refs['upSome'+n][0].imgName=''
+      this.$refs['upSome'+n][0].percent=0
       this.isCreateWidth=true
     },
   },

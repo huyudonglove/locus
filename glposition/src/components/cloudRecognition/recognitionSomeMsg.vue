@@ -50,6 +50,7 @@
           {{formSize.updateTime}}
         </el-form-item>
       </el-form>
+     
   <el-form style="width:50%;position: absolute;top:540px;" label-width="120px">
      <el-form-item label="备注：" >
           <div class="myInput">
@@ -148,6 +149,7 @@ export default {
   },
   data(){
     return{
+      textarea:'',
       formSize:{
         name:'',
         createTime:'',
@@ -218,7 +220,8 @@ export default {
       this.score=score+1
     },
     aa(){
-       this.mapName=this.formSize.mapName
+      // console.log(this.formSize,'formsize')
+      //  this.mapName=this.formSize.mapName
     },
     getInfo(){
       return new Promise((resolve,reject)=>{
@@ -403,9 +406,9 @@ export default {
   text-overflow: ellipsis;
   line-height: 26px;
 }
-.mapDiv .el-textarea .el-textarea__inner{
+/* .mapDiv .el-textarea .el-textarea__inner{
   resize: none;
-}
+} */
 .mapDiv #webglId{
   display: inline-block;
   width: 800px;
@@ -536,9 +539,5 @@ export default {
   height:120px;
   border:#606266 solid 1px;
   margin-left:242px
-}
-.myInput .el-input__count{
-  line-height:14px;
-  bottom: -14px;
 }
 </style>

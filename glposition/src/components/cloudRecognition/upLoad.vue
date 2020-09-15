@@ -5,6 +5,7 @@
         :action="'/api/file/upload'"
         :data="params"
         :headers="header"
+         ref="upload"
         :limit="1"
         :before-upload="beforeCallback"
         :on-progress="progress"
@@ -15,6 +16,7 @@
         :on-exceed="limitAlert"
         :on-remove="handleRemove"
         :file-list="fileArray"
+        :auto-upload="false"
         drag
       >
         <i class="el-icon-upload"></i>
@@ -27,9 +29,9 @@
       </el-upload>
     </div>
     <div>
-      <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
+      <el-dialog title="空间多图正在上传中上传中" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
       <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
-      <span>文件正在上传中，请不要关闭页面及浏览器</span>
+      <span>空间多图正在上传中，请不要关闭页面及浏览器</span>
       <span slot="footer" class="dialog-footer">
       </span>
     </el-dialog>
@@ -39,10 +41,10 @@
 
 <script>
 // import {updateMake} from "../http/request";
-
+import {dentifiedImageInfo} from '../../http/request'
 export default {
   name: "up",
-  props: ['mapName'],
+  props: ['mapName','formSize','isCreate'],
   data() {
     return {
       params: {
@@ -57,7 +59,10 @@ export default {
       upSuccess:false,
       type:false,
       fileName:'',
-      fileArray:[]
+      fileArray:[],
+      fileId:'',
+      size:'',
+      originFileName:''
     };
   },
   inject: ["reload"],
@@ -70,15 +75,32 @@ export default {
       this.percent = parseInt(event.percent);
     },
     abortFile() {
-      this.$refs.imgUpload.abort();
+      this.$refs.upload.abort();
+    },
+    submitUpload(){
+      // console.log(952020)
+      if(this.upSuccess){
+         this.isUpload = true;
+         this.$refs.upload.submit();
+       }else{
+        if(!this.fileArray.length&&!this.isCreate||!this.fileId&&this.isCreate){
+          this.$message.error('必须上传地图包');
+        }else {
+          if(this.isCreate){
+            this.$emit("changeMap", this.fileId, this.num,this.size,this.originFileName);
+          }else{
+            this.$emit("changeMap", this.formSize.resourceFileId, this.num,this.formSize.size,this.formSize.originFileName);
+          }
+        }   
+       }
+       
     },
     changeFile(file,list){
       if(file.raw.type=='application/x-zip-compressed'||file.raw.type=='application/zip'){
         this.fileArray=list
         this.type=true
-        if(!this.upSuccess){
-         this.isUpload = true;
-       }
+        this.upSuccess=true
+        
       }else{
         this.$message.error('只能上传zip文件！')
         this.fileArray=[];
@@ -88,6 +110,8 @@ export default {
     successCallback(response, file) {
       if (response.code) {
         this.isUpload = false;
+        this.upSuccess=false;
+        this.percent=0
         this.$alert(response.msg, "上传失败", { confirmButtonText: "确定" });
       } else {
         this.isUpload = false;
@@ -102,11 +126,12 @@ export default {
       this.upSuccess=false
       this.percent=0
       this.fileArray=[];
+      
     },
     upClose() {
       // 弹窗警告
       this.$confirm(
-        "文件正在上传，离开页面将会终止上传，你确定离开吗？",
+        "空间多图正在上传中，离开页面将会终止上传，你确定离开吗？",
         "警告",
         {
           center: true,
@@ -125,12 +150,19 @@ export default {
   },
   created() {
      if(this.$route.query.row){
-       this.fileArray.push({name: this.mapName})
+       dentifiedImageInfo({id:JSON.parse(this.$route.query.row).id}).then(res=>{
+       if(res.code){
+          this.$message.error(res.msg);
+        }else{
+          this.fileArray.push({name: res.data.mapName})
+        }
+    })
+       
      }
     window.onbeforeunload = e => {
       //窗口关闭前
       if (this.isUpload) {
-        return "文件正在上传，离开页面将会终止上传，你确定离开吗？";
+        return "空间多图正在上传中，离开页面将会终止上传，你确定离开吗？";
       }
     };
   },

@@ -244,7 +244,7 @@ export function checkImgIsRepeat(params){
 /** 图像本地、云识别管理-添加识别图 Author:minggui*/
 export function addIdentifiedImage(params){
   if(params.type==5){
-    return loadRequest('/api/location/middleground/IdentifiedImage/add',params,'添加空间多图',http,'post')
+   return http.post('/api/location/middleground/IdentifiedImage/add',params)
 }else{
   return loadRequest('/api/location/middleground/IdentifiedImage/add',params,'添加识别图',http,'post')
 }
@@ -331,7 +331,7 @@ export function identifiedImageDelete(params){
 
 /** 更换识别图  w*/
 export function identifiedImageUpdate(params){
-  return loadRequest('/api/location/middleground/IdentifiedImage/update',params,'保存',http,'post')
+  return http.post('/api/location/middleground/IdentifiedImage/update',params)
 }
 /*停止转换*/
 const stopMap=(id)=>{

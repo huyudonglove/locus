@@ -49,7 +49,6 @@ export default {
   },
   watch:{
     isUpload(val){
-      console.log(val,234)
       if(!val){
         clearTimeout(this.timeout);
         this.percent=0;
@@ -76,7 +75,6 @@ export default {
           myImage.src=imgData;
          
           myImage.onload = ()=>{
-           console.log('before')
            this.isUpload = true;
           //  console.log(myImage.width,'width',myImage.height,'height')
            this.height = ((myImage.height/myImage.width)*this.width).toFixed(6);
@@ -86,7 +84,7 @@ export default {
     },
     progress(event){
       this.percent=parseInt(event.percent);
-      console.log('progress',this.percent)
+      // console.log('progress',this.percent)
     },
     abortFile(){
       this.$refs.imgUpload.abort();
@@ -94,15 +92,17 @@ export default {
     successCallback(response,file){
       if(response.code){
         this.isUpload = false;
+        this.percent=0
         this.$alert(response.msg, '上传失败', {confirmButtonText: '确定'})
       }else{
-        console.log(response,'response')
+        // console.log(response,'response')
         this.imgName = response.data.originFileName.slice(0,20)
         this.$emit('changeImg',response.data.fileId,this.num,response.data.originFileName,this.height)
         this.timeout=setTimeout(()=>{
+        this.percent=0
         this.isUpload = false;
-       }, 450);
-        console.log('successCallback')
+       }, 100);
+        // console.log('successCallback')
       }
     },
     upClose(){
@@ -114,6 +114,7 @@ export default {
         }).then(u=>{
         clearTimeout(this.timeout);
         this.isUpload=false;
+        this.percent=0
         this.abortFile();
       }).catch(r=>{
         console.log('取消')

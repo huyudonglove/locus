@@ -173,8 +173,8 @@ export default {
       })
     },
     dialogClose(){
-      // this.reload()
-      this.showSomeUp = false;
+      this.reload()
+      // this.showSomeUp = false;
     },
     showImg(){
       this.showSomeUp=false
