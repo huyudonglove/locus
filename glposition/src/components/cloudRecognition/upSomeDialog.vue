@@ -98,6 +98,7 @@ export default {
           }
         ]
       },
+      loading:null,
       dataType:0,
       valid:null,
       // mapName:''
@@ -108,6 +109,7 @@ export default {
     if(this.$route.query.row){
       this.formSize.identifiedImageDatabaseId=JSON.parse(this.$route.query.row).identifiedImageDatabaseId
       dentifiedImageInfo({id:JSON.parse(this.$route.query.row).id}).then(res=>{
+      
        if(res.code){
           this.$message.error(res.msg);
         }else{
@@ -186,6 +188,12 @@ export default {
     },
     add(){
         let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
+        this.loading=this.$loading({
+          lock: true,
+          text: `数据保存中...`,
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
         addIdentifiedImage({name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName}).then(res=>{
             if(res.code){
               this.$message.error(res.msg);
@@ -195,17 +203,26 @@ export default {
               this.$refs.mychild.originFileName=this.formSize.mapName
               // console.log(111,222,3333)
             }else{
+              
               this.$emit('showImg',false)  
             }
+            this.loading.close();
            }).catch(err=>{
          this.$refs.mychild.upSuccess=false
          this.$refs.mychild.fileId=this.formSize.resourceFileId
          this.$refs.mychild.size=this.formSize.size
          this.$refs.mychild.originFileName=this.formSize.mapName
+         this.loading.close();
       })
     },
     edit(){
       let fileList=this.formSize.fileList.filter(v=>v.width&&v.fileId)
+      this.loading=this.$loading({
+          lock: true,
+          text: `数据保存中...`,
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
       identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName,identifiedImageId:this.formSize.identifiedImageId}).then(res=>{
           if(res.code){
             this.$message.error(res.msg);
@@ -213,15 +230,18 @@ export default {
             this.$refs.mychild.fileId=this.formSize.resourceFileId
             this.$refs.mychild.size=this.formSize.size
             this.$refs.mychild.originFileName=this.formSize.mapName
+            
             // console.log(88888888888)
           }else{
             this.$emit('showImg',false)
           }
+          this.loading.close();
       }).catch(err=>{
          this.$refs.mychild.upSuccess=false
          this.$refs.mychild.fileId=this.formSize.resourceFileId
          this.$refs.mychild.size=this.formSize.size
          this.$refs.mychild.originFileName=this.formSize.mapName
+         this.loading.close();
       })
     },
      submitUpload(valid,dataType) {
