@@ -51,7 +51,7 @@
         </el-form-item>
       </el-form>
      
-  <el-form style="width:50%;position: absolute;top:540px;" label-width="120px">
+  <el-form style="width:50%;" label-width="120px">
      <el-form-item label="备注：" >
           <div class="myInput">
           <el-input
@@ -68,7 +68,7 @@
           </div>
         </el-form-item>
   </el-form>
-  <div style="margin-top:150px;margin-left:120px;vertical-align:middle">
+  <div style="margin-left:120px;vertical-align:middle">
     <div v-for="(item,index) in showImgData" :key="index" style="float:left;margin-right:50px;margin-bottom:20px">
       <span style="float:left;padding-top:30px;padding-right:10px">宽度：{{item.width}}</span><img :src="`/static/${item.fileId}`" style="width:80px;height:80px;float:left;margin-right:15px"/><el-button type="primary" style="float:left;margin-top:25px" @click="imgShow(item.featurePointFile,item.score)"  size="mini">查看识别度和识别点</el-button>
     </div>
@@ -406,9 +406,6 @@ export default {
   text-overflow: ellipsis;
   line-height: 26px;
 }
-/* .mapDiv .el-textarea .el-textarea__inner{
-  resize: none;
-} */
 .mapDiv #webglId{
   display: inline-block;
   width: 800px;
