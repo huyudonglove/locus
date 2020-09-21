@@ -44,6 +44,7 @@
           <span v-if="scope.row.type==2">双面图片</span>
           <span v-if="scope.row.type==3">正三棱柱</span>
           <span v-if="scope.row.type==4">长方体</span>
+           <span v-if="scope.row.type==5">空间多图</span>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" width="160" align="center">
