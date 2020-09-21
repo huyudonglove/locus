@@ -392,6 +392,11 @@ export default {
   }
 }
 </script>
+<style >
+.mapDiv .txt .el-textarea .el-textarea__inner{
+  resize:both
+}
+</style>
 <style>
 .mapDiv .decription{
   width: 500px;

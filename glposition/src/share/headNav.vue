@@ -2,10 +2,10 @@
   <div class="nav-common">
     <div class="nav-common" >
       <div class="logo">
-        <div>Locus</div>
+        <div>LocusAR</div>
       </div>
       <div class="user">
-        <span class="logoTitle">Locus中台</span>
+        <span class="logoTitle">LocusAR</span>
         <span>{{userName}}</span>
         <span class="btn_logout cur" @click="loginOut()" >退出</span>
       </div>

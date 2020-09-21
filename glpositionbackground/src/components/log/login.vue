@@ -1,7 +1,7 @@
 <template>
   <div class="h-div">
     <div class="h-login">
-      <div class="h-head">locus后台</div>
+      <div class="h-head">LocusAR后台</div>
       <div>
         <el-input  placeholder="请输入用户名" class="h-input" v-model="loginName" style="display: none"></el-input>
         <i class="h-user"></i>
