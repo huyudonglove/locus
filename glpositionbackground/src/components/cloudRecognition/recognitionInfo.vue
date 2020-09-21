@@ -48,11 +48,14 @@
       </el-table-column>
       <el-table-column prop="status" label="状态" width="160" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.status==1">正常</span>
-          <span v-if="scope.row.status==2">异常</span>
-          <span v-if="scope.row.status===0">待生效</span>
-          <span v-if="scope.row.status==3">更新</span>
-          <span v-if="scope.row.status==4">已停止</span>
+          <span v-if="scope.row.type!=5&&scope.row.status==1">正常</span>
+          <span v-if="scope.row.type!=5&&scope.row.status==2">异常</span>
+          <span v-if="scope.row.type!=5&&scope.row.status===0">待生效</span>
+          <span v-if="scope.row.type!=5&&scope.row.status==3">更新</span>
+          <span v-if="scope.row.type!=5&&scope.row.status==4">已停止</span>
+          <span v-if="scope.row.type==5&&scope.row.status!=11">{{statusList.find(v=>v.code==scope.row.status)?statusList.find(v=>v.code==scope.row.status).msg:''}}</span>
+          <span v-if="scope.row.type==5&&(scope.row.status==5||scope.row.status==6)">{{scope.row.progress+'%'}}</span>
+          <span v-if="scope.row.type==5&&scope.row.status==11">正常</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="160" align="center"></el-table-column>
@@ -73,7 +76,7 @@
 </template>
 <script>
 import {mapState} from 'vuex';
-import {getImageList,downloadIdentifiedImage} from '../../http/request'
+import {getImageList,downloadIdentifiedImage,getStatusList} from '../../http/request'
 import pagination from '../../share/pagination'
 import upImgDialog from './upImgDialog'
 import VueCookies from 'vue-cookies'
@@ -98,7 +101,8 @@ export default {
       imgIdList:[],
       imageTable:[],
       showPagination:false,
-      isShowUp:false
+      isShowUp:false,
+      statusList:[]
     }
   },
   computed:{
@@ -147,6 +151,16 @@ export default {
         aTag.href = `/api/location/middleground/IdentifiedImage/Database/download?databaseID=${this.formData.secret}&ids=${this.imgIdList.join(',')}`;
         aTag.click();
     },
+    getState(){
+      getStatusList({type:3}).then(res=>{
+        this.statusList=res.data;
+        var arr = res.data.map(v=>v.msg);
+        var newArr = Array.from(new Set(arr));
+        if(arr.length>newArr.length){
+          this.statusList.splice(arr.indexOf('已停止'),1);
+        }      
+      })
+    },
     listData(){
       getImageList({"identifiedImageDatabaseId":this.formData.secret,...this.$route.query}).then(res=>{
         this.imageTable=res.data.items;
@@ -155,6 +169,7 @@ export default {
     },
   },
   created(){
+    this.getState();
     let paramsData = JSON.parse(this.$route.query.myData);
     this.formData.name = paramsData.name;
     this.formData.type = paramsData.type;

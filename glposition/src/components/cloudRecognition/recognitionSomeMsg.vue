@@ -30,11 +30,8 @@
           <span v-if="formSize.mapTypeId==1">多植物场景</span>
         </el-form-item>
         <el-form-item label="状态：" >
-          <span v-if="formSize.status==1">正常</span>
-          <span v-if="formSize.status==0">待生效</span>
-          <span v-if="formSize.status==2">异常</span>
-          <span v-if="formSize.status==3">更新</span>
-          <span v-if="formSize.status==4">已停止</span>
+          <span v-if="formSize.status!=11">{{statusList.find(v=>v.code==formSize.status)?statusList.find(v=>v.code==formSize.status).msg:''}}</span>
+          <span v-if="formSize.status==11">正常</span>
         </el-form-item>
         <el-form-item label="类型：" >
           <span v-if="formSize.type==1">单张图片</span>
@@ -131,7 +128,7 @@
 </template>
 <script>
 import {mapState} from 'vuex';
-import {identifiedImageDelete,updateRemark,identifiedImageUpdate,dentifiedImageInfo} from '../../http/request'
+import {identifiedImageDelete,updateRemark,identifiedImageUpdate,dentifiedImageInfo,getStatusList} from '../../http/request'
 import upSomeDialog from './upSomeDialog'
 import showImgDialog from './showImgDialog'
 import upDialog from './upDialog'
@@ -155,6 +152,7 @@ export default {
         createTime:'',
         updateTime:'',
       },
+      statusList:[],
       upEnd:false,
       featurePointFile:'',
       score:0,
@@ -222,6 +220,16 @@ export default {
     aa(){
       // console.log(this.formSize,'formsize')
       //  this.mapName=this.formSize.mapName
+    },
+    getState(){
+      getStatusList({type:3}).then(res=>{
+        this.statusList=res.data;
+        var arr = res.data.map(v=>v.msg);
+        var newArr = Array.from(new Set(arr));
+        if(arr.length>newArr.length){
+          this.statusList.splice(arr.indexOf('已停止'),1);
+        }      
+      })
     },
     getInfo(){
       return new Promise((resolve,reject)=>{
@@ -379,6 +387,7 @@ export default {
     }
   },
   created(){
+    this.getState();
     this.formSize=JSON.parse(this.$route.query.row)
     this.type=this.formSize.type
     this.form=JSON.parse(this.$route.query.row)
