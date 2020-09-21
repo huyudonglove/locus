@@ -56,7 +56,6 @@
           <span v-if="scope.row.type!=5&&scope.row.status==3">更新</span>
           <span v-if="scope.row.type!=5&&scope.row.status==4">已停止</span>
           <span v-if="scope.row.type==5&&scope.row.status!=11">{{statusList.find(v=>v.code==scope.row.status)?statusList.find(v=>v.code==scope.row.status).msg:''}}</span>
-          <span v-if="scope.row.type==5&&(scope.row.status==5||scope.row.status==6)">{{scope.row.progress+'%'}}</span>
           <span v-if="scope.row.type==5&&scope.row.status==11">正常</span>
         </template>
       </el-table-column>
