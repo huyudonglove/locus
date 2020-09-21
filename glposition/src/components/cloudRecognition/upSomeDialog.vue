@@ -31,7 +31,7 @@
         </el-radio-group>
         </el-form-item>
 
-        <el-form-item label="备注：" >
+        <el-form-item label="备注：" class="txt">
          <el-input
           type="textarea"
           placeholder="请输入备注"
@@ -280,7 +280,11 @@ export default {
   
 }
 </script>
-
+<style >
+.txt .el-textarea .el-textarea__inner{
+  resize:both
+}
+</style>
 <style scoped>
 .spanA{
   position:absolute;top:8px;right:30px;font-size:30px;cursor:pointer

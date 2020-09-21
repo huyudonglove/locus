@@ -53,7 +53,7 @@
      
   <el-form style="width:50%;" label-width="120px">
      <el-form-item label="备注：" >
-          <div class="myInput">
+          <div class="myInput txt">
           <el-input
           type="textarea"
           placeholder="请输入内容"
@@ -400,6 +400,11 @@ export default {
   }
 }
 </script>
+<style >
+.txt .el-textarea .el-textarea__inner{
+  resize:both
+}
+</style>
 <style>
 .mapDiv .decription{
   width: 500px;
