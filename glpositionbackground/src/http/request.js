@@ -347,6 +347,20 @@ const checkMapEnableUpdate=(mapKey)=>{
 return http.get('/api/location/map/info/checkMapEnableUpdate',{mapKey:mapKey})
 }
 
+/** 转换列表-获取状态列表 Author:minggui*/
+export function getStatusList(params){
+    return new Promise((resolve,reject)=>{
+      http.get('/api/location/map/transform/status/list',params).then(res=>{
+        if(res.code){
+            Message.error(res.message);
+        }else{
+            resolve(res);
+        }
+      }).catch(err=>{
+        reject(err);
+      })
+    })
+  }
 export {
     login,
     getCode,
