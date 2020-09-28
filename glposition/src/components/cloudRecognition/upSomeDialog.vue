@@ -138,10 +138,14 @@ export default {
     }
   },
   watch:{ 
-  
+    remark(){
+      this.replace('remark',this.remark);
+    }
   },
   computed:{
-   
+   remark(){
+     return this.formSize.remark
+   }
   },
   methods:{
     close(){
