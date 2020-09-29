@@ -29,7 +29,7 @@
       </el-upload>
     </div>
     <div>
-      <el-dialog title="空间多图正在上传中上传中" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
+      <el-dialog title="空间多图正在上传中" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
       <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
       <span>空间多图正在上传中，请不要关闭页面及浏览器</span>
       <span slot="footer" class="dialog-footer">
