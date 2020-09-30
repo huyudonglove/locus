@@ -45,6 +45,7 @@ export default {
       rightImgUrl:'',
       backImgUrl:'',
       saveT:false,
+      loading:null,
       form:{
         fileIds:''
       },
@@ -108,7 +109,13 @@ export default {
     },
     add(){
       this.$refs.formSize.validate((valid) => {
-        if (valid) {         
+        if (valid) {    
+          this.loading=this.$loading({
+          lock: true,
+          text: `数据保存中...`,
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });    
           identifiedImageUpdate({...this.form,"identifiedImageHeight":this.countHeight?Number(this.countHeight):this.form.identifiedImageHeight,
             "url1":this.formSecond.frontImgFileId?this.formSecond.frontImgFileId:this.$route.query.frontImgFileId?this.$route.query.frontImgFileId:this.form.url1,
             "url2":(()=>{
@@ -130,12 +137,20 @@ export default {
             })()
             
             }).then(res=>{
+             if(res.code){
+              this.$message.error(res.msg);
+              // console.log(111,222,3333)
+            }else{
             this.frontImgFileId? this.replace('frontImgFileId',this.frontImgFileId):undefined;
             this.leftImgFileId?this.replace('leftImgFileId',this.leftImgFileId):undefined;
             this.rightImgFileId?this.replace('rightImgFileId',this.rightImgFileId):undefined;
             this.backImgFileId?this.replace('backImgFileId',this.backImgFileId):undefined;
             this.reload();
-          })
+            }
+           this.loading.close();
+          }).catch(err=>{
+         this.loading.close();
+      })
         } else {
           console.log('error submit!!');
           return false;
