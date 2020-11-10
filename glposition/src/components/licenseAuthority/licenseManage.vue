@@ -7,7 +7,7 @@
       </el-button>	
       </div>
          <!-- 数据展示 -->
-        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight"  border>
+        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight"  >
           <el-table-column
             prop="id" label="id "  align="center" width="80"
             >
