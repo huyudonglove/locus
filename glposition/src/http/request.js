@@ -248,7 +248,7 @@ export function addIdentifiedImage(params){
 }else{
   return loadRequest('/api/location/middleground/IdentifiedImage/add',params,'添加识别图',http,'post')
 }
- 
+
 }
 /** 图像本地、云识别管理-下载识别图 Author:minggui*/
 export function downloadIdentifiedImage(params){
@@ -341,6 +341,14 @@ const stopMap=(id)=>{
 const checkMapEnableUpdate=(mapKey)=>{
   return http.get('/api/location/map/info/checkMapEnableUpdate',{mapKey:mapKey})
 }
+/*获取验证码*/
+const getCode=()=>{
+  return http.get('/api/location/access/getIdentifyCode')
+}
+/*用户注册*/
+const register=(msg)=>{
+  return http.post('/api/location/access/register',msg)
+}
 export {
     login,
     upMap,
@@ -349,5 +357,7 @@ export {
     getMapLine,
     deleteVersion,
     stopMap,
-    checkMapEnableUpdate
+    checkMapEnableUpdate,
+    getCode,
+    register
 }

@@ -8,19 +8,26 @@
         <input type="text" placeholder="请输入用户名" v-model="loginName" >
       </div>
       <div>
-        <!--            <el-input type="password"  :placeholder="msg.passInput" class="h-input" v-model="inputC.password"></el-input>-->
         <i class="h-pass"></i>
         <input type="password" placeholder="请输入密码" v-model="password">
+      </div>
+      <div style="position: relative;padding-left: 20px" v-if="count>4">
+        <input type="text" style="width: 120px">
+        <codeM type="online" style="display: inline-block;position: absolute;top:5px;"></codeM>
       </div>
       <div style="display: flex;justify-content: space-between;padding-left: 40px;padding-right: 40px;">
         <div class="h-size">
           <el-checkbox v-model="checked"></el-checkbox>
           记住密码
         </div>
-        <div @click="$router.push({path:'/forgot'})" class="cur" style="font-size: 13px;display: none" > 忘记密码</div>
+        <div></div>
       </div>
       <div class="btnDiv" >
         <input  type="button"  @click="login()"  class="h-l" value="登录" />
+      </div>
+      <div style="display: flex;justify-content: space-between;padding: 0 40px;">
+        <div @click="$router.push({path:'/forgot'})" class="cur" style="font-size: 13px;" > 忘记密码</div>
+        <div style="font-size: 13px;" @click="$router.push({path:'/register'})">立即注册</div>
       </div>
     </div>
   </div>
@@ -29,13 +36,20 @@
 <script>
   import {login} from "../../http/request";
   import CryptoJS from 'crypto-js'
+  import huInput from '../../share/huInput'
+  import codeM from './codeM'
   export default {
     name: "login",
+    components:{
+      huInput,
+      codeM
+    },
     data(){
       return{
         loginName:'',
         password:'',
-        checked:false
+        checked:false,
+        count:0
       }
     },
     methods:{
@@ -62,10 +76,13 @@
         console.log(encrypted.toString())
         apple.password=encrypted.toString();
         login(apple).then(res=>{
-          res.code?this.$message.error(res.msg):(()=>{
+          if(res.code){
+            this.$message.error(res.msg);
+            this.count++;
+          }else {
             this.$cookies.set('locationMiddlegroundToken',res.data.token)
             this.$router.push('/licenseManage')
-          })();
+          }
         })
       }
     },

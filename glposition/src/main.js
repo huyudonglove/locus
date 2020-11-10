@@ -8,7 +8,15 @@ import VueCookies from 'vue-cookies';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store'
 import imgDirective from 'imgbig'
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+Vue.prototype.$isNumber=(val)=>{
+  var regNeg = /^\+?[1-9][0-9]*$/; // 负整数
+  if( regNeg.test(val)){
+    return true;
+  }else{
+    return false;
+  }
+}
 Vue.use(ElementUI);
 Vue.use(VueCookies)
 Vue.use(imgDirective);

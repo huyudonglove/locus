@@ -18,6 +18,9 @@ import  apikeyList from '@/components/apikey/apikeyList'
 import  apikeyInfo from '@/components/apikey/apikeyInfo'
 import  createApikey from '@/components/apikey/createApikey'
 import  version from '@/components/version'
+import register from '../components/log/register'
+import forgot from '../components/log/forgot'
+import success from '../components/log/success'
 Vue.use(Router)
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -159,6 +162,21 @@ export default new Router({
       path:'/version',
       name:'version',
       component:version
+    },
+    {
+      path:'/register',
+      name:'register',
+      component:register
+    },
+    {
+      path:'/forgot',
+      name:'forgot',
+      component:forgot
+    },
+    {
+      path:'/success',
+      name:'success',
+      component:success
     }
   ]
 })
