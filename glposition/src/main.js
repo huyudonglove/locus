@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
 import VueCookies from 'vue-cookies';
-import 'element-ui/lib/theme-chalk/index.css';
+// import 'element-ui/lib/theme-chalk/index.css';
+import '../theme/index.css'
 import store from './store'
 import imgDirective from 'imgbig'
 Vue.config.productionTip = false
