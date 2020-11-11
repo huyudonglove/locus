@@ -13,9 +13,10 @@
         <!-- <i class="h-pass"></i>
         <input type="password" placeholder="请输入密码" v-model="password"> -->
       </div>
-      <div style="position: relative;padding-left: 20px" v-if="count>4">
-        <input type="text" style="width: 120px">
-        <codeM type="online" style="display: inline-block;position: absolute;top:5px;"></codeM>
+      <div style="position: relative" v-if="count>4">
+        <el-input type="text" style="width: 180px" placeholder="请输入验证码">
+        </el-input>
+        <codeM type="online" style="display: inline-block;position: absolute;top:5px;left: 200px"></codeM>
       </div>
       <div style="display: flex;justify-content: space-between;padding-left: 0px;padding-right: 20px;">
         <div class="h-size">
@@ -27,40 +28,23 @@
         <input  type="button"  @click="login()"  class="h-l" value="登录" />
       </div>
       <div style="display: flex;justify-content: space-between;padding: 0 10px;">
-        <div @click="$router.push({path:'/forgot'})" class="cur" style="font-size: 13px;" > 忘记密码</div>
-        <div style="font-size: 13px;  cursor: pointer;" @click="type=2">立即注册1</div>
+        <div @click="type=3" class="cur" style="font-size: 13px;" > 忘记密码</div>
+        <div style="font-size: 13px;  cursor: pointer;" @click="type=2">立即注册</div>
       </div>
     </div>
-  <div class="h-login" v-if="type==2">
-      <div class="h-head">欢迎注册</div>
-      <div>
-        <el-input  placeholder="请输入您的用户名或者手机号" class="h-input" v-model="loginName" ></el-input>
-        <!-- <i class="h-user"></i>
-        <input type="text" placeholder="请输入用户名" v-model="loginName" > -->
-
+  <div class="h-login" v-if="type==2" style="width: 500px;height: 500px;" >
+      <div class="h-head" style="position: relative">
+        欢迎注册
+        <span style="position: absolute;right: 0;font-size: 14px;top:10px;color: #8488D1;cursor: pointer" @click="type=1">已有账号，立即登录></span>
       </div>
-      <div>
-         <el-input  placeholder="请输入您的密码" class="h-input" v-model="password" ></el-input>
-        <!-- <i class="h-pass"></i>
-        <input type="password" placeholder="请输入密码" v-model="password"> -->
+    <register style="margin-top: 10px" @change="changeLogin"></register>
+    </div>
+    <div class="h-login" v-if="type==3" style="width: 500px;height: 300px;" >
+      <div class="h-head" style="position: relative">
+        忘记密码
+        <span style="position: absolute;right: 0;font-size: 14px;top:10px;color: #8488D1;cursor: pointer" @click="type=1">已有账号，立即登录></span>
       </div>
-      <div style="position: relative;padding-left: 20px" v-if="count>4">
-        <input type="text" style="width: 120px">
-        <codeM type="online" style="display: inline-block;position: absolute;top:5px;"></codeM>
-      </div>
-      <div style="display: flex;justify-content: space-between;padding-left: 0px;padding-right: 20px;">
-        <div class="h-size">
-          <el-checkbox v-model="checked"></el-checkbox>
-          记住密码
-        </div>
-      </div>
-      <div class="btnDiv" >
-        <input  type="button"  @click="login()"  class="h-l" value="登录" />
-      </div>
-      <div style="display: flex;justify-content: space-between;padding: 0 10px;">
-        <div @click="$router.push({path:'/forgot'})" class="cur" style="font-size: 13px;" > 忘记密码</div>
-        <div style="font-size: 13px;  cursor: pointer;" @click="type=1">立即注册2</div>
-      </div>
+      <forgot style="margin-top: 10px" @change="changeLogin"></forgot>
     </div>
   </div>
 </template>
@@ -70,11 +54,15 @@
   import CryptoJS from 'crypto-js'
   import huInput from '../../share/huInput'
   import codeM from './codeM'
+  import register from './register'
+  import forgot from './forgot'
   export default {
     name: "login",
     components:{
       huInput,
-      codeM
+      codeM,
+      register,
+      forgot
     },
     data(){
       return{
@@ -117,6 +105,10 @@
             this.$router.push('/licenseManage')
           }
         })
+      },
+      changeLogin(val){
+        console.log(val)
+        this.type=1;
       }
     },
     created() {
@@ -158,7 +150,7 @@
   }
   .h-login div.h-head{
     text-align: center;
-  
+
     border-bottom: 1px solid #8488D1;
     height:90px;
     line-height: 90px;

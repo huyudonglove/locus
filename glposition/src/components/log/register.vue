@@ -1,12 +1,23 @@
 <template>
     <div>
-      欢迎注册
       <huInput type="name" required="true" :label="'用户名'" style="width: 500px" ref="name"></huInput>
       <huInput type="email" required="true" :label="'邮箱用于登陆'" style="width: 500px" ref="email"></huInput>
       <huInput type="phone" required="true" :label="'手机号码'" style="width: 500px" ref="phone"></huInput>
       <huInput type="code" required="true" :label="'验证码'" style="width: 500px" ref="code"></huInput>
-      <el-button @click="check">注册</el-button>
-      <el-button @click="$router.push('/success?type=code')">11</el-button>
+      <input  type="button"  @click="check()"  class="h-l" value="立即注册" />
+      <el-dialog :visible.sync="visible" :show-close="false" :close-on-click-modal="false" width="30%">
+        <div style="padding:10px 140px">
+          <img src="../../assets/dui.png" alt="" width="66px" style="display: inline-block;vertical-align:middle">
+          <img src="../../assets/User.png" alt="" style="margin-left: 50px;;display: inline-block;vertical-align:middle">
+        </div>
+<!--        <div style="padding-left: 20px">-->
+<!--          验证邮件已经发送到您的邮箱（{{this.$refs.email.ruleForm.email}}）中。-->
+<!--          请去邮箱完成注册流程。-->
+<!--        </div>-->
+          <div style="text-align: center">
+            <el-button type="primary" @click="change" style="width: 200px">返回登录</el-button>
+          </div>
+      </el-dialog>
     </div>
 </template>
 
@@ -17,6 +28,11 @@
 
   export default {
         name: "register",
+        data(){
+          return{
+            visible:false
+          }
+        },
         components:{
           huInput,
           codeM
@@ -26,6 +42,7 @@
             console.log(this.$refs.name.submitForm());
             console.log(this.$refs.email.submitForm());
             console.log(this.$refs.phone.submitForm());
+            this.visible=true;
             this.$refs.phone.submitForm()&&this.$refs.email.submitForm()&&this.$refs.name.submitForm()&&this.$refs.code.submitForm()&&(()=>{
               let msg={
                 userName:this.$refs.name.ruleForm.name,
@@ -41,14 +58,29 @@
                 !res.code&&this.$router.push(`/success?type=code&&eamil=${this.$refs.email.ruleForm.email}`)
               })
             })();
+          },
+          change(){
+            this.$emit('change');
           }
         },
         mounted() {
-          console.log(window.location)
+
         }
   }
 </script>
 
 <style scoped>
+  input[type="button"]{
+    width: 480px;
+    height:50px;
+    line-height: 50px;
+    background: #8488D1;
+    color: white;
+    border-radius:10px;
+    font-size: 18px;
+    border:0px none;
+    cursor: pointer;
+    margin-left: 20px;
+  }
 
 </style>
