@@ -165,8 +165,9 @@ export function getApikeyList(params){
   let pageNum = params.pageNum||1;
   let pageSize = params.pageSize||20;
   let name = params.name||'';
+  let userCode = params.userCode||'';
   return new Promise((resolve,reject)=>{
-    http.post('/api/location/api/key/list/page',{pageNum,pageSize,name}).then(res=>{
+    http.post('/api/location/background/apiKey/list/page',{pageNum,pageSize,name,userCode}).then(res=>{
       if(res.code){
         Message.error(res.msg);
     }else{
@@ -276,6 +277,10 @@ return http.get('/api/location/map/info/queryById',params)
 export function getMapUpdate(params){
   return http.get('/api/location/map/info/mapresource/info',params)
 }
+/*上传地图信息 Author:minggui*/
+export function upResult(params){
+  return http.post('/api/location/map/info/mapResource/update',params)
+}
 /** 地图信息-修改地图 Author:minggui*/
 export function editMapInfo(params){
 return http.post('/api/location/map/info/update',params)
@@ -288,6 +293,45 @@ export function getMapScale(params){
 export function updateMapScale(params){
   return http.post('/api/location/map/info/update/mapmodel/scale',params)
 }
+
+/** 用户管理-用户列表 Author:minggui*/
+export function getUserList(params){
+  let pageNum = params.page||1;
+  let pageSize = params.limit||20;
+  let userName = params.userName||'';
+  let email = params.email||'';
+  return new Promise((resolve,reject)=>{
+    http.post('/api/location/middleground/admin/page',{pageNum,pageSize,userName,email}).then(res=>{
+      if(res.code){
+        Message.error(res.msg);
+      }else{
+          resolve(res);
+      }
+    }).catch(err=>{
+      reject(err);
+    })
+  })
+}
+/** 用户管理-创建用户 Author:minggui*/
+export function addUser(params){
+  return http.post('/api/location/middleground/admin/add',params)
+}
+/** 用户管理-编辑用户 Author:minggui*/
+export function editUser(params){
+  return http.post('/api/location/middleground/admin/update',params)
+}
+/** 用户管理-获取用户信息 Author:minggui*/
+export function getUserInfo(params){
+  return http.get('/api/location/middleground/admin/info',params)
+}
+/** 用户管理-删除用户 Author:minggui*/
+export function delUser(params){
+  return loadRequest('/api/location/middleground/admin/delete',params,'删除',http,'get')
+}
+// /** 用户管理-设置、重置密码 Author:minggui*/
+// export function setPassword(params){
+//   return http.post('/api/location/access/setPassword',params)
+// }
 /*上传地图信息*/
 const upMap=(msg)=>{
 return http.post('/api/location/map/info/add',msg)
@@ -352,7 +396,7 @@ export function getStatusList(params){
     return new Promise((resolve,reject)=>{
       http.get('/api/location/map/transform/status/list',params).then(res=>{
         if(res.code){
-            Message.error(res.message);
+            Message.error(res.msg);
         }else{
             resolve(res);
         }

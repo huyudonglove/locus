@@ -141,6 +141,16 @@ export default new Router({
       ]
     },
     {
+      path:'/setPassword',
+      name:'setPassword',
+      component:()=>import('@/components/userManager/setPassword')
+    },
+    {
+      path:'/resetPassword',
+      name:'resetPassword',
+      component:()=>import('@/components/userManager/setPassword')
+    },
+    {
       path:'/login',
       name:'login',
       component:login

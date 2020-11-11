@@ -33,6 +33,23 @@ export default new Router({
           component:sdkList
         },
         {
+          path: '/service/apikeyList',
+          name: 'apikeyList',
+          component: ()=>import('@/components/apiKey/apikeyList'),
+          children:[
+            {
+              path: '/service/apikeyInfo',
+              name: 'apikeyInfo',
+              component: ()=>import('@/components/apiKey/apikeyInfo'),
+            },
+            {
+              path: '/service/createApikey',
+              name: 'createApikey',
+              component: ()=>import('@/components/apiKey/createApikey'),
+            }
+          ]
+        },
+        {
           path:'/addSdk',
           name:'addSdk',
           component:addSdk
@@ -96,9 +113,34 @@ export default new Router({
             }
           ]
         },
+        {
+          path: '/userList',
+          name: 'userList',
+          component: ()=>import('@/components/userManager/userList')
+        },
+        {
+          path: '/createUser',
+          name: 'createUser',
+          component: ()=>import('@/components/userManager/createUser')
+        },
+        {
+          path: '/userInfo',
+          name: 'userInfo',
+          component: ()=>import('@/components/userManager/userInfo')
+        },
       ]
 
     },
+    // {
+    //   path:'/setPassword',
+    //   name:'setPassword',
+    //   component:()=>import('@/components/userManager/setPassword')
+    // },
+    // {
+    //   path:'/resetPassword',
+    //   name:'resetPassword',
+    //   component:()=>import('@/components/userManager/setPassword')
+    // },
     {
       path:'/login',
       name:'login',

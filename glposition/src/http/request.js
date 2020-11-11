@@ -102,6 +102,24 @@ export function userInfo(){
 export function editPassword(params){
     return http.post('/api/location/middleground/user/modifyPassword',params)
 }
+/** 用户管理-设置、重置密码 Author:minggui*/
+export function setPassword(params){
+  return http.post('/api/location/access/setPassword',params)
+}
+/** 识别图库-套餐列表 Author:minggui*/
+export function getSuitList(params){
+  return new Promise((resolve,reject)=>{
+    http.get('/api/location/suit/list',params).then(res=>{
+      if(res.code){
+          Message.error(res.msg);
+      }else{
+          resolve(res);
+      }
+    }).catch(err=>{
+      reject(err);
+    })
+  })
+}
 /** 转换列表 Author:minggui*/
 export function getReplaceList(params){
   let pageNum = params.pageNum||1;
@@ -114,7 +132,7 @@ export function getReplaceList(params){
   return new Promise((resolve,reject)=>{
     http.post('/api/location/map/transform/list/page',{pageNum,pageSize,status,mapLocation,type,sortField,sortType}).then(res=>{
       if(res.code){
-          Message.error(res.message);
+          Message.error(res.msg);
       }else{
           resolve(res);
       }
@@ -128,7 +146,7 @@ export function getStatusList(params){
   return new Promise((resolve,reject)=>{
     http.get('/api/location/map/transform/status/list',params).then(res=>{
       if(res.code){
-          Message.error(res.message);
+          Message.error(res.msg);
       }else{
           resolve(res);
       }
