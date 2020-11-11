@@ -27,6 +27,9 @@
         <!-- <el-form-item label="">
           <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==4)">更新地图</el-button>
         </el-form-item> -->
+        <el-form-item label="">
+          <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==9)">上传激光扫描结果</el-button>
+        </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
         <el-form-item label="地图名称：">
@@ -73,7 +76,7 @@
           <!-- <el-button type="text" @click="showDialog('备注')">修改</el-button> -->
         </el-form-item>
         <el-form-item label="尺度：">
-          <span>{{scale}}</span>
+          <span>{{scale}}</span> <el-button type="text" @click="showDialog('尺度')">修改</el-button>
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
@@ -103,20 +106,19 @@
         </el-form-item>
       </el-form>
       <el-dialog :title="title+'修改'" :visible.sync="isShow" width="550px" center>
-        <el-form label-width="100px">
-          <el-form-item label="">
-            <el-input v-if="title=='GPS'" v-model="newGps" style="width:200px;" placeholder="0.0.0.0" maxlength="50"></el-input>
-            <el-input
-              v-if="title=='备注'"
-              style="width:350px;"
-              type="textarea"
-              :rows="4"
-              maxlength="500"
-              show-word-limit
-              v-model="newDecription">
-            </el-input>
-          </el-form-item>
-        </el-form>
+        <div style="text-align:center;">
+          <el-input v-if="title=='尺度'" v-model="newScale" style="width:200px;" maxlength="50"></el-input>
+          <el-input v-if="title=='GPS'" v-model="newGps" style="width:200px;" placeholder="0.0.0.0" maxlength="50"></el-input>
+          <el-input
+            v-if="title=='备注'"
+            style="width:350px;"
+            type="textarea"
+            :rows="4"
+            maxlength="500"
+            show-word-limit
+            v-model="newDecription">
+          </el-input>
+        </div>
         <span slot="footer" class="dialog-footer">
           <el-button :disabled="isConfirm" type="primary" @click="confirm">{{isConfirm?'修改中...':'确定'}}</el-button>
           <el-button @click="isShow = false">取 消</el-button>
@@ -130,6 +132,9 @@
       </div>
       <div v-if="visible">
         <upM  :form-size="msg" @show="show"></upM>
+      </div>
+      <div  v-if="isUpResult">
+        <upResult :form-size="msg" @showUpResult="showUpResult"></upResult>
       </div>
     </div>
     <el-dialog title="误差图对比" :visible.sync="dialogSmall" @close="dialogSmall=false" width="800px">
@@ -158,7 +163,8 @@ import { Base64 } from 'js-base64';
 import upMe from '../../share/upLoad'
 import lineChartDialog from './lineChartDialog'
 import upM from '../upM'
-import {getMapVersion,getMapLine,checkMapEnableUpdate,getMapUpdate,getMapScale} from "../../http/request";
+import upResult from '../upResult'
+import {getMapVersion,getMapLine,checkMapEnableUpdate,getMapUpdate,getMapScale,updateMapScale} from "../../http/request";
 let scene,camera,controls,scene2,camera2,controls2;
 
 export default {
@@ -180,6 +186,7 @@ export default {
       updateTime:'',
       decription:'',
       scale:'',
+      newScale:'',
       sparsePointCloudFileId:'',
       sparseMapPath:'',
       densePointCloudFileId:'',
@@ -210,10 +217,37 @@ export default {
       relateOld:'',
       dialogSmall:false,
       enableUpdateMap:false,
-      enableUpdateLine:false
+      enableUpdateLine:false,
+      isUpResult:false,
+    }
+  },
+  watch:{
+    newScale(val){
+      this.newScale = this.judge(val);
     }
   },
   methods:{
+    judge(value){
+      var p1 = /[^-\d\.]/g;//过滤非数字、负号及小数点 /g :所有范围中过滤
+      var p2 = /(\.\d{0,})\d*$/g;//可以设定匹配多少小数
+      var p3 = /(\.)(\d*)\1/g;//将点数字点替换成.数字
+      var p4 = /(-)(\d*)(\.*)(\d*)\1/g;//将最后一个-号去掉
+      var p5 = /(-)(\.)/g;//将-.替换成-
+      var p6 = /(\d+)(\.?)(-)/g;//前面有输入时后面不能输入-号
+      var newValue = value;
+      newValue = newValue.replace(p1, "")
+      if(newValue.length===1){
+        newValue = newValue.replace('.','');
+      }
+      if(newValue.length===2&&newValue!='0.'&&newValue!='-0'){
+        newValue = newValue.replace(/\b0/g,'');
+      }
+      newValue = newValue.replace(p2, "$1").replace(p3,"$1$2").replace(p4,"$1$2$3$4").replace(p5,"$1").replace(p6,"$1$2");     
+      return newValue;
+    },
+    showUpResult(){
+      this.isUpResult = false;
+    },
     show(){
       this.visible=false;
     },
@@ -298,6 +332,8 @@ export default {
       this.title = title;
       if(title=='GPS'){
         this.newGps = this.gps;
+      }else if(title=='尺度'){
+        this.newScale = this.scale;
       }else{
         this.newDecription = this.decription;
       }
@@ -313,6 +349,37 @@ export default {
           }else{
             this.$message.success(res.msg);
             this.gps = this.newGps;
+            this.isShow = false;
+          }
+        }).catch(err=>{
+          this.isConfirm = false;
+        })
+      }else if(this.title=='尺度'){
+        if(this.newScale===''){
+          this.$message({
+            type:'error',
+            message:'尺度数值不能为空',
+            duration:600
+          });
+          return;
+        }
+        let reg = /(-)?[0-9]+\.$/g;
+        if(this.newScale=='-'||reg.test(this.newScale)){
+          this.$message({
+            type:'error',
+            message:'请输入正确尺度数值',
+            duration:600
+          });
+          return;
+        }
+        this.isConfirm=true;
+        updateMapScale({"mapKey":this.mapId,"scale":this.newScale}).then(res=>{
+          this.isConfirm = false;
+          if(res.code){
+            this.$message.error(res.msg);
+          }else{
+            this.$message.success(res.msg);
+            this.scale = this.newScale;
             this.isShow = false;
           }
         }).catch(err=>{
@@ -604,7 +671,8 @@ export default {
   components: {
     upMe,
     lineChartDialog,
-    upM
+    upM,
+    upResult
 }
 }
 </script>

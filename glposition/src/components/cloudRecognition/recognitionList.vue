@@ -15,7 +15,8 @@
       <el-table-column prop="name" label="识别图库" align="center"></el-table-column>
       <el-table-column prop="type" label="图库类型" align="center">
         <template slot-scope="scope">
-          <span v-if="scope.row.type==0">无限制</span>
+          <!-- <span v-if="scope.row.type==0">无限制</span> -->
+          <span v-if="suitData.length">{{suitData.find(v=>v.id==scope.row.type)?suitData.find(v=>v.id==scope.row.type).title:''}}</span>
         </template>
       </el-table-column>
       <el-table-column prop="identifiedImageCount" label="图片个数" align="center"></el-table-column>
@@ -37,7 +38,7 @@
 <script>
 import {mapState} from 'vuex';
 import pagination from '../../share/pagination'
-import {getRecognitionList,delGlasses} from '../../http/request'
+import {getRecognitionList,delGlasses,getSuitList} from '../../http/request'
 export default {
   name:'recognitionList',
   inject:['replace','reload'],
@@ -50,6 +51,7 @@ export default {
       recognitionTable:[],
       showPagination:false,
       tableHeight:0,
+      suitData:[]
     }
   },
   computed:{
@@ -71,6 +73,11 @@ export default {
     }
   },
   methods:{
+    suitList(){
+      getSuitList({type:this.$route.name=='localRecognitionList'?300:200}).then(res=>{
+        this.suitData = res.data;
+      })
+    },
     listData(){
       this.recognitionTable=[];
       this.$store.commit('pagination/setTotal', 0);
@@ -81,6 +88,7 @@ export default {
     },
   },
   created(){
+    this.suitList();
     this.listData();
     let pageRecord = this.$route.query.page||1;//记录上一次页码操作
     let limitRecord = this.$route.query.limit||20;//记录上一次limit操作
