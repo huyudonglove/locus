@@ -28,7 +28,7 @@
           <el-button type="primary" size="mini" @click="isShowChart=true"  :disabled="!(status==15)">更新地图</el-button>
         </el-form-item>
         <el-form-item label="">
-          <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==9)">上传激光扫描结果</el-button>
+          <!-- <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==9)">上传激光扫描结果</el-button> -->
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
@@ -75,7 +75,8 @@
           <el-button style="vertical-align:top;" type="text" @click="showDialog('备注')">修改</el-button>
         </el-form-item>
         <el-form-item label="尺度：">
-          <span>{{scale}}</span> <el-button type="text" @click="showDialog('尺度')">修改</el-button>
+          <span>{{scale}}</span>
+           <!-- <el-button type="text" @click="showDialog('尺度')">修改</el-button> -->
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
@@ -105,23 +106,19 @@
         </el-form-item>
       </el-form>
       <el-dialog :title="title+'修改'" :visible.sync="isShow" width="550px" center>
-        <!-- <el-form label-width="100px"> -->
-          <!-- <el-form-item label=""> -->
-            <div style="text-align:center;">
-              <el-input v-if="title=='尺度'" v-model="newScale" style="width:200px;" maxlength="50"></el-input>
-              <el-input v-if="title=='GPS'" v-model="newGps" style="width:200px;" placeholder="0.0.0.0" maxlength="50"></el-input>
-              <el-input
-                v-if="title=='备注'"
-                style="width:350px;"
-                type="textarea"
-                :rows="4"
-                maxlength="500"
-                show-word-limit
-                v-model="newDecription">
-              </el-input>
-            </div>
-          <!-- </el-form-item>
-        </el-form> -->
+        <div style="text-align:center;">
+          <el-input v-if="title=='尺度'" v-model="newScale" style="width:200px;" maxlength="50"></el-input>
+          <el-input v-if="title=='GPS'" v-model="newGps" style="width:200px;" placeholder="0.0.0.0" maxlength="50"></el-input>
+          <el-input
+            v-if="title=='备注'"
+            style="width:350px;"
+            type="textarea"
+            :rows="4"
+            maxlength="500"
+            show-word-limit
+            v-model="newDecription">
+          </el-input>
+        </div>
         <span slot="footer" class="dialog-footer">
           <el-button :disabled="isConfirm" type="primary" @click="confirm">{{isConfirm?'修改中...':'确定'}}</el-button>
           <el-button @click="isShow = false">取 消</el-button>
