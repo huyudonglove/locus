@@ -169,6 +169,16 @@ export default new Router({
       component:logout
     },
     {
+      path:'/losePage',
+      name:'losePage',
+      component:()=>import('@/components/error/losePage')
+    },
+    {
+      path:'*',
+      name:'404',
+      component:()=>import('@/components/error/404')
+    },
+    {
       path:'/version',
       name:'version',
       component:version
