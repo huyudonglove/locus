@@ -18,7 +18,7 @@
           <el-button type="primary" @click="isShow=true;">修改密码</el-button>
         </el-form-item>
       </el-form>
-      <el-dialog title="修改密码" :visible.sync="isShow" @close="closeDialog" width="550px" center>
+      <el-dialog title="修改密码" :visible.sync="isShow" @close="closeDialog" :close-on-click-modal="false" width="550px" center>
         <el-form ref="form" label-width="120px" :model="form" :rules="rules">
           <el-form-item label="旧密码" prop="oldPassword" required>
             <input  type="text"  class="is-hidden" />

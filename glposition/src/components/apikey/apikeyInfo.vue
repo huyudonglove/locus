@@ -10,7 +10,9 @@
           <span>{{name}}</span>
         </el-form-item>
         <el-form-item label="云服务：">
-          <span>{{service}}</span>
+          <el-checkbox-group v-model="service" disabled>
+            <el-checkbox v-for="(item,idx) in apiKeyTypeList" :key="idx" :label="item.value.toString()">{{item.name}}</el-checkbox>
+          </el-checkbox-group>
         </el-form-item>
         <el-form-item label="描述：">
           <!-- <div class="decription">{{decription}}</div> -->
@@ -76,7 +78,7 @@ export default {
       let apiInfo = JSON.parse(this.$route.query.apiInfo);
       this.name = apiInfo.name;
       this.service = apiInfo.apiKeyType?
-      apiInfo.apiKeyType.split(',').map(item=>this.apiKeyTypeList.find(v=>v.value==item).name).join(',')
+      apiInfo.apiKeyType.split(',')
       :null;
       this.decription = apiInfo.decription;
       this.apiKey = apiInfo.apiKey;
