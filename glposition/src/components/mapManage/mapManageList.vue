@@ -9,7 +9,7 @@
         </el-page-header>
       </div>
          <!-- 数据展示 -->
-        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight"  border>
+        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight"  border :header-cell-style="headerCellStyle" :cell-style="cellStyle">
           <el-table-column
             prop="id" label="id "  align="center" width="80"
             >
@@ -57,7 +57,7 @@ import pagination from '../../share/pagination'
 import {mapList} from "../../http/request";
   export default {
   name: 'mapManageList',
-  inject:['replace','reload'],
+  inject:['replace','reload','cellStyle','headerCellStyle'],
   data () {
     return {
       showPagination:false,

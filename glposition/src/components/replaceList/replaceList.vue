@@ -18,7 +18,7 @@
         </el-select>
       </span>
     </el-row>
-    <el-table ref="ReplaceRef" :data="table" border style="width: 100%" class="mt15 mb15" :max-height="tableHeight" @sort-change="changeTableSort">
+    <el-table ref="ReplaceRef" :data="table" border style="width: 100%" class="mt15 mb15" :max-height="tableHeight" @sort-change="changeTableSort" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
       <el-table-column prop="id" label="ID" width="100" align="center"></el-table-column>
       <el-table-column prop="mapLocation" label="地图位置" align="center" sortable></el-table-column>
       <el-table-column prop="mapPackageSize" label="地图包大小(M)" align="center" sortable>
@@ -77,7 +77,7 @@ import pagination from '../../share/pagination'
 import {getReplaceList,stopReplace,getStatusList} from '../../http/request'
 export default {
   name:'replaceList',
-  inject:['replace','reload'],
+  inject:['replace','reload','cellStyle','headerCellStyle'],
   components:{
     pagination
   },

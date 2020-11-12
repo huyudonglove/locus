@@ -3,7 +3,7 @@
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
       <span style="font-size:24px;font-weight:bold;color:#614a4d;">SDK下载</span>
     </div>
-    <el-table ref="sdkRef" border :data="sdkTable" tooltip-effect="dark" :max-height="tableHeight">
+    <el-table ref="sdkRef" border :data="sdkTable" tooltip-effect="dark" :max-height="tableHeight" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
       <el-table-column label="名称" prop="name" align="center"></el-table-column>
       <el-table-column label="版本" prop="version" align="center"></el-table-column>
       <el-table-column label="下载地址" prop="unityVersion" align="center">
@@ -29,7 +29,7 @@ import {mapState} from 'vuex';
 import pagination from '../../share/pagination'
 export default {
   name:'sdkList',
-  inject:['replace'],
+  inject:['replace','cellStyle','headerCellStyle'],
   components:{
     pagination,
   },
