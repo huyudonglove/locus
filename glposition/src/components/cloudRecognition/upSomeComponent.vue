@@ -36,7 +36,7 @@ export default {
         moduleCode:'locus_position_identifiedImage'
       },
       header:{
-        Authorization:this.$cookies.get('locationMiddlegroundToken')
+        Authorization:localStorage.getItem('locationMiddlegroundToken')
       },
       isUpload:false,
       imageUrl:'',
@@ -56,7 +56,7 @@ export default {
     }
   },
   methods:{
-    
+
     beforeCallback(file){
       this.fileName = file.name;
       if(!(file.type=='image/jpg'||file.type=='image/jpeg'||file.type=='image/png')){
@@ -73,14 +73,14 @@ export default {
           var imgData = e.target.result;
           var myImage = new Image();
           myImage.src=imgData;
-         
+
           myImage.onload = ()=>{
            this.isUpload = true;
           //  console.log(myImage.width,'width',myImage.height,'height')
            this.height = ((myImage.height/myImage.width)*this.width).toFixed(6);
           }
         }
-      
+
     },
     progress(event){
       this.percent=parseInt(event.percent);

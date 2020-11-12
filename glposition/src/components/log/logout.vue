@@ -7,7 +7,8 @@
         name: "logout",
         methods:{
           logout(){
-            this.$cookies.remove('locationMiddlegroundToken')
+            //this.$cookies.remove('locationMiddlegroundToken')
+            localStorage.removeItem('locationMiddlegroundToken')
             this.$router.push('/login')
           }
         },

@@ -22,7 +22,9 @@
 <script>
   import codeM from './codeM'
   import huInput from '../../share/huInput'
-    export default {
+  import {resetPasswordEmail} from "../../http/request";
+
+  export default {
         name: "forgot",
         components:{
           codeM,
@@ -47,7 +49,18 @@
                 })
               }else {
                 if(this.$refs.email.submitForm()){
-                  this.visible=true;
+                  let msg={
+                    email:this.$refs.email.ruleForm.email,
+                    identifyCode:this.$refs.code.ruleForm.code,
+                    host:window.location.origin
+                  }
+                  resetPasswordEmail(msg).then(res=>{
+                    res.code&&this.$message.error(res.msg)
+                    !res.code&&(()=>{
+                      this.visible=true;
+                    })();
+                  })
+
                 }
               }
 

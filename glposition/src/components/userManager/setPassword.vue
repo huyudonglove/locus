@@ -113,7 +113,8 @@ export default {
               this.$message.error(res.msg);
             }else{
               this.$message.success(res.msg);
-              this.$cookies.set('locationMiddlegroundToken',res.data.token);
+              //this.$cookies.set('locationMiddlegroundToken',res.data.token);
+              localStorage.setItem('locationMiddlegroundToken',res.data.token)
               this.$router.push('/');
             }
           })

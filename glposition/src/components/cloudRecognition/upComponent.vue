@@ -35,7 +35,7 @@ export default {
         moduleCode:'locus_position_identifiedImage'
       },
       header:{
-        Authorization:this.$cookies.get('locationMiddlegroundToken')
+        Authorization:localStorage.getItem('locationMiddlegroundToken')
       },
       isUpload:false,
       percent:0,

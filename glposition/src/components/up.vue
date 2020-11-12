@@ -118,7 +118,7 @@
 
             },
             header:{
-              Authorization:this.$cookies.get('locationMiddlegroundToken')
+              Authorization:localStorage.getItem('locationMiddlegroundToken')
             },
             fileArray:[],
             fileArr:[],//偏差数组列表
