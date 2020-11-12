@@ -67,7 +67,7 @@
             upBreak:false,
             msg:{},
             header:{
-              Authorization:this.$cookies.get('locationMiddlegroundToken')
+              Authorization:localStorage.getItem('locationMiddlegroundToken')
             },
             fileArray:[],
             mapVisibleUp:false,

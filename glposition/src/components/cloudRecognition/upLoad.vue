@@ -52,7 +52,7 @@ export default {
         moduleCode: "locus_position_map"
       },
       header: {
-        Authorization: this.$cookies.get("locationMiddlegroundToken")
+        Authorization: localStorage.getItem('locationMiddlegroundToken')
       },
       isUpload: false,
       percent: 0,
@@ -91,16 +91,16 @@ export default {
           }else{
             this.$emit("changeMap", this.formSize.resourceFileId, this.num,this.formSize.size,this.formSize.originFileName);
           }
-        }   
+        }
        }
-       
+
     },
     changeFile(file,list){
       if(file.raw.type=='application/x-zip-compressed'||file.raw.type=='application/zip'){
         this.fileArray=list
         this.type=true
         this.upSuccess=true
-        
+
       }else{
         this.$message.error('只能上传zip文件！')
         this.fileArray=[];
@@ -126,7 +126,7 @@ export default {
       this.upSuccess=false
       this.percent=0
       this.fileArray=[];
-      
+
     },
     upClose() {
       // 弹窗警告
@@ -157,7 +157,7 @@ export default {
           this.fileArray.push({name: res.data.mapName})
         }
     })
-       
+
      }
     window.onbeforeunload = e => {
       //窗口关闭前
@@ -170,7 +170,7 @@ export default {
     mapVisible() {
       this.mapVisibleUp = true;
     },
-    
+
   }
 };
 </script>

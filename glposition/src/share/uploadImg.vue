@@ -25,7 +25,7 @@
             limit:5
           },
           header:{
-            Authorization:this.$cookies.get('locationMiddlegroundToken')
+            Authorization:localStorage.getItem('locationMiddlegroundToken')
           }
         };
       },
