@@ -10,10 +10,10 @@
           <img src="../../assets/dui.png" alt="" width="66px" style="display: inline-block;vertical-align:middle">
           <img src="../../assets/User.png" alt="" style="margin-left: 50px;;display: inline-block;vertical-align:middle">
         </div>
-<!--        <div style="padding-left: 20px">-->
-<!--          验证邮件已经发送到您的邮箱（{{this.$refs.email.ruleForm.email}}）中。-->
-<!--          请去邮箱完成注册流程。-->
-<!--        </div>-->
+        <div style="padding-left: 20px" v-if="visible">
+          验证邮件已经发送到您的邮箱（{{this.$refs.email.ruleForm.email}}）中。
+          请去邮箱完成注册流程。
+        </div>
           <div style="text-align: center">
             <el-button type="primary" @click="change" style="width: 200px">返回登录</el-button>
           </div>
@@ -42,7 +42,6 @@
             console.log(this.$refs.name.submitForm());
             console.log(this.$refs.email.submitForm());
             console.log(this.$refs.phone.submitForm());
-            this.visible=true;
             this.$refs.phone.submitForm()&&this.$refs.email.submitForm()&&this.$refs.name.submitForm()&&this.$refs.code.submitForm()&&(()=>{
               let msg={
                 userName:this.$refs.name.ruleForm.name,
@@ -54,8 +53,10 @@
               console.log(msg)
               register(msg).then(res=>{
                 console.log(res,7777);
-                res.code&&this.$message.warning(res.msg);
-                !res.code&&this.$router.push(`/success?type=code&&eamil=${this.$refs.email.ruleForm.email}`)
+                res.code&&this.$message.error(res.msg);
+                !res.code&&(()=>{
+                  this.visible=true;
+                })();
               })
             })();
           },

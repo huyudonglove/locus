@@ -367,6 +367,10 @@ const getCode=()=>{
 const register=(msg)=>{
   return http.post('/api/location/access/register',msg)
 }
+/*邮件设置密码*/
+const resetPasswordEmail=(msg)=>{
+  return http.post('/api/location/access/resetPasswordEmail',msg)
+}
 export {
     login,
     upMap,
@@ -377,5 +381,6 @@ export {
     stopMap,
     checkMapEnableUpdate,
     getCode,
-    register
+    register,
+    resetPasswordEmail
 }

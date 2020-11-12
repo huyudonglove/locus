@@ -1,7 +1,7 @@
 <template>
   <div class="h-div">
     <div class="h-login" v-if="type==1">
-      <div class="h-head">登录</div>
+      <div class="h-head"><span class="h-title">登录</span></div>
       <div>
         <el-input  placeholder="请输入您的用户名或者手机号" class="h-input" v-model="loginName" ></el-input>
         <!-- <i class="h-user"></i>
@@ -34,14 +34,14 @@
     </div>
   <div class="h-login" v-if="type==2" style="width: 500px;height: 500px;" >
       <div class="h-head" style="position: relative">
-        欢迎注册
+        <span class="h-title">欢迎注册</span>
         <span style="position: absolute;right: 0;font-size: 14px;top:10px;color: #8488D1;cursor: pointer" @click="type=1">已有账号，立即登录></span>
       </div>
     <register style="margin-top: 10px" @change="changeLogin"></register>
     </div>
     <div class="h-login" v-if="type==3" style="width: 500px;height: 300px;" >
       <div class="h-head" style="position: relative">
-        忘记密码
+        <span class="h-title">忘记密码</span>
         <span style="position: absolute;right: 0;font-size: 14px;top:10px;color: #8488D1;cursor: pointer" @click="type=1">已有账号，立即登录></span>
       </div>
       <forgot style="margin-top: 10px" @change="changeLogin"></forgot>
@@ -150,7 +150,6 @@
   }
   .h-login div.h-head{
     text-align: center;
-
     border-bottom: 1px solid #8488D1;
     height:90px;
     line-height: 90px;
@@ -231,5 +230,7 @@
     clear: both;
     text-align: center;
   }
-
+.h-title{
+  font-weight: bold;
+}
 </style>
