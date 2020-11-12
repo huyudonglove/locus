@@ -7,7 +7,7 @@
       </el-button>	
       </div>
          <!-- 数据展示 -->
-        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight"  >
+        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
           <el-table-column
             prop="id" label="id "  align="center" width="80"
             >
@@ -50,7 +50,7 @@ import pagination from '../../share/pagination'
 import {licenseList} from "../../http/request";
   export default {
   name: 'licenseManage',
-  inject:['replace','reload'],
+  inject:['replace','reload','cellStyle','headerCellStyle'],
   data () {
     return {
       showPagination:true,

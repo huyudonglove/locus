@@ -8,9 +8,9 @@
         status-icon
         :rules="rules"
         ref="pswForm"
-        label-width="120px"
+        label-width="82px"
         autocomplete="off"
-        style="padding-top:15px;"
+        style="padding:15px 40px 0px 40px;margin-bottom:60px;"
         class="demo"
       >
         <el-form-item label="账号：" prop="userName">
@@ -33,9 +33,9 @@
             maxlength="16"
             autocomplete="off"
           ></el-input>
-        </el-form-item>
-
-        <div class="btnDiv">
+        </el-form-item> 
+      </el-form>
+      <div class="btnDiv">
           <input
             type="button"
             class="currentBtn"
@@ -44,7 +44,6 @@
             style="margin-right:30px"
           />
         </div>
-      </el-form>
     </div>
   </div>
 </template>
@@ -138,10 +137,10 @@ export default {
 .h-login {
   position: relative;
   width: 440px;
-  padding-bottom: 20px;
+  padding-bottom: 60px;
   background: rgba(250, 250, 250);
   left: 50%;
-  margin-left: -220px;
+  margin-left:340px;
   top: 20%;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -149,14 +148,16 @@ export default {
 
 .h-head {
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 2px dashed #8488D1;
+  width: 360px;
   height: 90px;
+  margin: 0 auto;
   line-height: 90px;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
 }
 .btnDiv input[type="button"] {
-  width: 280px;
+  width: 360px;
   height: 40px;
   background: rgba(223, 220, 220, 1);
   box-shadow: 0px 4px 10px 0px rgba(223, 220, 220, 0.3);
@@ -166,12 +167,12 @@ export default {
   cursor: pointer;
 }
 .h-login .el-input {
-  width: 280px;
+  width: 278px;
 }
 .btnDiv input.currentBtn {
-  background: #0074E4;
-  border: 2px solid #0074E4;
-  box-shadow: 0px 4px 10px 0px #0074E4;
+  background: #8488D1;
+  border: 2px solid #8488D1;
+  box-shadow: 0px 4px 10px 0px #8488D1;
   color: #fff;
 }
 .code {
@@ -194,7 +195,7 @@ export default {
 }
 .btnDiv {
   clear: both;
-  padding-left: 120px;
+  padding-left: 40px;
 }
 ::-webkit-input-placeholder {
   color: #dfdcdc;

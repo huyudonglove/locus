@@ -18,7 +18,9 @@ window.THREE = THREE
     provide(){
       return{
         reload:this.reload,
-        replace:this.replace
+        replace:this.replace,
+        cellStyle:this.cellStyle,
+        headerCellStyle:this.headerCellStyle
       }
     },
     computed:{
@@ -61,6 +63,16 @@ window.THREE = THREE
         ).catch(err=>{
           console.log(err)
         })
+      },
+      cellStyle({row, column, rowIndex, columnIndex}){
+        if(rowIndex%2==1){
+          return 'background:#F3F3FF'
+        }else{
+          return ''
+        }
+      },
+      headerCellStyle({row, column, rowIndex, columnIndex}){
+        return 'background:#d8d8fc'
       }
     },
     mounted() {
