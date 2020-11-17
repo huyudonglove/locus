@@ -3,15 +3,15 @@
     <div v-if="$route.name=='mapManageList'">
       <div style="height:50px;border-bottom:1px solid #DFDCDC;" v-if="!$route.query.id">
         <span style="font-size:24px;font-weight:bold;color:#614a4d;">地图库管理</span>
-         <el-button style="float:right;" type="primary" @click="$router.push({path:'/replaceList'})" class="btnIcon"><img  src="../../assets/zhuanhuan.png"/><span class="btnIconSpan">转换列表</span></el-button>
+         <el-button style="float:right;margin-top:-3px" type="primary" @click="$router.push({path:'/replaceList'})" class="btnIcon"><img  src="../../assets/zhuanhuan.png"/><span class="btnIconSpan">转换列表</span></el-button>
       </div>
        <div style="height:50px;border-bottom:1px solid #DFDCDC;position:relative" v-if="$route.query.id">
          <el-page-header @back="goTo()" content="地图库管理" style="font-size:24px;font-weight:bold;color:#614a4d;">
         </el-page-header>
-         <el-button style="position:absolute;right:0px;top:0px" type="primary" @click="$router.push({path:'/replaceList'})" class="btnIcon"><img  src="../../assets/zhuanhuan.png"/><span class="btnIconSpan">转换列表</span></el-button>
+         <el-button style="position:absolute;right:0px;top:-3px" type="primary" @click="$router.push({path:'/replaceList'})" class="btnIcon"><img  src="../../assets/zhuanhuan.png"/><span class="btnIconSpan">转换列表</span></el-button>
       </div>
          <!-- 数据展示 -->
-        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight"  border :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight"   :header-cell-style="headerCellStyle" :cell-style="cellStyle">
           <el-table-column
             prop="id" label="id "  align="center" width="80"
             >
@@ -155,15 +155,6 @@ import {mapList} from "../../http/request";
   }
 </script>
 <style >
-.btnIcon{
-      padding: 8px 20px;
-}
-.btnIconSpan{
-  line-height: 18px;
-}
-.btnIcon img{
-  vertical-align:middle;margin-right:5px
-}
 /* .btnIcon-zhuanhuan{
   background: url('../../assets/zhuanhuan.png') center center no-repeat;
 } */

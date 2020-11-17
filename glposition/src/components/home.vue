@@ -23,9 +23,12 @@
     line-height: 56px;" @click="down()">SDK下载</span> -->
     </div>
         <div class="body-content">
-        <el-main>
-          <router-view/>
-        </el-main>
+        <div class="contentDiv">
+           <el-main>
+            <router-view/>
+          </el-main>
+        </div>
+       
       </div>
     </div>
     <!-- <el-dialog
@@ -56,7 +59,7 @@ export default {
       formSize:{
 
       },
-      openeds:['/licenseManage','/localService']
+      openeds:['/licenseManage','/cloudRecognitionList','/mapManageList','/service/apikeyList','/localRecognitionList']
     };
   },
   created(){
@@ -68,7 +71,7 @@ export default {
     //         this.formSize=res.data
     //       } 
     // })
-    console.log(this.menus,'this.menus')
+    // console.log(this.menus,'this.menus')
    
     
 	},
@@ -90,6 +93,7 @@ export default {
     showheadNav(val){
       if(this.menus.length){
       this.openeds=this.menus.map(v=>v.url)
+      // console.log(this.openeds,'openeds')
       }
     },
     handleClose(){
@@ -105,33 +109,36 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .el-main{
-    padding-top: 10px;
+
+  .contentDiv{
+      background-color:#fff;
+      height: 100%;
+      box-sizing: border-box;
   }
   .pa_body .body-menu{
-  position:absolute;
-  top:60px;
-  left:0;
-  bottom:0;
-  width:260px;
-  background-color:#343261;
+    position:absolute;
+    top:60px;
+    left:0;
+    bottom:0;
+    width:260px;
+    background-color:#343261;
 /* background: url("../assets/menu-bg.jpg") repeat-y ; */
       }
   .pa_body .body-content{
-  position:absolute;
-  top:66px;
-  left:260px;
-  right:0;
-  background: #f0f3fa;
-  bottom:0;
-  overflow:auto;
-  border-left: 1px solid #eeeeee;
-  padding: 40px 25px;
-  }
+     position:absolute;
+      top:60px;
+      left:260px;
+      right:0;
+      background-color: #f0f3fa !important;
+      bottom:0;
+      overflow:auto;
+      border-left: 1px solid #eeeeee;
+      padding: 30px 30px 30px 30px;
+      }
   .pa_body .body-content>.el-main{
-    background: #fff;
-    height: 100%;
-    padding-top: 25px;
+    /* padding-top: 10px; */
+    /* height: 100%; */
+    
   }
 .cur{ cursor: pointer;}
 .el-menu{

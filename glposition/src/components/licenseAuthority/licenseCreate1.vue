@@ -25,6 +25,9 @@
               <el-input v-model="formSize.packageName" placeholder="请输⼊Package Name"></el-input>
             </el-form-item>
           </el-form-item>
+           <el-form-item label="期限：">
+             <el-button type="primary" style="cursor:default">无限制</el-button>
+          </el-form-item>
         </el-form>
         <div style="text-align:right;">
           <el-button type="primary" @click="goTo()">返回</el-button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="block" style="position:fixed;left:280px;bottom:0px;z-index:2000;padding-bottom:10px;background-color:#ffffff;width:100%;">
+  <div class="block" style="position:fixed;left:291px;bottom:0px;z-index:2000;padding-bottom:10px;background-color:#ffffff;width:100%;">
     <el-pagination
       background
       @size-change="limitChange"
