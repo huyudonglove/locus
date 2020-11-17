@@ -4,15 +4,16 @@
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
         <span style="font-size:18px;font-weight:500;color:#614a4d;">SDK授权管理 > 新建License许可证密钥</span>
       </div>
-      <div  style="margin-top:50px;width:690px">
-        <div style="color:#555;font-size:18px;margin-bottom:50px;font-weight:600"><span style="color:#409eff;">新建密钥</span><span style="color:#409eff;margin:0px 15px;">——————————</span><span style="color:#409eff;">创建地图库</span><span style="color:#409eff;margin:0px 15px;">——————————</span><span>新建成功</span></div>
+      <div  style="margin-top:50px;width:800px" class="step">
+        <div style="color:#8488D1;font-size:14px;margin-bottom:50px;margin-left:60px"><span style="color:#8488d1;"><i class="mr5 i2">1</i>新建密钥</span><span style="color:#8488d1;margin:0px 15px ">————————————</span><span><i class="mr5 ">2</i>创建地图库</span><span style="margin:0px 15px ">————————————</span><span><i class="mr5 i2">3</i>新建成功</span>
+        </div>
         
         <el-form ref="formSize" :model="formSize" label-width="120px" width="100%" style="font-size:16px;" :rules="rules" >
           <el-form-item label="地图库名称：" prop="mapDatabaseName">
             <el-input v-model="formSize.mapDatabaseName" placeholder="请地图库名称"></el-input>
           </el-form-item>
         </el-form>
-        <div style="margin:15px auto;width:200px;">
+        <div style="text-align:right;">
           <el-button  @click="goTo()">上一步</el-button>
           <el-button type="primary" @click="submitForm('formSize')">完成</el-button>
         </div>
@@ -91,5 +92,14 @@ import {licenseSave} from "../../http/request";
 <style scoped>
 .pr15{
   padding-right:15px;
+}
+.mr5{
+  margin-right: 5px;
+}
+.step i{
+  width:40px;height: 40px;display: inline-block;background: #8488d1;color: #fff;border-radius: 40px;font-style: normal;line-height: 40px;text-align: center;
+}
+.step i.i2{
+  width:36px;height: 36px;display: inline-block;background: #fff;color: #8488d1;border-radius: 36px;font-style: normal;line-height: 36px;text-align: center;border: 2px solid #8488d1;
 }
 </style>

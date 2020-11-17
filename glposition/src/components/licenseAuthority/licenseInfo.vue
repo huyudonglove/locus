@@ -23,7 +23,7 @@
       </el-form-item>
       </el-form>
        <!-- 修改-->
-      <el-dialog :title="title" :visible.sync="nameVisible" @closed="nameVisible=false;" width="30%">
+      <el-dialog :title="title" :visible.sync="nameVisible" @closed="nameVisible=false;" width="30%" :show-close="false" :close-on-click-modal='false'>
          <el-form ref="formName" :model="formName" label-width="0px" >
           <el-form-item label="" v-if="type==1" :key="1" :rules="[{ required: true, message: '不能为空', trigger: 'change' }, { min:1, max: 60, message: '长度在1到60个字符', trigger: 'change' }]" prop="name">
             <el-input v-model="formName.name"></el-input>
@@ -38,9 +38,10 @@
           </el-form-item>
           </el-form>
           
-         <div style="width:200px;margin:20px auto 0">
-          <el-button type="primary" @click="submitForm('formName')">确定</el-button >
+         <div style="text-align:right;">
           <el-button  @click="nameVisible=false;">返回</el-button>
+          <el-button type="primary" @click="submitForm('formName')">确定</el-button >
+        
         </div>
       </el-dialog>
       

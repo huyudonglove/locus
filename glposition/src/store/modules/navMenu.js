@@ -13,14 +13,18 @@ const mutations={
 };
 const actions={
 	menuInit({commit},params){
-    http.post('/api/location/middleground/user/treeMenu', params).then(res => {
+   return new Promise(function (resolve, reject) {
+    return http.post('/api/location/middleground/user/treeMenu', params).then(res => {
       if(res.code){
         Message.error(res.msg)
       }else{
+        resolve(res)
         commit("init", { res, params})
       }
     }).catch(err => {
     })
+   })
+   
 
    }
 

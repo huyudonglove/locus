@@ -1,16 +1,19 @@
 <template>
   <div>
-    <headNav></headNav>
+    <headNav @showheadNav='showheadNav'></headNav>
     <div class="pa_body">
         <div class="body-menu">
         <el-row class="tac">
           <el-col :span="24" >
             <el-menu 
+            style="margin-top:35px"
             class="el-menu-demo"
-            text-color="#333"
-            active-text-color="#0074E4"
+            text-color="#8488D1"
+            active-text-color="#FFFFFF"
             router
             :default-active="$route.path"
+            :default-openeds='openeds'
+            @close="handleClose"
             >
             <navMenu :menus="menus"></navMenu>
             </el-menu>
@@ -20,9 +23,9 @@
     line-height: 56px;" @click="down()">SDK下载</span> -->
     </div>
         <div class="body-content">
-      <el-main>
-        <router-view/>
-      </el-main>
+        <el-main>
+          <router-view/>
+        </el-main>
       </div>
     </div>
     <!-- <el-dialog
@@ -52,7 +55,8 @@ export default {
       dialogVisible: false,
       formSize:{
 
-      }
+      },
+      openeds:['/licenseManage','/localService']
     };
   },
   created(){
@@ -64,8 +68,12 @@ export default {
     //         this.formSize=res.data
     //       } 
     // })
+    console.log(this.menus,'this.menus')
+   
+    
 	},
-
+  mounted(){
+  },
   computed:{
 	//  menus(){
 	//  	 return this.$store.state.navMenu.menus.filter(v=>v.url==this.$route.path)
@@ -76,10 +84,17 @@ export default {
   },
   methods: {
     // ...mapActions('currentUserPower',['getUserPower']),
-    down(){
-      this.dialogVisible=true
+    // down(){
+    //   this.dialogVisible=true
+    // },
+    showheadNav(val){
+      if(this.menus.length){
+      this.openeds=this.menus.map(v=>v.url)
+      }
     },
-    
+    handleClose(){
+      console.log(11,222)
+    }
 	},
    components: {
     navMenu,
@@ -98,19 +113,25 @@ export default {
   top:60px;
   left:0;
   bottom:0;
-  width:232px;
-  /* background-color:#545c64; */
+  width:260px;
+  background-color:#343261;
 /* background: url("../assets/menu-bg.jpg") repeat-y ; */
       }
   .pa_body .body-content{
   position:absolute;
   top:66px;
-  left:230px;
+  left:260px;
   right:0;
-  background-color:#fff;
+  background: #f0f3fa;
   bottom:0;
   overflow:auto;
   border-left: 1px solid #eeeeee;
+  padding: 40px 25px;
+  }
+  .pa_body .body-content>.el-main{
+    background: #fff;
+    height: 100%;
+    padding-top: 25px;
   }
 .cur{ cursor: pointer;}
 .el-menu{
@@ -119,7 +140,7 @@ export default {
 }
 
 .span_title:hover {
-    background-color: #ecf5ff;
+    background-color: red;
 }
 .downBtn{
    display: inline-block;
