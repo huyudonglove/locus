@@ -88,7 +88,7 @@ export function mapInfoList(params){
 
   /**地图库管理 -  启动地图，使用自动分配方式    运行地图 w*/
    export function autoStartMap(params) {
-    return http.get('/api/location/map/info/autoStartMap',params)
+    return http.post('/api/location/map/info/autoStartMap',params)
   }
   /**地图库管理 -  指定服务停止任务,自动分配   停止 w*/
   export function autoStopMap(params) {

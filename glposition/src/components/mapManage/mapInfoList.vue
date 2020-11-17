@@ -258,14 +258,17 @@ import upMe from '../up'
       if(state==1){
         notice = '确认运行吗？';
         resetStatus = 0;
-        this.$confirm(notice).then(u=>{
+        this.$confirm(notice,{
+        showClose:false,
+        closeOnClickModal:false}).then(u=>{
         this.loading=this.$loading({
         lock: true,
+      
         text: '数据获取中...',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
         });
-        autoStartMap({'mapId':mapKey}).then(res=>{
+        autoStartMap({'mapId':mapKey,'number':1}).then(res=>{
           if(res.code){
             this.$message.error(res.msg);
             this.tableData2.forEach(v=>{if(v.id==id){v.runState=resetStatus;}});
@@ -284,9 +287,13 @@ import upMe from '../up'
       }else{
         notice = '确认停用吗？';
         resetStatus = 1;
-        this.$confirm(notice).then(u=>{
+        this.$confirm(notice,{
+        showClose:false,
+        closeOnClickModal:false}).then(u=>{
         this.loading=this.$loading({
         lock: true,
+        showClose:false,
+        closeOnClickModal:false,
         text: '数据获取中...',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'

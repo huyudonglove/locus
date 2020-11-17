@@ -109,7 +109,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  .el-main{
+    background: #fff;
+  }
   .contentDiv{
       background-color:#fff;
       height: 100%;

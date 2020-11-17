@@ -263,7 +263,7 @@ import upMe from '../up'
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
         });
-        autoStartMap({'mapId':mapKey}).then(res=>{
+        autoStartMap({'mapId':mapKey,'number':1}).then(res=>{
           if(res.code){
             this.$message.error(res.msg);
             this.tableData2.forEach(v=>{if(v.id==id){v.runState=resetStatus;}});
