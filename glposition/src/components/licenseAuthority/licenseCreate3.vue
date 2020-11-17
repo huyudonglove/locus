@@ -4,13 +4,14 @@
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
         <span style="font-size:24px;font-weight:bold;color:#614a4d;">License授权管理</span>
       </div>
-      <div  style="margin-top:50px;width:690px;text-align: center">
-        <div style="color:#555;font-size:18px;margin-bottom:50px;font-weight:600"><span style="color:#409eff;">新建密钥</span><span style="color:#409eff;margin:0px 15px;">——————————</span><span style="color:#409eff;">创建地图库</span><span style="color:#409eff;margin:0px 15px;">——————————</span><span style="color:#409eff;">新建成功</span></div>
-        <img  src="@/assets/ok.png" width="120" height="120" style=""/>
-          <p style="font-size:26px;line-height:48px;text-align:center;color:#67c23a">恭喜你，新建成功！</p>
-        <div style="margin:15px auto;width:380px;">
-          <el-button  @click="down()" >立即下载SDK</el-button>
-          <el-button  @click="$router.push({path:'/licenseManage'});reload()">先随便逛逛</el-button>
+      <div  style="margin-top:140px;text-align: center" class="step">
+         <!-- <div style="color:#8488D1;font-size:14px;margin-bottom:50px;margin-left:60px"><span style="color:#8488d1;"><i class="mr5 i2">1</i>新建密钥</span><span style="color:#8488d1;margin:0px 15px ">————————————</span><span><i class="mr5 i2">2</i>创建地图库</span><span style="margin:0px 15px ">————————————</span><span><i class="mr5">3</i>新建成功</span>
+        </div> -->
+        <img  src="@/assets/ok2.png" style=""/>
+          <!-- <p style="font-size:26px;line-height:48px;text-align:center;color:#67c23a">恭喜你，新建成功！</p> -->
+        <div style="margin:100px auto;width:408px;">
+          <el-button  @click="$router.push({path:'/licenseManage'});reload()" style="float:left;width:130px">完成</el-button>
+          <el-button  @click="down()"  type="primary" style="float:right">立即下载SDK</el-button>
         </div>
       </div>
        <el-dialog
@@ -137,5 +138,14 @@
     color: #FFF;
     background-color: #409EFF;
     border-color: #409EFF;
+}
+.mr5{
+  margin-right: 5px;
+}
+.step i{
+  width:40px;height: 40px;display: inline-block;background: #8488d1;color: #fff;border-radius: 40px;font-style: normal;line-height: 40px;text-align: center;
+}
+.step i.i2{
+  width:36px;height: 36px;display: inline-block;background: #fff;color: #8488d1;border-radius: 36px;font-style: normal;line-height: 36px;text-align: center;border: 2px solid #8488d1;
 }
 </style>
