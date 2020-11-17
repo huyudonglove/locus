@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="误差折线图" :visible.sync="dialogVisible" @close="close" width="1100px">
+    <el-dialog title="误差折线图" :visible.sync="dialogVisible" :close-on-click-modal="false" @close="close" width="1100px">
       <div style="text-align: center;color: red;" v-if="!(oldY.length||newY.length)">{{msg}}</div>
       <div ref="myEchart" style="width: 1000px;height: 500px;transform:translateX(-50%);margin-left:50%;"></div>
 
