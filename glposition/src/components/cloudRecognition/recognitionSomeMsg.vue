@@ -75,7 +75,7 @@
   </div>
   <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
     <el-form-item label="预览：">
-      <div style="display:inline-block;box-sizing:border-box;width:760px;height:620px;padding:8px 10px 0px 10px;box-shadow:-10px 10px 20px #8098D5;margin-right:50px;">
+      <div style="display:inline-block;box-sizing:border-box;width:700px;height:620px;padding:8px 10px 0px 10px;box-shadow:-10px 10px 20px #8098D5;margin-right:50px;">
         <div id="webglId">
           <div class="title">稀疏点云</div>
           <div class="cover" v-if="maploading">
@@ -87,7 +87,7 @@
           <div class="reset" @click="resetPosition">重置</div>
         </div>
       </div>
-      <div style="display:inline-block;box-sizing:border-box;width:760px;height:620px;padding:8px 10px 0px 10px;box-shadow:-10px 10px 20px #8098D5;">
+      <div style="display:inline-block;box-sizing:border-box;width:700px;height:620px;padding:8px 10px 0px 10px;box-shadow:-10px 10px 20px #8098D5;">
         <div id="webglId2">
           <div class="title">稠密点云</div>
           <div class="cover" v-if="maploading2">
@@ -263,10 +263,10 @@ export default {
     initRender(){
        //创建渲染器
       this.renderer=new THREE.WebGLRenderer();
-      this.renderer.setSize(740,550);
+      this.renderer.setSize(680,550);
       this.renderer.setClearColor(0x000000, 1.0);
       this.renderer2=new THREE.WebGLRenderer();
-      this.renderer2.setSize(740,550);
+      this.renderer2.setSize(680,550);
       this.renderer2.setClearColor(0x000000, 1.0);
       document.getElementById('webglId').appendChild(this.renderer.domElement);
       document.getElementById('webglId2').appendChild(this.renderer2.domElement);
@@ -290,11 +290,11 @@ export default {
     },
     initCamera(){
       //添加相机
-      camera=new THREE.PerspectiveCamera(40,740/550,1,1000);
+      camera=new THREE.PerspectiveCamera(40,680/550,1,1000);
       camera.position.set(0, 0, 128);
       camera.lookAt(scene.position);
       //添加相机
-      camera2=new THREE.PerspectiveCamera(40,740/550,1,1000);
+      camera2=new THREE.PerspectiveCamera(40,680/550,1,1000);
       camera2.position.set(0, 0, 128);
       camera2.lookAt(scene2.position);
     },
@@ -426,13 +426,13 @@ export default {
 }
 .mapDiv #webglId{
   display: inline-block;
-  width: 740px;
+  width: 680px;
   height: 550px;
   position: relative;
 }
 .mapDiv #webglId2{
   display: inline-block;
-  width: 740px;
+  width: 680px;
   height: 550px;
   position: relative;
 }
@@ -440,7 +440,7 @@ export default {
   position: absolute;
   z-index: 50;
   left: 5px;
-  bottom: -30px;
+  bottom: -40px;
   color: #8488d1;
   font-size: 18px;
   font-weight: bold;
@@ -449,7 +449,7 @@ export default {
   position: absolute;
   z-index: 50;
   right: 15px;
-  bottom: -30px;
+  bottom: -40px;
   color: #8488d1;
   font-size: 18px;
   font-weight: bold;
