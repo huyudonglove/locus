@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传地图包" :close-on-click-modal="false" @close="visB()">
+      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传地图包" :close-on-click-modal="false" @close="visB()" :show-close="false">
         <div>
           <p><i style="color:red;padding:5px;">*</i>地图名称：</p>
           <el-input v-model="name" placeholder="请输入名称"  maxlength="20"></el-input>
@@ -61,7 +61,8 @@
             </el-upload>
           </p>
         </div>
-        <div style="text-align: center">
+        <div style="text-align: right">
+          <el-button @click="mapVisibleUp=false" >返回</el-button>
           <el-button @click="submitUpload"  type="primary" >上传</el-button>
         </div>
       </el-dialog>
