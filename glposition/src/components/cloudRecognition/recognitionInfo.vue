@@ -35,7 +35,7 @@
       <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button>
       <el-button style="float:right;margin-right:15px" type="primary" @click="showSomeUp=true;">上传空间多图</el-button>
     </el-row>
-    <el-table ref="imageRef" :data="imageTable" border style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+    <el-table ref="imageRef" :data="imageTable" style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
       <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true" :selectable="(row)=>row.status ==1 &&row.type!==5||row.status ==11 &&row.type==5"></el-table-column>
       <el-table-column prop="identifiedImageId" label="ID" align="center"></el-table-column>
       <el-table-column prop="name" label="识别图名称" align="center"></el-table-column>

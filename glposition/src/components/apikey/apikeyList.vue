@@ -8,7 +8,7 @@
       <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
         <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入名称"></el-input>
       </el-row>
-      <el-table ref="apikeyRef" :data="table" border style="width: 100%" class="mt15 mb15" :max-height="tableHeight" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+      <el-table ref="apikeyRef" :data="table" style="width: 100%" class="mt15 mb15" :max-height="tableHeight" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
         <el-table-column prop="id" label="ID" width="100" align="center"></el-table-column>
         <el-table-column prop="name" label="名称" align="center"></el-table-column>
         <el-table-column prop="apiKey" label="API KEY" align="center"></el-table-column>
