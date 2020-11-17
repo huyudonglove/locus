@@ -1,7 +1,9 @@
 <template>
   <div>
+    <el-input v-model="imgName" disabled style="width:400px;color:#8488D1;"></el-input>
     <el-upload
       ref="imgUpload"
+      style="display:inline-block;"
       class="upload-demo"
       :action="'/api/file/upload'"
       :data="params"
@@ -10,15 +12,15 @@
       :limit="3"
       :before-upload="beforeCallback"
       :on-progress="progress"
-      :on-success="successCallback">
-      <el-button style="width:400px;background-color:#c9c9c9;color:#409eff;">{{imgName?imgName:'选择文件上传'}}</el-button>
-    </el-upload>
-    <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
-      <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
-      <span>图片正在上传中，请不要关闭页面及浏览器</span>
-      <span slot="footer" class="dialog-footer">
-      </span>
-    </el-dialog>
+      :on-success="successCallback">   
+      <el-button type="primary">选择</el-button>
+      </el-upload>
+      <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
+        <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
+        <span>图片正在上传中，请不要关闭页面及浏览器</span>
+        <span slot="footer" class="dialog-footer">
+        </span>
+      </el-dialog>
   </div>
 </template>
 <script>
