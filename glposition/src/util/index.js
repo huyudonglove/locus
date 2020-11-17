@@ -1,7 +1,7 @@
 import {Message,Loading,MessageBox} from 'element-ui'
 export function loadRequest(url,params,name,http,style){
   return new Promise((resolve, reject)=>{
-    MessageBox.confirm(`确认${name}吗`,{'closeOnClickModal':false}).then(y=>{
+    MessageBox.confirm(`确认${name}吗`,{'closeOnClickModal':false,'showClose':false}).then(y=>{
       let load = Loading.service({
         lock: true,
         text: `${name}中...`,

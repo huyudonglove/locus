@@ -28,7 +28,7 @@
           <span>
             <el-input v-model="q" style="width:15%" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入MapID"></el-input>
           </span>
-           <span>
+           <span class="myWords">
              状态：
             <el-select v-model="status" placeholder="请选择">
              <el-option label="全部" value></el-option>
