@@ -40,7 +40,8 @@
                     firstPass(msg).then(v=>{
                       v.code?this.$message.error(v.msg):(()=>{
                         this.$message.success('修改成功');
-                        this.$cookies.remove(selfCookie);
+                        //this.$cookies.remove(selfCookie);
+                        localStorage.removeItem(selfCookie)
                         this.$cookies.remove('oldPass');
                         this.$router.push('/login');
                       })();

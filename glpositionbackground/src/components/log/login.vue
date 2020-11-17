@@ -76,7 +76,8 @@
           apple.password=encrypted.toString();
           login(apple).then(res=>{
             res.code?this.$message.error(res.msg):(()=>{
-              this.$cookies.set(selfCookie,res.data.token);
+              //this.$cookies.set(selfCookie,res.data.token);
+              localStorage.setItem(selfCookie,res.data.token)
               //res.data.isFirstLogin==1?this.$router.push('/revisePasswordHu')&& this.$cookies.set('oldPass',this.password):this.$router.push('/firstPage');
               this.$router.push('/firstPage')
             })();
@@ -93,7 +94,8 @@
     },
     created() {
       //检查登录
-      let token=this.$cookies.get(selfCookie);
+      //let token=this.$cookies.get(selfCookie);
+      let token=localStorage.getItem(selfCookie);
       token?this.$router.push('/firstPage'):(()=>{
         this.loginName=this.$cookies.get('loginName');
         this.$cookies.get('password')&&(()=>{

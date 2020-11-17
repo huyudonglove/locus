@@ -26,7 +26,8 @@ axios.interceptors.request.use(
     //const token = sessionStorage.getItem('token');
     //const  token=Cookies.get('token')
     //console.log(VueCookies,9999)
-    const token=VueCookies.get(selfCookie);
+    //const token=VueCookies.get(selfCookie);
+    const token=localStorage.getItem(selfCookie);
     if (token) {
       config.headers.Authorization = token;
     }
@@ -111,7 +112,8 @@ export default {
         })
         instance.post(url,data,{headers: {
             "Content-Type":"multipart/form-data",
-            "Authorization": VueCookies.get(selfCookie)
+            //"Authorization": VueCookies.get(selfCookie)
+            "Authorization": localStorage.getItem(selfCookie)
           }})
           .then(response => {
             resolve(response.data);

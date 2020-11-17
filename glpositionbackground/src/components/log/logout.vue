@@ -10,11 +10,13 @@
         methods:{
           logout(){
             this.$cookies.get('checked')?(()=>{
-              this.$cookies.remove(selfCookie)
+              //this.$cookies.remove(selfCookie)
+              localStorage.removeItem(selfCookie)
             })():(()=>{
               this.$cookies.remove('loginName');
               this.$cookies.remove('password');
-              this.$cookies.remove(selfCookie)
+              //this.$cookies.remove(selfCookie)
+              localStorage.removeItem(selfCookie)
             })();
             this.$router.push('/login')
           }
