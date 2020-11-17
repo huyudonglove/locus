@@ -91,7 +91,7 @@
           <upComponent @getImgId="getImgId" :imgType="formOne.type" :width="formOne.imgWidth" :length="formOne.imgLength" :height="formOne.imgHeight" :bottom="formOne.imgBottomSideLength" :direction="'back'"></upComponent>
         </el-form-item>
         <el-form-item label="">
-          <div>请上传适合⽐例的.jpg 或 .png <span style="color:#409eff;">（最大2M）</span></div>
+          <div>请上传适合⽐例的.jpg 或 .png <span style="color:#8488D1;">（最大2M）</span></div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

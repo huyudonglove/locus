@@ -16,7 +16,7 @@
           <singleUpComponent @changeImg="changeImg" :imgType="formSize.type" :width="formSize.identifiedImageWidth" :length="formSize.identifiedImageLength" :height="formSize.identifiedImageHeight" :bottom="formSize.identifiedImageBottomSideLength" :direction="'back'"></singleUpComponent>
         </el-form-item>
         <el-form-item label="">
-          <div>请上传适合比例的.jpg 或 .png <span style="color:#409eff;">（最大2M）</span></div>
+          <div>请上传适合比例的.jpg 或 .png <span style="color:#8488D1;">（最大2M）</span></div>
         </el-form-item>
         <div  style="text-align:right;width:615px">
         <el-button  type=""  @click="dialogVisible=false;">取消</el-button>
