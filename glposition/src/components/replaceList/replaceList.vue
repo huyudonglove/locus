@@ -3,12 +3,13 @@
     <!-- <div style="height:50px;border-bottom:1px solid #DFDCDC;">
       <span style="font-size:24px;font-weight:bold;color:#614a4d;">转换列表</span>
     </div> -->
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName" @tab-click="handleClick" style="position:relative;">
       <el-tab-pane label="地图转换" name="地图转换"></el-tab-pane>
       <el-tab-pane label="误差评估" name="误差评估"></el-tab-pane>
       <el-tab-pane label="激光扫描" name="激光扫描"></el-tab-pane>
       <el-tab-pane label="空间多图" name="空间多图"></el-tab-pane>
     </el-tabs>
+    <el-button style="position:absolute;right:65px;top:45px" type="primary" @click="$router.push({path:'/mapManageList'})" class="btnIcon"><img  src="../../assets/mapIconList.png"/><span class="btnIconSpan">地图库管理</span></el-button>
     <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入地图名称"></el-input>
       <span class="myWords">

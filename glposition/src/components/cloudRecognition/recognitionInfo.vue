@@ -33,7 +33,7 @@
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入识别图名称/ID"></el-input>
       <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg">下载识别图</el-button>
       <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button>
-      <el-button style="float:right;margin-right:15px" type="primary" @click="showSomeUp=true;">上传空间多图</el-button>
+      <!-- <el-button style="float:right;margin-right:15px" type="primary" @click="showSomeUp=true;">上传空间多图</el-button> -->
     </el-row>
     <el-table ref="imageRef" :data="imageTable" style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
       <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true" :selectable="(row)=>row.status ==1 &&row.type!==5||row.status ==11 &&row.type==5"></el-table-column>
@@ -75,7 +75,7 @@
     </div>
     
       <upSomeDialog @dialogClose="dialogClose"  :showSomeUp="showSomeUp" v-if="showSomeUp" @showImg="showImg"></upSomeDialog>
-      <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
+      <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center" >
       <img src="../../assets/ok.png" alt="" width="100" height="100">
       <p>
         <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者识别图库列表看到你的空间多图</span>

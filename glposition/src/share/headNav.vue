@@ -99,7 +99,7 @@ export default {
   .user span.logout{ font-size:16px}
   .cur{ cursor: pointer;
   }
-  .icon_user_default{display: inline-block;width: 34px;height: 34px;position:absolute; left:-50px;top: -8px;-moz-border-radius: 34px;-webkit-border-radius: 34px;border-radius: 34px;background: #9fb0c2;text-align: center;line-height: 34px;color: #fff;}
+  .icon_user_default{display: inline-block;width: 34px;height: 34px;position:absolute; left:-50px;top: -8px;-moz-border-radius: 34px;-webkit-border-radius: 34px;border-radius: 34px;background: #8488D1;text-align: center;line-height: 34px;color: #fff;}
   /* .icon_user_default{display: inline-block;width: 34px;height: 34px;position:absolute; left:-50px;top: -8px;text-align: center;line-height: 34px;color: #8488d1;font-weight: bold;} */
   .goBack{
     cursor: pointer;

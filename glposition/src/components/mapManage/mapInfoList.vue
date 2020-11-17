@@ -44,7 +44,7 @@
       </el-button>
         </el-row>
            <!-- 数据展示 -->
-        <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"  border @sort-change="changeTableSort" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+        <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"   @sort-change="changeTableSort" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
           <el-table-column
             prop="id" label="id "  align="center" width="80"
             sortable

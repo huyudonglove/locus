@@ -106,7 +106,7 @@
       </div>
     </el-col>
   </el-row>
-  <el-form style="width:50%;position: absolute;top:450px;" label-width="120px">
+  <el-form style="width:50%;position: absolute;top:500px;" label-width="120px">
      <el-form-item label="备注：" >
           <div class="myInput">
           <el-input
