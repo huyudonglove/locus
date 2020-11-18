@@ -32,7 +32,7 @@
         <div style="font-size: 13px;  cursor: pointer;" @click="type=2">立即注册</div>
       </div>
     </div>
-  <div class="h-login" v-if="type==2" style="width: 500px;height: 500px;" >
+  <div class="h-login" v-if="type==2" style="width: 500px;height: 450px;" >
       <div class="h-head" style="position: relative">
         <span class="h-title">欢迎注册</span>
         <span style="position: absolute;right: 0;font-size: 14px;top:10px;color: #8488D1;cursor: pointer" @click="type=1">已有账号，立即登录></span>

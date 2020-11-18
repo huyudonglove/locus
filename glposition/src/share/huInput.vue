@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
         <el-form-item :label="label" prop="email" v-if="type=='email'">
           <el-input v-model="ruleForm.email" placeholder="请输入你的邮箱" clearable></el-input>
         </el-form-item>
