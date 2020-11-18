@@ -23,8 +23,8 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="create">确定</el-button>
           <el-button @click="$router.push({path:'/service/apikeyList',query:JSON.parse($route.query.oldQuery)});">取消</el-button>
+          <el-button type="primary" @click="create">确定</el-button>
         </el-form-item>
       </el-form>
     </div>

@@ -72,7 +72,7 @@ export default {
 </script>
 <style >
 .el-menu{
-    border-right:0px none;
+    border-right:0px none !important;
     list-style: none;
     position: relative;
     margin: 0;
@@ -82,9 +82,7 @@ export default {
 .el-menu-item,.el-submenu__title{
   font-size: 16px;
 }
-.el-icon-arrow-down:before {
-    content: "";
-}
+
 
 .el-submenu__title,.el-menu-item>span{
   color: #fff !important;
@@ -106,7 +104,7 @@ export default {
   background-color:#343261 !important;
 
 }
-.is-active:hover {
+.el-menu .is-active:hover {
   background-color:#343261 !important;
 
 }

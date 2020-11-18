@@ -23,8 +23,8 @@
       <el-table-column prop="updateTime" label="修改时间" align="center"></el-table-column>
       <el-table-column label="操作" fixed="right" width="150" align="center">
         <template slot-scope="scope">
-          <el-button v-if="$route.name=='localRecognitionList'" type="warning" size="mini" @click="$router.push({path:'/recognitionInfo',query:{databaseId:1,myData:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">管理</el-button>
-          <el-button v-if="$route.name=='cloudRecognitionList'" type="warning" size="mini" @click="$router.push({path:'/recognitionInfo',query:{databaseId:2,myData:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">管理</el-button>
+          <el-button v-if="$route.name=='localRecognitionList'" type="primary" size="mini" @click="$router.push({path:'/recognitionInfo',query:{databaseId:1,myData:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">管理</el-button>
+          <el-button v-if="$route.name=='cloudRecognitionList'" type="primary" size="mini" @click="$router.push({path:'/recognitionInfo',query:{databaseId:2,myData:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">管理</el-button>
         </template>
       </el-table-column>
     </el-table>

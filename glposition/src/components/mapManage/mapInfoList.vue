@@ -28,7 +28,7 @@
           <span>
             <el-input v-model="q" style="width:15%" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入MapID"></el-input>
           </span>
-           <span>
+           <span class="myWords">
              状态：
             <el-select v-model="status" placeholder="请选择">
              <el-option label="全部" value></el-option>
@@ -44,7 +44,7 @@
       </el-button>
         </el-row>
            <!-- 数据展示 -->
-        <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"  border @sort-change="changeTableSort" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+        <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"   @sort-change="changeTableSort" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
           <el-table-column
             prop="id" label="id "  align="center" width="80"
             sortable
@@ -258,14 +258,17 @@ import upMe from '../up'
       if(state==1){
         notice = '确认运行吗？';
         resetStatus = 0;
-        this.$confirm(notice).then(u=>{
+        this.$confirm(notice,{
+        showClose:false,
+        closeOnClickModal:false}).then(u=>{
         this.loading=this.$loading({
         lock: true,
+      
         text: '数据获取中...',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
         });
-        autoStartMap({'mapId':mapKey}).then(res=>{
+        autoStartMap({'mapId':mapKey,'number':1}).then(res=>{
           if(res.code){
             this.$message.error(res.msg);
             this.tableData2.forEach(v=>{if(v.id==id){v.runState=resetStatus;}});
@@ -284,9 +287,13 @@ import upMe from '../up'
       }else{
         notice = '确认停用吗？';
         resetStatus = 1;
-        this.$confirm(notice).then(u=>{
+        this.$confirm(notice,{
+        showClose:false,
+        closeOnClickModal:false}).then(u=>{
         this.loading=this.$loading({
         lock: true,
+        showClose:false,
+        closeOnClickModal:false,
         text: '数据获取中...',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'

@@ -1,6 +1,6 @@
 <template>
     <div >
-      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传激光扫描结果" :close-on-click-modal="false" @close="visB()">
+      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传激光扫描结果" :close-on-click-modal="false" @close="visB()" :show-close="false">
         <div style="text-align: center">
           <p >
             <el-upload
@@ -28,7 +28,8 @@
             </el-upload>
           </p>
         </div>
-        <div style="text-align: center">
+        <div style="text-align: right">
+          <el-button @click="mapVisibleUp=false" >返回</el-button>
           <el-button @click="submitUpload"  type="primary" >上传</el-button>
         </div>
       </el-dialog>
@@ -39,7 +40,7 @@
           <span slot="footer" class="dialog-footer">
           </span>
         </el-dialog>
-        <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" :close-on-click-modal="false" style="text-align: center">
+        <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" :close-on-click-modal="false" :show-close="false" style="text-align: center">
           <img src="../assets/ok.png" alt="" width="100" height="100">
           <p>
             <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=2'">转换列表</router-link>或者地图库列表看到你的地图</span>
@@ -50,7 +51,7 @@
           </span>
           </p>
         </el-dialog>
-        <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;" :close-on-click-modal="false">
+        <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;" :close-on-click-modal="false" :show-close="false">
           <span>激光扫描结果正在上传，离开页面将会终止上传，你确定离开吗？</span>
           <span slot="footer" class="dialog-footer">
              <el-button type="primary" @click="upBreak = false;reload();abortFile();">确 定</el-button>

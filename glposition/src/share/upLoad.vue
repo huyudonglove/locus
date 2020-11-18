@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传误差评估视频" @close="visB()">
+      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传误差评估视频" @close="visB()" :close-on-click-modal="false" :show-close="false">
         <div style="text-align: center">
           <el-upload
               ref="upload"
@@ -27,17 +27,18 @@
             </el-upload>
         </div>
         <div style="text-align: center">
+          <el-button @click="mapVisibleUp=false" >返回</el-button>
           <el-button @click="submitUpload"  type="primary">上传</el-button>
         </div>
       </el-dialog>
       <div>
-        <el-dialog title="上传中" :visible.sync="upLoad" width="30%"  :close-on-click-modal="false" :show-close="false">
+        <el-dialog title="上传中" :visible.sync="upLoad" width="30%"  :close-on-click-modal="false" :show-close="false">
           <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
           <span>正在上传中，请不要关闭页面及浏览器</span>
           <span slot="footer" class="dialog-footer">
           </span>
         </el-dialog>
-        <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;">
+        <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;" :close-on-click-modal="false" :show-close="false">
           <span>文件正在上传，离开页面将会终止上传，你确定离开吗？</span>
           <span slot="footer" class="dialog-footer">
              <el-button type="primary" @click="upBreak = false;reload();abortFile();">确 定</el-button>

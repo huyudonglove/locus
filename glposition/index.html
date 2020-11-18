@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>LocusAR</title>
     <style>
+      .el-menu, .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .el-menu--horizontal>.el-submenu .el-submenu__title:hover {
+      background-color: #343261 !important;
+    }
+      .el-switch__core {
+          border: 1px solid #DCDFE6 !important;
+          background: #DCDFE6 !important;
+      }
+      .is-checked .el-switch__core{
+        border: 1px solid #8488D1 !important;
+        background: #8488D1 !important;
+      }
+      body,html{
+      background: #f0f3fa !important;
+      }
       .myWords{
         color: #606266;
         font-size: 14px;
@@ -36,6 +50,18 @@
     }
      .el-page-header {
         padding-left: 15px;
+    }
+    .btnIcon{
+      padding: 8px 20px !important;
+    }
+    .btnIconSpan{
+      line-height: 18px;
+    }
+    .btnIcon img{
+      vertical-align:middle;margin-right:5px
+    }
+    .el-icon-arrow-down:before {
+        content: "" !important;
     }
     </style>
   </head>

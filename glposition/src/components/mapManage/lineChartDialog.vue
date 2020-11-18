@@ -11,7 +11,7 @@
         <el-button type="primary" @click="deleteVersion()">我要删除新版本地图</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="误差图对比" :visible.sync="dialogSmall" @close="closeSmall" width="800px">
+    <el-dialog title="误差图对比" :visible.sync="dialogSmall" @close="closeSmall" :close-on-click-modal="false" width="800px">
       <div></div>
       <div class="imgDiv">
         <el-image style="width:200px;height:200px;border:1px solid #DCDFE6" :src="source">

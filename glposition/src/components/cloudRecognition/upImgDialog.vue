@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="识别图上传" :visible.sync="dialogVisible" @close="close" width="700px" :close-on-click-modal="false" center>
+    <el-dialog title="识别图上传" :visible.sync="dialogVisible" @close="close" width="700px" :close-on-click-modal="false" :show-close="false">
       <div v-if="isShowOne">
         <div class="myInput">
           <el-form ref="formOne" :model="formOne" :rules="ruleOne" label-width="140px">
@@ -91,10 +91,11 @@
           <upComponent @getImgId="getImgId" :imgType="formOne.type" :width="formOne.imgWidth" :length="formOne.imgLength" :height="formOne.imgHeight" :bottom="formOne.imgBottomSideLength" :direction="'back'"></upComponent>
         </el-form-item>
         <el-form-item label="">
-          <div>请上传适合⽐例的.jpg 或 .png <span style="color:#409eff;">（最大2M）</span></div>
+          <div>请上传适合⽐例的.jpg 或 .png <span style="color:#8488D1;">（最大2M）</span></div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
+        <el-button v-if="isShowOne" @click="dialogVisible=false">取消</el-button>
         <el-button v-if="isShowOne" type="primary" @click="secondStep">下一步</el-button>
         <el-button v-if="!isShowOne" @click="firstStep">上一步</el-button>
         <el-button v-if="!isShowOne" type="primary" @click="add">完成</el-button>

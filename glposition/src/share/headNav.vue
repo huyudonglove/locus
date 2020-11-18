@@ -10,7 +10,7 @@
         <span class="btn_logout cur" @click="loginOut()" >退出</span> -->
         <span style="margin-right:100px;color:#8488D1;cursor: pointer;" @click="$router.push({path:'/sdkList'});">SDK下载</span>
         <div @mouseover="block()" @mouseout="block2()" style="height:50px;float:right;margin-right:20px">
-          <span class="goBack" ><i class="icon_user_default">{{userName.substring(0,1)}}</i>{{userName}}</span>
+          <span class="goBack" ><i class="icon_user_default">{{userName.substring(0,1).toUpperCase()}}</i>{{userName}}</span>
           <div class="showBox" :class="{'display':display,'show':show}"  @mouseenter="block()" @mouseleave="block2()">
           <span class="btn_logout cur" @click="$router.push({path:'/system/userManager'})"><i class="account"></i>账号管理</span>
           <span  class="btn_logout cur" @click="loginOut()" ><i class="loginOut"></i>退出登陆</span>
@@ -99,7 +99,7 @@ export default {
   .user span.logout{ font-size:16px}
   .cur{ cursor: pointer;
   }
-  .icon_user_default{display: inline-block;width: 34px;height: 34px;position:absolute; left:-50px;top: -8px;-moz-border-radius: 34px;-webkit-border-radius: 34px;border-radius: 34px;background: #9fb0c2;text-align: center;line-height: 34px;color: #fff;}
+  .icon_user_default{display: inline-block;width: 34px;height: 34px;position:absolute; left:-50px;top: -8px;-moz-border-radius: 34px;-webkit-border-radius: 34px;border-radius: 34px;background: #8488D1;text-align: center;line-height: 34px;color: #fff;}
   /* .icon_user_default{display: inline-block;width: 34px;height: 34px;position:absolute; left:-50px;top: -8px;text-align: center;line-height: 34px;color: #8488d1;font-weight: bold;} */
   .goBack{
     cursor: pointer;
