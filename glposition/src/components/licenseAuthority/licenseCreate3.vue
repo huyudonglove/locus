@@ -16,6 +16,7 @@
       </div>
        <el-dialog
       :visible.sync="dialogVisible"
+      :show-close="false" :close-on-click-modal='false'
       width="30%"
       >
       <p style="text-align:center;font-size:16px;">是否确定下载{{formSize.name}}<span style="padding-left:10px;">{{formSize.version}}</span></p>
@@ -136,8 +137,8 @@
 }
 .downBtn-primary {
     color: #FFF;
-    background-color: #409EFF;
-    border-color: #409EFF;
+    background-color: #8488d1;
+    border-color: #8488d1;
 }
 .mr5{
   margin-right: 5px;

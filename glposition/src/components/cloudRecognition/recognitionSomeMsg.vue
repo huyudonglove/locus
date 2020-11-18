@@ -104,7 +104,7 @@
   <div v-if="showSomeUp">
       <upSomeDialog @dialogClose="dialogClose" :showSomeUp="showSomeUp" :mapName="mapName" @showImg="showImg"></upSomeDialog>
     </div>
-   <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
+   <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center" :show-close="false" :close-on-click-modal='false'>
       <img src="../../assets/ok.png" alt="" width="100" height="100">
       <p>
         <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者识别图库列表看到你的空间多图</span>
@@ -117,6 +117,7 @@
     </el-dialog>
   <el-dialog
   :visible.sync="imgDialogVisible"
+  :close-on-click-modal='false'
    width="700px"
   center>
    <img :src="`/static/${featurePointFile}`" style="width:650px;"/>

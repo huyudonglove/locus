@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="识别度和识别点" :visible.sync="dialogVisible" @close="close" width="700px">
+    <el-dialog title="识别度和识别点" :visible.sync="dialogVisible" @close="close" width="700px"  :close-on-click-modal='false'>
           <div  id="myImageEchart" style="overflow:hidden">
             <div v-if="type==1">
             <div   :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:250px;height:250px;border:#606266 solid 1px;margin:0 auto;background-size:100% 100%;background-repeat:no-repeat;">

@@ -122,7 +122,7 @@ export default {
     top:60px;
     left:0;
     bottom:0;
-    width:260px;
+    width:261px;
     background-color:#343261;
 /* background: url("../assets/menu-bg.jpg") repeat-y ; */
       }
