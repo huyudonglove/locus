@@ -8,7 +8,7 @@
           <el-input v-model="ruleForm.name" placeholder="请输入你的用户名" clearable></el-input>
         </el-form-item>
         <el-form-item :label="label" prop="phone" v-if="type=='phone'">
-          <el-input v-model="ruleForm.phone" placeholder="请输入你的用户名" clearable></el-input>
+          <el-input v-model="ruleForm.phone" placeholder="请输入你的手机号码" clearable></el-input>
         </el-form-item>
         <el-form-item :label="label" prop="code" v-if="type=='code'">
           <el-input v-model="ruleForm.code" placeholder="请输入验证码" clearable style="width: 200px"></el-input>
