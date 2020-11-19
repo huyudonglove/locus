@@ -13,7 +13,7 @@
           <span class="goBack" ><i class="icon_user_default">{{userName.substring(0,1).toUpperCase()}}</i>{{userName}}</span>
           <div class="showBox" :class="{'display':display,'show':show}"  @mouseenter="block()" @mouseleave="block2()">
           <span class="btn_logout cur" @click="$router.push({path:'/system/userManager'})"><i class="account"></i>账号管理</span>
-          <span  class="btn_logout cur" @click="loginOut()" ><i class="loginOut"></i>退出登陆</span>
+          <span  class="btn_logout cur" @click="loginOut()" ><i class="loginOut"></i>退出登录</span>
         </div>
         </div>
       </div>

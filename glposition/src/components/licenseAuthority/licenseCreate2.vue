@@ -14,8 +14,8 @@
           </el-form-item>
         </el-form>
         <div style="text-align:right;">
-          <el-button  @click="goTo()">上一步</el-button>
-          <el-button type="primary" @click="submitForm('formSize')">完成</el-button>
+          <el-button  @click="goTo()" class="btnW">上一步</el-button>
+          <el-button type="primary" @click="submitForm('formSize')" class="btnW">完成</el-button>
         </div>
       </div>
     </div>

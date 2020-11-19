@@ -51,8 +51,8 @@
     </el-col>
     <el-col :span="12">
       <div>
-        <el-button type="danger" @click="del(formSize.id,formSize.name)">删除</el-button>
         <el-button type="primary" @click="isShowUp=true;">查看识别度和识别点</el-button>
+        <el-button type="danger" @click="del(formSize.id,formSize.name)">删除</el-button>
       </div>
       <div style="margin-top:20px;position:relative">
          <div  id="myImageEchart2" style="overflow:hidden">
