@@ -83,7 +83,7 @@ export function mapInfoList(params){
 
    /**地图库管理 -  删除 w*/
    export function mapInfoDel(params) {
-    return loadRequest('/api/location/map/info/delete', params, '删除', http, 'get')
+    return loadRequest('/api/location/map/info/delete', {id:params.id}, `删除${params.name}`, http, 'get')
   }
 
   /**地图库管理 -  启动地图，使用自动分配方式    运行地图 w*/

@@ -107,7 +107,7 @@
               <el-button
                 type="danger"
                 size="mini"
-                @click="del(scope.row.id)"
+                @click="del(scope.row.id,scope.row.name)"
                 :key="1"
               v-if="scope.row.status==-10||scope.row.status==-5||scope.row.status==9||scope.row.status==15"
                >删除</el-button>
@@ -244,8 +244,8 @@ import upMe from '../up'
         })
       })
     },
-    del(id){
-      mapInfoDel({'id':JSON.stringify(id)}).then(res=>{
+    del(id,name){
+      mapInfoDel({'id':JSON.stringify(id),name}).then(res=>{
          if(res.code){
             this.$message.error(res.msg);
           }else{

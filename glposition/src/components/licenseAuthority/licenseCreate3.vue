@@ -10,8 +10,8 @@
         <img  src="@/assets/ok2.png" style=""/>
           <!-- <p style="font-size:26px;line-height:48px;text-align:center;color:#67c23a">恭喜你，新建成功！</p> -->
         <div style="margin:100px auto;width:408px;">
-          <el-button  @click="$router.push({path:'/licenseManage'});reload()" style="float:left;width:130px">完成</el-button>
-          <el-button  @click="down()"  type="primary" style="float:right">立即下载SDK</el-button>
+          <el-button  @click="$router.push({path:'/licenseManage'});reload()" style="float:left;" class="btnW">完成</el-button>
+          <el-button  @click="down()"  type="primary" style="float:right" class="btnW">立即下载SDK</el-button>
         </div>
       </div>
        <el-dialog
@@ -20,9 +20,9 @@
       width="30%"
       >
       <p style="text-align:center;font-size:16px;">是否确定下载{{formSize.name}}<span style="padding-left:10px;">{{formSize.version}}</span></p>
-      <div style="width:180px;margin:0px auto;margin-top:30px;">
-        <a href="javascript:void(0)" download="" style="text-decoration:none" class="downBtn" @click="dialogVisible = false" >取消</a>
-        <a :href="`/static${formSize.downloadUrl}`" download="" style="text-decoration:none" class="downBtn downBtn-primary" @click="dialogVisible = false;">下载</a>
+      <div style="width:390px;margin:0px auto;margin-top:30px;">
+        <a href="javascript:void(0)" download="" style="text-decoration:none" class="downBtn btnW" @click="dialogVisible = false" >取消</a>
+        <a :href="`/static${formSize.downloadUrl}`" download="" style="text-decoration:none" class="downBtn downBtn-primary btnW" @click="dialogVisible = false;">下载</a>
       </div>
     </el-dialog>
     </div>
