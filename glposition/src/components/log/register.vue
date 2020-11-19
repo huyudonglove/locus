@@ -1,9 +1,9 @@
 <template>
     <div>
-      <huInput type="name" required="true" :label="'用户名'" style="width: 500px" ref="name"></huInput>
-      <huInput type="email" required="true" :label="'邮箱用于登陆'" style="width: 500px" ref="email"></huInput>
-      <huInput type="phone" required="true" :label="'手机号码'" style="width: 500px" ref="phone"></huInput>
-      <huInput type="code" required="true" :label="'验证码'" style="width: 500px" ref="code"></huInput>
+      <huInput type="name" required="true" :label="'用户名:'" style="width: 500px" ref="name"></huInput>
+      <huInput type="email" required="true" :label="'邮箱用于登录:'" style="width: 500px" ref="email"></huInput>
+      <huInput type="phone" required="true" :label="'手机号码:'" style="width: 500px" ref="phone"></huInput>
+      <huInput type="code" required="true" :label="'验证码:'" style="width: 500px" ref="code"></huInput>
       <input  type="button"  @click="check()"  class="h-l" value="立即注册" />
       <el-dialog :visible.sync="visible" :show-close="false" :close-on-click-modal="false" width="30%">
         <div style="padding:10px 140px">
@@ -82,6 +82,7 @@
     border:0px none;
     cursor: pointer;
     margin-left: 20px;
+    margin-top: 20px;
   }
 
 </style>
