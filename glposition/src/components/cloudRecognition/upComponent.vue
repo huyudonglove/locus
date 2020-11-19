@@ -112,7 +112,8 @@ export default {
     successCallback(response){
       if(response.code){
         this.isUpload = false;
-        this.$alert(response.msg, '上传失败', {confirmButtonText: '确定'})
+        this.$message.error('上传失败')
+        // this.$alert(response.msg, '上传失败', {confirmButtonText: '确定'})
       }else{
         checkImgIsRepeat({
           "fileId":response.data.fileId,
@@ -128,18 +129,20 @@ export default {
                 cancelButtonText:'否'
                 }).then(u=>{
                 this.imgName = response.data.originFileName.slice(0,30)
-                this.$alert('上传成功', {
-                  dangerouslyUseHTMLString: true
-                });
+                // this.$alert('上传成功', {
+                //   dangerouslyUseHTMLString: true
+                // });
+                this.$message.success('添加成功')
                 this.$emit('getImgId',response.data.fileId,this.imgType,this.direction,this.countHeight)
               }).catch(r=>{
                 console.log('取消')
               })
             }else{
               this.imgName = response.data.originFileName.slice(0,30)
-              this.$alert('上传成功', {
-                dangerouslyUseHTMLString: true
-              });
+              // this.$alert('上传成功', {
+              //   dangerouslyUseHTMLString: true
+              // });
+              this.$message.success('添加成功')
               this.$emit('getImgId',response.data.fileId,this.imgType,this.direction,this.countHeight)
             }
           }
