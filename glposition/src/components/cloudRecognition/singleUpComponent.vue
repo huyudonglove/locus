@@ -12,11 +12,11 @@
       :limit="3"
       :before-upload="beforeCallback"
       :on-progress="progress"
-      :on-success="successCallback">   
+      :on-success="successCallback">  
       <el-button type="primary">选择</el-button>
       </el-upload>
       <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
-        <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
+        <el-progress :text-inside="false" :stroke-width="26" :percentage="percent"></el-progress>
         <span>图片正在上传中，请不要关闭页面及浏览器</span>
         <span slot="footer" class="dialog-footer">
         </span>
@@ -137,18 +137,20 @@ export default {
                 cancelButtonText:'否'
                 }).then(u=>{
                 this.imgName = response.data.originFileName.slice(0,30)
-                this.$alert('上传成功', {
-                  dangerouslyUseHTMLString: true
-                });
+                // this.$alert('上传成功', {
+                //   dangerouslyUseHTMLString: true
+                // });
+                this.$message.success('添加成功')
                 this.$emit('changeImg',response.data.fileId,this.imgType,this.direction,this.countHeight)
               }).catch(r=>{
                 console.log('取消')
               })
             }else{
               this.imgName = response.data.originFileName.slice(0,30)
-              this.$alert('上传成功', {
-                dangerouslyUseHTMLString: true
-              });
+              // this.$alert('上传成功', {
+              //   dangerouslyUseHTMLString: true
+              // });
+              this.$message.success('添加成功')
               console.log(response.data.fileId,'response.data.fileId')
               this.$emit('changeImg',response.data.fileId,this.imgType,this.direction,this.countHeight)
             }
