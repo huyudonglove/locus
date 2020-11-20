@@ -30,8 +30,8 @@
           </el-form-item>
         </el-form>
         <div style="text-align:right;">
-          <el-button type="" @click="goTo()">返回</el-button>
-          <el-button type="primary" @click="submitForm('formSize')">下一步</el-button>
+          <el-button type="" @click="goTo()" class="btnW">返回</el-button>
+          <el-button type="primary" @click="submitForm('formSize')" class="btnW">下一步</el-button>
         </div>
       </div>
     </div>
