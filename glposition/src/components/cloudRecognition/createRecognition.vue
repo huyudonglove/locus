@@ -2,7 +2,7 @@
   <div>
     <div v-if="$route.name=='createRecognition'">
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-         <span style="font-size:24px;font-weight:bold;color:#614a4d;">{{$route.query.databaseId==1?'新建本地识别图库':'新建云识别图库'}}</span>
+         <span style="font-size:20px;font-weight:bold;color:#000;">{{$route.query.databaseId==1?'新建本地识别图库':'新建云识别图库'}}</span>
       </div>
       <div  style="margin-top:50px;width:690px;">
         <el-form ref="formSize" :model="formSize" label-width="150px" width="100%" style="font-size:16px;" :rules="rules" >
@@ -10,11 +10,11 @@
             <el-radio v-model="formSize.limit" :label="0">无限制</el-radio>
           </el-form-item>
           <el-form-item label="识别图库名称：" prop="name">
-            <el-input v-model="formSize.name" maxlength="16" style="width:300px;"></el-input>
+            <el-input v-model="formSize.name" maxlength="16" style="width:360px;"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="create">确定</el-button>
-            <el-button @click="$router.go(-1)">取消</el-button>
+            <el-button @click="$router.go(-1)" class="btnW">取消</el-button>
+            <el-button type="primary" @click="create" class="btnW">确定</el-button>
           </el-form-item>
         </el-form>
       </div>

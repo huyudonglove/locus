@@ -47,16 +47,14 @@
         <el-button  type="primary" @click="submitUpload('formSize',2)" v-if="!isCreate">编辑空间多图</el-button>
       </div>
     </el-dialog>
-    <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
+    <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center" :show-close="false" :close-on-click-modal='false'>
     <img src="../../assets/ok.png" alt="" width="100" height="100">
     <p>
       <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者识别图库列表看到你的地图</span>
     </p>
-    <p>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="upEnd = false;reload();">确 定</el-button>
-    </span>
-    </p>
+    <div style="text-align:right">
+      <el-button type="primary" @click="upEnd = false;reload();" class="btnW">确 定</el-button>
+    </div>
   </el-dialog>
   </div>
 </template>

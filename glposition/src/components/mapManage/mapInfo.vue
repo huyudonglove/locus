@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height:50px;border-bottom:1px solid #DFDCDC;margin-bottom:10px;">
-      <el-page-header @back="$router.push({path:'/mapManageList/mapInfoList',query:JSON.parse($route.query.oldQuery)})" content="地图信息" style="font-size:24px;font-weight:bold;color:#614a4d;">
+      <el-page-header @back="$router.push({path:'/mapManageList/mapInfoList',query:JSON.parse($route.query.oldQuery)})" content="地图信息" style="font-size:20px;font-weight:bold;color:#000;">
       </el-page-header>
     </div>
     <div class="mapDiv">

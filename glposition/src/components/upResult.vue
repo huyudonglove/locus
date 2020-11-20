@@ -29,8 +29,8 @@
           </p>
         </div>
         <div style="text-align: right">
-          <el-button @click="mapVisibleUp=false" >返回</el-button>
-          <el-button @click="submitUpload"  type="primary" >上传</el-button>
+          <el-button @click="mapVisibleUp=false" class="btnW">返回</el-button>
+          <el-button @click="submitUpload"  type="primary" class="btnW">上传</el-button>
         </div>
       </el-dialog>
       <div>
@@ -53,10 +53,13 @@
         </el-dialog>
         <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;" :close-on-click-modal="false" :show-close="false">
           <span>激光扫描结果正在上传，离开页面将会终止上传，你确定离开吗？</span>
-          <span slot="footer" class="dialog-footer">
-             <el-button type="primary" @click="upBreak = false;reload();abortFile();">确 定</el-button>
-             <el-button @click="upBreak=false;">取消</el-button>
-          </span>
+          <!-- <span slot="footer" class="dialog-footer">
+            
+          </span> -->
+          <div style="text-align:right">
+             <el-button type="primary" @click="upBreak = false;reload();abortFile();" class="btnW">确 定</el-button>
+             <el-button @click="upBreak=false;" class="btnW">取消</el-button>
+          </div>
         </el-dialog>
       </div>
     </div>

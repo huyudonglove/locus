@@ -2,11 +2,11 @@
   <div >
     <div v-if="$route.name=='mapManageList'">
       <div style="height:50px;border-bottom:1px solid #DFDCDC;" v-if="!$route.query.id">
-        <span style="font-size:24px;font-weight:bold;color:#614a4d;">地图库管理</span>
+        <span style="font-size:20px;font-weight:bold;color:#000;">地图库管理</span>
          <el-button style="float:right;margin-top:-3px" type="primary" @click="$router.push({path:'/replaceList'})" class="btnIcon"><img  src="../../assets/zhuanhuan.png"/><span class="btnIconSpan">转换列表</span></el-button>
       </div>
        <div style="height:50px;border-bottom:1px solid #DFDCDC;position:relative" v-if="$route.query.id">
-         <el-page-header @back="goTo()" content="地图库管理" style="font-size:24px;font-weight:bold;color:#614a4d;">
+         <el-page-header @back="goTo()" content="地图库管理" style="font-size:20px;font-weight:bold;color:#000;">
         </el-page-header>
          <el-button style="position:absolute;right:0px;top:-3px" type="primary" @click="$router.push({path:'/replaceList'})" class="btnIcon"><img  src="../../assets/zhuanhuan.png"/><span class="btnIconSpan">转换列表</span></el-button>
       </div>
@@ -158,7 +158,7 @@ import {mapList} from "../../http/request";
 /* .btnIcon-zhuanhuan{
   background: url('../../assets/zhuanhuan.png') center center no-repeat;
 } */
-.el-page-header__content{font-size:24px}
+
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

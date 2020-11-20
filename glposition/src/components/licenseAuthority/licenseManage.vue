@@ -2,7 +2,7 @@
   <div >
     <div v-if="$route.name=='licenseManage'">
       <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-        <span style="font-size:24px;font-weight:bold;color:#614a4d;">License授权管理</span>
+        <span style="font-size:20px;font-weight:bold;color:#000;">License授权管理</span>
         <el-button style="float:right;margin-left:15px" type="primary" @click="$router.push({path:'/licenseManage/licenseCreate/1'})">新建License许可证密钥
       </el-button>	
       </div>

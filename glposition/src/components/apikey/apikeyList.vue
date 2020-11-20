@@ -2,7 +2,7 @@
   <div>
     <div v-if="$route.name=='apikeyList'">
       <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-        <span style="font-size:24px;font-weight:bold;color:#614a4d;">API KEY列表</span>
+        <span style="font-size:20px;font-weight:bold;color:#000;">API KEY列表</span>
         <el-button style="float:right;" type="primary" @click="$router.push({path:'/service/createApikey',query:{oldQuery:JSON.stringify($route.query)}})">新增API KEY</el-button>
       </div>
       <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">

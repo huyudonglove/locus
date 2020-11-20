@@ -1,7 +1,7 @@
 <template>
   <div >
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="识别图详情" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
+      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="识别图详情" style="font-size:20px;font-weight:bold;color:#000;"></el-page-header>
     </div>
     <el-row :gutter="20" style="margin-top:20px;">
     <el-col :span="6">

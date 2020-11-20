@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height:50px;border-bottom:1px solid #DFDCDC;margin-bottom:10px;">
-      <span style="font-size:24px;font-weight:bold;color:#614a4d;">新建API KEY</span>
+      <span style="font-size:20px;font-weight:bold;color:#000;">新建API KEY</span>
     </div>
     <div>
       <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="150px" style="width: 70%">
@@ -22,10 +22,10 @@
             show-word-limit>
           </el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button @click="$router.push({path:'/service/apikeyList',query:JSON.parse($route.query.oldQuery)});">取消</el-button>
-          <el-button type="primary" @click="create">确定</el-button>
-        </el-form-item>
+        <div style="text-align:right">
+          <el-button @click="$router.push({path:'/service/apikeyList',query:JSON.parse($route.query.oldQuery)});" class="btnW">取消</el-button>
+          <el-button type="primary" @click="create" class="btnW">确定</el-button>
+        </div>
       </el-form>
     </div>
   </div>
