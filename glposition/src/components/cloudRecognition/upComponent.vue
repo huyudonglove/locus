@@ -16,7 +16,7 @@
       <el-button type="primary">选择</el-button>
     </el-upload>
     <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
-      <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
+      <el-progress :stroke-width="26" :percentage="percent"></el-progress>
       <span>图片正在上传中，请不要关闭页面及浏览器</span>
       <span slot="footer" class="dialog-footer">
       </span>

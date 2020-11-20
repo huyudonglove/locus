@@ -33,7 +33,7 @@
       </el-dialog>
       <div>
         <el-dialog title="上传中" :visible.sync="upLoad" width="30%"  :close-on-click-modal="false" :show-close="false">
-          <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
+          <el-progress :stroke-width="26" :percentage="percent"></el-progress>
           <span>正在上传中，请不要关闭页面及浏览器</span>
           <span slot="footer" class="dialog-footer">
           </span>
