@@ -2,7 +2,7 @@
   <div>
     <div v-if="$route.name=='licenseCreate3'">
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-        <span style="font-size:24px;font-weight:bold;color:#614a4d;">License授权管理</span>
+        <span style="font-size:20px;font-weight:bold;color:#000;">License授权管理</span>
       </div>
       <div  style="margin-top:140px;text-align: center" class="step">
          <!-- <div style="color:#8488D1;font-size:14px;margin-bottom:50px;margin-left:60px"><span style="color:#8488d1;"><i class="mr5 i2">1</i>新建密钥</span><span style="color:#8488d1;margin:0px 15px ">————————————</span><span><i class="mr5 i2">2</i>创建地图库</span><span style="margin:0px 15px ">————————————</span><span><i class="mr5">3</i>新建成功</span>
@@ -20,7 +20,7 @@
       width="30%"
       >
       <p style="text-align:center;font-size:16px;">是否确定下载{{formSize.name}}<span style="padding-left:10px;">{{formSize.version}}</span></p>
-      <div style="width:390px;margin:0px auto;margin-top:30px;">
+      <div style="margin-top:50px;text-align:right">
         <a href="javascript:void(0)" download="" style="text-decoration:none" class="downBtn btnW" @click="dialogVisible = false" >取消</a>
         <a :href="`/static${formSize.downloadUrl}`" download="" style="text-decoration:none" class="downBtn downBtn-primary btnW" @click="dialogVisible = false;">下载</a>
       </div>

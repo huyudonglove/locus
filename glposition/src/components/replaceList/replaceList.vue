@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-      <span style="font-size:24px;font-weight:bold;color:#614a4d;">转换列表</span>
+      <span style="font-size:20px;font-weight:bold;color:#000;">转换列表</span>
     </div> -->
     <el-tabs v-model="activeName" @tab-click="handleClick" style="position:relative;">
       <el-tab-pane label="地图转换" name="地图转换"></el-tab-pane>

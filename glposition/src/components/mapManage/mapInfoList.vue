@@ -2,7 +2,7 @@
   <div>
     <div v-if="$route.name=='mapInfoList'">
       <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-         <el-page-header @back="goTo()" content="地图库信息" style="font-size:24px;font-weight:bold;color:#614a4d;">
+         <el-page-header @back="goTo()" content="地图库信息" style="font-size:20px;font-weight:bold;color:#000;">
         </el-page-header>
       </div>
       <el-form ref="formSize" :model="formSize" label-width="130px" style="margin-top:20px;">
@@ -258,9 +258,12 @@ import upMe from '../up'
       if(state==1){
         notice = '确认运行吗？';
         resetStatus = 0;
-        this.$confirm(notice,{
+        this.$confirm(<div style='font-size:20px;font-weight:bold;margin-bottom:20px;'>{notice}</div>,{
         showClose:false,
-        closeOnClickModal:false}).then(u=>{
+        closeOnClickModal:false,
+        'confirmButtonClass':'confirmButtonXu',
+        'cancelButtonClass':'cancelButtonXu'
+        }).then(u=>{
         this.loading=this.$loading({
         lock: true,
       
@@ -287,13 +290,15 @@ import upMe from '../up'
       }else{
         notice = '确认停用吗？';
         resetStatus = 1;
-        this.$confirm(notice,{
+        this.$confirm(<div style='font-size:20px;font-weight:bold;margin-bottom:20px;'>{notice}</div>,{
         showClose:false,
         closeOnClickModal:false}).then(u=>{
         this.loading=this.$loading({
         lock: true,
         showClose:false,
         closeOnClickModal:false,
+        'confirmButtonClass':'confirmButtonXu',
+        'cancelButtonClass':'cancelButtonXu',
         text: '数据获取中...',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'

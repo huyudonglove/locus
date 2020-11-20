@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-      <el-page-header @back="$router.push({path:$route.query.databaseId==1?'/localRecognitionList':'/cloudRecognitionList',query:JSON.parse($route.query.oldQuery)})" content="识别图库信息" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
+      <el-page-header @back="$router.push({path:$route.query.databaseId==1?'/localRecognitionList':'/cloudRecognitionList',query:JSON.parse($route.query.oldQuery)})" content="识别图库信息" style="font-size:20px;font-weight:bold;color:#000;"></el-page-header>
     </div>
     <el-form ref="formData" :model="formData" label-width="130px">
       <el-form-item label="识别图库名称：">
@@ -75,16 +75,14 @@
     </div>
     
       <upSomeDialog @dialogClose="dialogClose"  :showSomeUp="showSomeUp" v-if="showSomeUp" @showImg="showImg"></upSomeDialog>
-      <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center" >
+      <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center" :show-close="false" :close-on-click-modal='false' >
       <img src="../../assets/ok.png" alt="" width="100" height="100">
       <p>
         <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=3'">转换列表</router-link>或者识别图库列表看到你的空间多图</span>
       </p>
-      <p>
-        <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="upEnd = false;reload();">确 定</el-button>
-      </span>
-      </p>
+     <div style="text-align:right">
+        <el-button type="primary" @click="upEnd = false;reload();" class="btnW">确 定</el-button>
+     </div>
     </el-dialog>
   </div>
 </template>

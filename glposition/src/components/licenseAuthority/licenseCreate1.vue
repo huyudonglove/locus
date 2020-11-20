@@ -2,7 +2,7 @@
   <div>
     <div v-if="$route.name=='licenseCreate1'">
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-         <span style="font-size:24px;font-weight:bold;color:#614a4d;">新建License许可证密钥</span>
+         <span style="font-size:20px;font-weight:bold;color:#000;">新建License许可证密钥</span>
       </div>
       <div  style="margin-top:50px;width:800px;" class="step">
         <div style="color:#8488D1;font-size:14px;margin-bottom:50px;margin-left:60px"><span style="color:#8488d1;"><i class="mr5">1</i>新建密钥</span><span style="color:#8488d1;margin:0px 15px ">————————————</span><span><i class="mr5 i2">2</i>创建地图库</span><span style="margin:0px 15px ">————————————</span><span><i class="mr5 i2">3</i>新建成功</span>

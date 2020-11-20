@@ -2,7 +2,7 @@
   <div>
     <div v-if="$route.name=='licenseInfo'">
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-         <el-page-header @back="goTo()" content="License授权管理" style="font-size:24px;font-weight:bold;color:#614a4d;">
+         <el-page-header @back="goTo()" content="License授权管理" style="font-size:20px;font-weight:bold;color:#000;">
         </el-page-header>
       </div>
       <el-form ref="formSize" :model="formSize" label-width="150px" style="margin-top:20px;">

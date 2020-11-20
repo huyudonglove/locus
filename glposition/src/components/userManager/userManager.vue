@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height:50px;border-bottom:1px solid #DFDCDC;margin-bottom:10px;">
-      <span style="font-size:24px;font-weight:bold;color:#614a4d;">账号管理</span>
+      <span style="font-size:20px;font-weight:bold;color:#000;">账号管理</span>
     </div>
     <div>
       <el-form label-position="right" label-width="150px" style="width: 70%">
