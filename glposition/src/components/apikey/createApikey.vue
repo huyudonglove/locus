@@ -4,7 +4,7 @@
       <span style="font-size:24px;font-weight:bold;color:#614a4d;">新建API KEY</span>
     </div>
     <div>
-      <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="150px" style="width: 70%">
+      <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="150px" style="width: 50%">
         <el-form-item label="名称" prop="name" required>
           <el-input type="text" v-model="form.name" maxlength="50"></el-input>
         </el-form-item>
@@ -23,8 +23,10 @@
           </el-input>
         </el-form-item>
         <el-form-item>
-          <el-button @click="$router.push({path:'/service/apikeyList',query:JSON.parse($route.query.oldQuery)});">取消</el-button>
-          <el-button type="primary" @click="create">确定</el-button>
+          <div style="text-align:right;">
+            <el-button @click="$router.push({path:'/service/apikeyList',query:JSON.parse($route.query.oldQuery)});" class="cancelButtonXu">取消</el-button>
+            <el-button type="primary" @click="create" class="confirmButtonXu">确定</el-button>
+          </div>
         </el-form-item>
       </el-form>
     </div>

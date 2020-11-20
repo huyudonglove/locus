@@ -39,8 +39,8 @@
           </el-form>
           
          <div style="text-align:right;">
-          <el-button  @click="nameVisible=false;">返回</el-button>
-          <el-button type="primary" @click="submitForm('formName')">确定</el-button >
+          <el-button  @click="nameVisible=false;" class="btnW">返回</el-button>
+          <el-button type="primary"  class="btnW"  @click="submitForm('formName')">确定</el-button >
         
         </div>
       </el-dialog>

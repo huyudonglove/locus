@@ -18,7 +18,7 @@
           <el-button type="primary" @click="isShow=true;">修改密码</el-button>
         </el-form-item>
       </el-form>
-      <el-dialog title="修改密码" :visible.sync="isShow" @close="closeDialog" :close-on-click-modal="false" :show-close="false" width="550px" center>
+      <el-dialog title="修改密码" :visible.sync="isShow" @close="closeDialog" :close-on-click-modal="false" :show-close="false" width="550px">
         <el-form ref="form" label-width="120px" :model="form" :rules="rules">
           <el-form-item label="旧密码" prop="oldPassword" required>
             <input  type="text"  class="is-hidden" />
@@ -37,8 +37,8 @@
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
-          <el-button :disabled="isConfirm" type="primary" @click="confirm">{{isConfirm?'修改中...':'修改密码'}}</el-button>
-          <el-button @click="isShow = false">取 消</el-button>
+          <el-button @click="isShow = false" class="cancelButtonXu">取 消</el-button>
+          <el-button :disabled="isConfirm" type="primary" @click="confirm" class="confirmButtonXu">{{isConfirm?'修改中...':'修改密码'}}</el-button>
         </span>
       </el-dialog>
     </div>
