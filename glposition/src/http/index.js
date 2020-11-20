@@ -82,6 +82,7 @@ axios.interceptors.response.use(
       //   message: error.response.data.message,
       //   type: 'error'
       // })
+      localStorage.removeItem('locationMiddlegroundToken');
       router.push({
         path: "/login"
       })
