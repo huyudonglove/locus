@@ -27,7 +27,8 @@
           <span>{{form.updateTime}}</span>
         </el-form-item>
         <el-form-item label="License数量：" prop="licenseCount" required>
-          <span>{{form.licenseCount}}</span> <el-button type="text" size="mini" @click="$router.push({path:'/licenseManager',query:{saasCode:userCode}})">查看</el-button>
+          <span>{{form.licenseCount}}</span>
+           <!-- <el-button type="text" size="mini" @click="$router.push({path:'/licenseManager',query:{saasCode:userCode}})">查看</el-button> -->
         </el-form-item>
         <el-form-item label="API KEY数量：" prop="apiKeyCount" required>
           <span>{{form.apiKeyCount}}</span> <el-button type="text" size="mini" @click="$router.push({path:'/service/apikeyList',query:{userCode}})">查看</el-button>
