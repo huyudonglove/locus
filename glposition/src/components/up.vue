@@ -62,8 +62,8 @@
           </p>
         </div>
         <div style="text-align: right">
-          <el-button @click="mapVisibleUp=false" >返回</el-button>
-          <el-button @click="submitUpload"  type="primary" >上传</el-button>
+          <el-button @click="mapVisibleUp=false" class="cancelButtonXu">返回</el-button>
+          <el-button @click="submitUpload"  type="primary" class="confirmButtonXu">上传</el-button>
         </div>
       </el-dialog>
       <div>
@@ -80,15 +80,15 @@
           </p>
           <p>
             <span slot="footer" class="dialog-footer">
-             <el-button type="primary" @click="upEnd = false;reload();">确 定</el-button>
+             <el-button type="primary" @click="upEnd = false;reload();" class="confirmButtonXu">确 定</el-button>
           </span>
           </p>
         </el-dialog>
         <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;" :close-on-click-modal="false" :show-close="false">
           <span>地图包正在上传，离开页面将会终止上传，你确定离开吗？</span>
           <span slot="footer" class="dialog-footer">
-             <el-button type="primary" @click="upBreak = false;reload();abortFile();">确 定</el-button>
-             <el-button @click="upBreak=false;">取消</el-button>
+             <el-button type="primary" @click="upBreak = false;reload();abortFile();" class="confirmButtonXu">确 定</el-button>
+             <el-button @click="upBreak=false;" class="cancelButtonXu">取消</el-button>
           </span>
         </el-dialog>
       </div>
