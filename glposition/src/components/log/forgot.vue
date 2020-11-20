@@ -1,7 +1,7 @@
 <template>
     <div>
-      <huInput :label="'邮箱地址'" :required="true" style="width: 500px" ref="email" type="email"></huInput>
-      <huInput type="code" required="true" :label="'验证码'" style="width: 500px" ref="code" v-if="show"></huInput>
+      <huInput :label="'邮箱地址:'" :required="true" style="width: 500px" ref="email" type="email"></huInput>
+      <huInput type="code" required="true" :label="'验证码:'" style="width: 500px" ref="code" v-if="show"></huInput>
       <input  type="button"  @click="submit()"  class="h-l" value="确定" />
       <el-dialog :visible.sync="visible" :show-close="false" :close-on-click-modal="false" width="30%">
         <div style="padding:10px 140px">

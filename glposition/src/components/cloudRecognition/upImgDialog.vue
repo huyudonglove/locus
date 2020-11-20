@@ -95,10 +95,10 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button v-if="isShowOne" @click="dialogVisible=false" class="btnW">取消</el-button>
-        <el-button v-if="isShowOne" type="primary" @click="secondStep" class="btnW">下一步</el-button>
-        <el-button v-if="!isShowOne" @click="firstStep" class="btnW">上一步</el-button>
-        <el-button v-if="!isShowOne" type="primary" @click="add" class="btnW">完成</el-button>
+        <el-button v-if="isShowOne" @click="dialogVisible=false" class="cancelButtonXu">取消</el-button>
+        <el-button v-if="isShowOne" type="primary" @click="secondStep" class="confirmButtonXu">下一步</el-button>
+        <el-button v-if="!isShowOne" @click="firstStep" class="cancelButtonXu">上一步</el-button>
+        <el-button v-if="!isShowOne" type="primary" @click="add" class="confirmButtonXu">完成</el-button>
       </div>
     </el-dialog>
   </div>

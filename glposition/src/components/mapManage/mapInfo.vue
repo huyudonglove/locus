@@ -109,7 +109,7 @@
           </div>
         </el-form-item>
       </el-form>
-      <el-dialog :title="title+'修改'" :visible.sync="isShow" :close-on-click-modal="false" width="550px" center>
+      <el-dialog :title="title+'修改'" :visible.sync="isShow" :close-on-click-modal="false" width="550px">
         <div style="text-align:center;">
           <el-input v-if="title=='尺度'" v-model="newScale" style="width:200px;" maxlength="50"></el-input>
           <el-input v-if="title=='GPS'" v-model="newGps" style="width:200px;" placeholder="0.0.0.0" maxlength="50"></el-input>
@@ -124,8 +124,8 @@
           </el-input>
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button :disabled="isConfirm" type="primary" @click="confirm">{{isConfirm?'修改中...':'确定'}}</el-button>
-          <el-button @click="isShow = false">取 消</el-button>
+          <el-button @click="isShow = false" class="cancelButtonXu">取 消</el-button>
+          <el-button :disabled="isConfirm" type="primary" @click="confirm" class="confirmButtonXu">{{isConfirm?'修改中...':'确定'}}</el-button>
         </span>
       </el-dialog>
       <el-button style="float:right;margin-left:15px" type="primary" @click="mapLoad()"  :disabled="!enableUpdateLine">更新误差评估视频</el-button>
