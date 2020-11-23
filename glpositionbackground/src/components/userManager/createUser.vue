@@ -63,7 +63,7 @@ export default {
               spinner: 'el-icon-loading',
               background: 'rgba(0, 0, 0, 0.7)'
             });
-            addUser({host:location.href,...this.form}).then(res=>{
+            addUser({host:location.origin,...this.form}).then(res=>{
               this.loading.close();
               if(res.code){
                 this.$message.error(res.msg)
