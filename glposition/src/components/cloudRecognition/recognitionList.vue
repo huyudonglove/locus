@@ -66,14 +66,14 @@ export default {
       this.$store.commit('pagination/setClickPage',1);//重置第1页
       this.replace('inputX',this.inputX);
     },
-    $route(){//判断路由query变化执行请求
+    $route(from,to){//判断路由query变化执行请求
+      if(from.name!=to.name){this.$store.commit('pagination/setTotal', 0);}
       this.listData();
     }
   },
   methods:{
     listData(){
       this.recognitionTable=[];
-      this.$store.commit('pagination/setTotal', 0);
       getRecognitionList({...this.$route.query,"identifiedType":this.$route.name=='cloudRecognitionList'?2:1}).then(res=>{
         this.recognitionTable=res.data.items;
         this.$store.commit('pagination/setTotal', res.data.total);
