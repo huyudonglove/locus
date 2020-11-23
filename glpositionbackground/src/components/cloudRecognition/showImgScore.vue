@@ -85,38 +85,35 @@ export default {
         score1:0,
         score2:0,
         score3:0,
-        score4:0
+        score4:0,
       }
     }
   },
   watch:{
     type(){
-     if(this.type==1){
-        this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
-     }else if(this.type==2){
-        this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
-        this.backImgUrl = Base64.decode(this.formSize.featurePointFile2);
-     }else if(this.type==3){
-       this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
-       this.leftImgUrl = Base64.decode(this.formSize.featurePointFile2);
-       this.rightImgUrl=Base64.decode(this.formSize.featurePointFile3);
-     }else if(this.type==4){
-       this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
-       this.leftImgUrl = Base64.decode(this.formSize.featurePointFile2);
-       this.rightImgUrl=Base64.decode(this.formSize.featurePointFile3);
-       this.backImgUrl=Base64.decode(this.formSize.featurePointFile4);
-     }
+    //  if(this.type==1){
+    //     this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
+    //  }else if(this.type==2){
+    //     this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
+    //     this.backImgUrl = Base64.decode(this.formSize.featurePointFile2);
+    //  }else if(this.type==3){
+    //    this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
+    //    this.leftImgUrl = Base64.decode(this.formSize.featurePointFile2);
+    //    this.rightImgUrl=Base64.decode(this.formSize.featurePointFile3);
+    //  }else if(this.type==4){
+    //    this.frontImgUrl = Base64.decode(this.formSize.featurePointFile1);
+    //    this.leftImgUrl = Base64.decode(this.formSize.featurePointFile2);
+    //    this.rightImgUrl=Base64.decode(this.formSize.featurePointFile3);
+    //    this.backImgUrl=Base64.decode(this.formSize.featurePointFile4);
+    //  }
     }
   },
   methods:{
-    close(){
-      this.$emit("showDialogClose");
-    },
+   
    
   },
   
   created(){
-    console.log()
     identifiedImageDegree({id:this.id}).then(res=>{
       this.type=this.types
       this.formSize=JSON.parse(JSON.stringify(res.data))
