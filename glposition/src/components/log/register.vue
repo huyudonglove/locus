@@ -10,10 +10,10 @@
           <img src="../../assets/dui.png" alt="" width="66px" style="display: inline-block;vertical-align:middle">
           <img src="../../assets/User.png" alt="" style="margin-left: 50px;;display: inline-block;vertical-align:middle">
         </div>
-        <div style="padding-left: 20px" v-if="visible">
-          验证邮件已经发送到您的邮箱（{{this.$refs.email.ruleForm.email}}）中。
+        <div style="text-align: center" v-if="visible">
+          <p style="max-height: 20px">验证邮件已经发送到您的邮箱（{{this.$refs.email.ruleForm.email}}）中。</p>
           请去邮箱完成注册流程。
-        </div>
+         </div>
           <div style="text-align: center">
             <el-button type="primary" @click="change" style="width: 200px">返回登录</el-button>
           </div>
