@@ -3,7 +3,7 @@
     <div class="h-login" v-if="type==1">
       <div class="h-head"><span class="h-title">登录</span></div>
       <div>
-        <el-input  placeholder="请输入您的用户名或者手机号" class="h-input" v-model="loginName" ></el-input>
+        <el-input  placeholder="请输入您的邮箱" class="h-input" v-model="loginName" ></el-input>
         <!-- <i class="h-user"></i>
         <input type="text" placeholder="请输入用户名" v-model="loginName" > -->
 
