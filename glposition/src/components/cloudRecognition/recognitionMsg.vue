@@ -34,7 +34,7 @@
       </el-form>
     </el-col>
     <el-col :span="6">
-      <el-form  :model="formSize" label-width="120px" style="margin-left:100px;margin-top:70px">
+      <el-form  :model="formSize" label-width="120px" style="margin-left:90px;margin-top:70px">
       <el-form-item label="长度：" v-if="type ==2||type ==4">
         {{formSize.identifiedImageLength}}米
       </el-form-item>
@@ -47,6 +47,7 @@
        <el-form-item label="底⾯边⻓："  v-if="type ==3">
         {{formSize.identifiedImageBottomSideLength}}米
       </el-form-item>
+    <showImgScore @showDialogClose="showDialogClose" :id="formSize.id" :types="formSize.type" ></showImgScore>
     </el-form>
     </el-col>
     <el-col :span="12">
@@ -130,6 +131,7 @@
 import {mapState} from 'vuex';
 import {identifiedImageDelete,updateRemark,identifiedImageUpdate} from '../../http/request'
 import showImgDialog from './showImgDialog'
+import showImgScore from './showImgScore'
 import upDialog from './upDialog'
 import { Base64 } from 'js-base64'
 export default {
@@ -137,7 +139,8 @@ export default {
   inject:['replace','reload'],
   components:{
     showImgDialog,
-    upDialog
+    upDialog,
+    showImgScore
   },
   data(){
     return{
