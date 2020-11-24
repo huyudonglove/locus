@@ -26,7 +26,7 @@
               <div class="el-upload__tip" slot="tip">只能上传zip文件</div>
             </el-upload>
         </div>
-        <div style="text-align: center">
+        <div>
           <el-button @click="mapVisibleUp=false" class="cancelButtonXu">返回</el-button>
           <el-button @click="submitUpload"  type="primary" class="confirmButtonXu">上传</el-button>
         </div>

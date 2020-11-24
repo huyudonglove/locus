@@ -8,7 +8,7 @@
         status-icon
         :rules="rules"
         ref="pswForm"
-        label-width="82px"
+        label-width="94px"
         autocomplete="off"
         style="padding:15px 40px 0px 40px;margin-bottom:60px;"
         class="demo"
@@ -16,7 +16,7 @@
         <el-form-item label="账号：" prop="userName">
           <span>{{$route.query.userName}}</span>
         </el-form-item>
-        <el-form-item label="输入密码：" prop="password">
+        <el-form-item label="输入密码：" prop="password" required>
           <input type="password" class="is-hidden" />
           <el-input
             type="password"
@@ -25,7 +25,7 @@
             autocomplete="new-password"
           ></el-input>
         </el-form-item>
-        <el-form-item label="确认密码：" prop="confirmPassword">
+        <el-form-item label="确认密码：" prop="confirmPassword" required>
           <input type="password" class="is-hidden" />
           <el-input
             type="password"
@@ -168,7 +168,7 @@ export default {
   cursor: pointer;
 }
 .h-login .el-input {
-  width: 278px;
+  width: 266px;
 }
 .btnDiv input.currentBtn {
   background: #8488D1;

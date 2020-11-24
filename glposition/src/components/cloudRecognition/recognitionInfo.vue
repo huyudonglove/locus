@@ -63,7 +63,7 @@
       <el-table-column prop="updateTime" label="修改时间" width="160" align="center"></el-table-column>
       <el-table-column label="操作" fixed="right" width="150" align="center">
         <template slot-scope="scope">
-          <el-button type="warning" size="mini" @click="scope.row.type==5?$router.push({path:'/recognitionSomeMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}}):$router.push({path:'/recognitionMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}})">管理</el-button>
+          <el-button type="primary" size="mini" @click="scope.row.type==5?$router.push({path:'/recognitionSomeMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}}):$router.push({path:'/recognitionMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}})">管理</el-button>
         </template>
       </el-table-column>
     </el-table>
