@@ -1,10 +1,12 @@
 <template>
   <div>
     <!-- 一级菜单 -->
+    
     <template v-for="item in menus"  >
-      <el-submenu v-if="item.childs && item.childs.length" :index="item.url" :key="item.url"  ref="myMenu" id="first">
+      <el-submenu v-if="item.childs && item.childs.length" :index="item.url" :key="item.url"  ref="myMenu" id="first"  >
+        <!-- <div class="blur" :disabled="true" @mousedown ="aa()"></div> -->
         <template slot="title">
-          <span>111{{item.menuName}}</span>
+          <span >{{item.menuName}}</span>
         </template>
         <!-- 二级菜单 -->
         <template v-for="itemChild in item.childs">
@@ -18,7 +20,7 @@
               <span slot="title">{{itemChild_Child.menuName}}</span>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-else :index="itemChild.url" :key="itemChild.url" style="margin-left:-10px" ref="menu-ul">
+          <el-menu-item v-else :index="itemChild.url" :key="itemChild.url" style="margin-left:-10px" ref="menuUl">
             <i :style="{'background':`url(${icon2[itemChild.url]}) no-repeat left center`}" v-if="$route.path==itemChild.url"></i>
             <i :style="{'background':`url(${icon[itemChild.url]}) no-repeat left center`}" v-else></i>
             <span slot="title">{{itemChild.menuName}}</span>
@@ -57,7 +59,9 @@ export default {
     };
   },
   methods: {
-
+    aa(e){
+         e.preventDefault()
+    }
   },
   created(){
     
@@ -141,5 +145,21 @@ ul.el-menu>div>li.is-opened{
 } */
 .el-menu i{
   display: inline-block;width: 22px;height: 22px;
+}
+.blur{
+    filter:alpha(opacity=0);
+    opacity:1;
+    position: absolute;
+    width: 260px;
+    height: 50px;
+    background: red;
+    top:-38px;
+    z-index: 999;
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    -ms-pointer-events: none;
+    -o-pointer-events: none;
+    pointer-events: none;
+    cursor: default;
 }
 </style>
