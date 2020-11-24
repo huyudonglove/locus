@@ -8,7 +8,7 @@
       <el-table-column label="版本" prop="version" align="center"></el-table-column>
       <el-table-column label="下载地址" prop="unityVersion" align="center">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="download(scope.row,'sdkFileId','name')">点击下载</el-button>
+          <el-button type="primary" size="mini" @click="download(scope.row,'sdkFileId','name')">下载SDK</el-button>
         </template>
       </el-table-column>
       <el-table-column label="开发文档" prop="loadingLine" align="center">

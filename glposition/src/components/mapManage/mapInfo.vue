@@ -31,16 +31,36 @@
           <!-- <el-button type="primary" size="mini" @click="isUpResult=true" :disabled="!(status==9)">上传激光扫描结果</el-button> -->
         </el-form-item>
       </el-form>
-      <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
+      <el-form label-position="right" label-width="100px" style="display:inline-block;margin-right:40px;vertical-align:top;">
         <el-form-item label="地图名称：">
           <span>{{mapName}}</span>
+        </el-form-item>
+        <el-form-item label="创建时间：">
+          <span ref="apikey">{{createTime}}</span>
+        </el-form-item>
+        <el-form-item label="尺度：">
+          <span>{{scale}}</span>
+           <!-- <el-button type="text" @click="showDialog('尺度')">修改</el-button> -->
+        </el-form-item>
+      </el-form>
+      <el-form label-position="right" label-width="100px" style="display:inline-block;margin-right:40px;vertical-align:top;">
+        <el-form-item label="地图类型：">
+          <span  v-if="sceneId==1">普通室内场景</span>
+          <span  v-if="sceneId==2">多植物场景</span>
+        </el-form-item>
+        <el-form-item label="修改时间：">
+          <span ref="apikey">{{updateTime}}</span>
+        </el-form-item>
+      </el-form>
+      <el-form label-position="right" label-width="100px" style="display:inline-block;margin-right:40px;vertical-align:top;">
+        <el-form-item label="MapID：">
+          <span ref="gps">{{mapId}}</span> <el-button type="text" @click="copy('gps')">复制MapID</el-button>
         </el-form-item>
         <el-form-item label="地图大小：">
           <span>{{packageSize?(packageSize/(1024*1024)).toFixed(2)+'M':''}}</span>
         </el-form-item>
-        <el-form-item label="MapID：">
-          <span ref="gps">{{mapId}}</span> <el-button type="text" @click="copy('gps')">复制MapID</el-button>
-        </el-form-item>
+      </el-form>
+      <el-form label-position="right" label-width="100px" style="display:inline-block;vertical-align:top;">
         <el-form-item label="状态：">
           <span  v-if="status==1">等待建图</span>
           <span  v-if="status==5">建图中</span>
@@ -52,18 +72,8 @@
         <el-form-item label="GPS：">
           <span>{{gps}}</span> <el-button type="text" @click="showDialog('GPS')">修改</el-button>
         </el-form-item>
-        <el-form-item label="地图类型：">
-          <span  v-if="sceneId==1">普通室内场景</span>
-          <span  v-if="sceneId==2">多植物场景</span>
-        </el-form-item>
       </el-form>
-      <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
-        <el-form-item label="创建时间：">
-          <span ref="apikey">{{createTime}}</span>
-        </el-form-item>
-        <el-form-item label="修改时间：">
-          <span ref="apikey">{{updateTime}}</span>
-        </el-form-item>
+      <el-form label-position="right" label-width="100px" style="display:inline-block;">
         <el-form-item label="备注：">
           <el-input
             type="textarea"
@@ -73,10 +83,6 @@
             v-model="decription">
           </el-input>
           <el-button style="vertical-align:top;" type="text" @click="showDialog('备注')">修改</el-button>
-        </el-form-item>
-        <el-form-item label="尺度：">
-          <span>{{scale}}</span>
-           <!-- <el-button type="text" @click="showDialog('尺度')">修改</el-button> -->
         </el-form-item>
       </el-form>
       <el-form :inline="true" label-position="right" label-width="100px" style="width: 100%">
