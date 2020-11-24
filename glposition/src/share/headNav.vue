@@ -87,7 +87,7 @@ export default {
 
 <style scoped>
 .nav-common{background:#fff;color: #0F0D32; overflow: hidden;}
-  .logo{ float:left; width: 260px;background: #343261;height:64px}
+  .logo{ float:left; width: 260px;background: #343261;height:70px}
   .logo div{ background: url("../assets/logo.png") no-repeat center  center;text-indent:-999px;width: 100%; height: 100%;}
 
 

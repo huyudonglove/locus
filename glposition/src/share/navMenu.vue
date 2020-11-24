@@ -4,7 +4,7 @@
     <template v-for="item in menus"  >
       <el-submenu v-if="item.childs && item.childs.length" :index="item.url" :key="item.url"  ref="myMenu" id="first">
         <template slot="title">
-          <span>{{item.menuName}}</span>
+          <span>111{{item.menuName}}</span>
         </template>
         <!-- 二级菜单 -->
         <template v-for="itemChild in item.childs">
@@ -18,7 +18,7 @@
               <span slot="title">{{itemChild_Child.menuName}}</span>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-else :index="itemChild.url" :key="itemChild.url" style="margin-left:-10px">
+          <el-menu-item v-else :index="itemChild.url" :key="itemChild.url" style="margin-left:-10px" ref="menu-ul">
             <i :style="{'background':`url(${icon2[itemChild.url]}) no-repeat left center`}" v-if="$route.path==itemChild.url"></i>
             <i :style="{'background':`url(${icon[itemChild.url]}) no-repeat left center`}" v-else></i>
             <span slot="title">{{itemChild.menuName}}</span>
@@ -77,7 +77,7 @@ export default {
     position: relative;
     margin: 0;
     padding-left: 0;
-    background-color: #343261;
+    background-color: #343261 !important;
 }
 .el-menu-item,.el-submenu__title{
   font-size: 16px;

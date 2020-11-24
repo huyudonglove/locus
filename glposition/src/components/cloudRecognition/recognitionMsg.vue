@@ -34,7 +34,7 @@
       </el-form>
     </el-col>
     <el-col :span="6">
-      <el-form  :model="formSize" label-width="120px" style="margin-left:90px;margin-top:70px">
+      <el-form  :model="formSize" label-width="120px" :style="{'margin-left':'90px','margin-top':type==4?'0px':'70px'}">
       <el-form-item label="长度：" v-if="type ==2||type ==4">
         {{formSize.identifiedImageLength}}米
       </el-form-item>
@@ -88,7 +88,7 @@
               </div>
               <div class="cubSide"></div>
               <div style="position:absolute;left:-20px;top:108px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
-              <div style="position:absolute;left:130px;bottom:-20px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:130px;bottom:95px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
               <div style="position:absolute;left:240px;bottom:-20px">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
             </div>
           </div>
@@ -107,7 +107,7 @@
       </div>
     </el-col>
   </el-row>
-  <el-form style="width:50%;position: absolute;top:500px;" label-width="120px">
+  <el-form :style="{'width':'50%','position': 'absolute','top':type==4?'540px':'500px'}" label-width="120px">
      <el-form-item label="备注：" >
           <div class="myInput">
           <el-input
@@ -125,6 +125,7 @@
         
         </el-form-item>
   </el-form>
+  
   </div>
 </template>
 <script>

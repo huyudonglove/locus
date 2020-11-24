@@ -13,7 +13,7 @@
               <label>正⾯识别度：</label>
               <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+20" /> 
               <img   src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score1"  :key="index+30"/>
-              <div style="margin-top:30px">
+              <div style="margin-top:35px">
                 <label>背⾯识别度：</label>
                 <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score2" :key="index+40" /> 
                 <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score2"  :key="index+50"/>
@@ -26,12 +26,12 @@
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+60" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score1"  :key="index+70"/>
                 </div>
-                <div style="margin-top:30px">
+                <div style="margin-top:35px">
                   <label>左面识别度：</label>
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score2" :key="index+80" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score2"  :key="index+90"/>
                 </div>
-                <div style="margin-top:30px">
+                <div style="margin-top:35px">
                   <label>右面识别度：</label>
                   <img  src="../../assets/starton.png" v-for="(item,index) in formSize.score3" :key="index+100" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score3"  :key="index+110"/>
@@ -43,17 +43,17 @@
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+120" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score1"  :key="index+130"/>
                 </div>
-                <div style="margin-top:30px">
+                <div style="margin-top:35px">
                   <label>左面识别度：</label>
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score2" :key="index+140" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score2"  :key="index+150"/>
                 </div>
-                <div style="margin-top:30px">
+                <div style="margin-top:35px">
                   <label>右面识别度：</label>
                   <img  src="../../assets/starton.png" v-for="(item,index) in formSize.score3" :key="index+160" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score3"  :key="index+170"/>
                 </div>
-                <div style="margin-top:30px">
+                <div style="margin-top:35px">
                   <label style="">背⾯识别度：</label>
                   <img  src="../../assets/starton.png" v-for="(item,index) in formSize.score4" :key="index+160" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score4"  :key="index+170"/>
@@ -134,7 +134,10 @@ export default {
   width: 120px;
   display: inline-block;
   text-align: right;
-  /* padding: 0 12px 0 0; */
+  padding: 0 12px 0 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: #606266;
 }
 .imgDiv{
   width:200px;

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div v-if="$route.name=='licenseInfo'">
+    <div v-if="$route.name=='licenseInfo'" id="license">
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
          <el-page-header @back="goTo()" content="License授权管理" style="font-size:20px;font-weight:bold;color:#000;">
         </el-page-header>
       </div>
       <el-form ref="formSize" :model="formSize" label-width="150px" style="margin-top:20px;">
-       <el-form-item label="应⽤名称：">
+       <el-form-item label="应用名称：">
         {{formSize.applicationName}}<el-button type="text" class="ml20" @click="edit(1)">修改</el-button>
       </el-form-item>
       <el-form-item label="SDK类型：">
@@ -30,11 +30,11 @@
           </el-form-item>
            <el-form-item label="" v-if="type==2" :key="2" :rules="[{ required: true, message: '不能为空', trigger: 'change' },{ min:1, max: 60, message: '长度在1到60个字符', trigger: 'change' }]" prop="bundleID">
             <el-input v-model="formName.bundleID">111</el-input>
-            <p style="line-height:22px;">注意！修改Bundle ID将更新License Key，原License Key仍能对旧BundleID有效，但对新BundleID失效。请谨慎操作</p>
+            <p style="line-height:22px;">注意！修改Bundle ID将更新License Key，原License Key仍能对旧BundleID有效，但对新BundleID失效。请谨慎操作！</p>
           </el-form-item>
            <el-form-item label="" v-if="type==3" :key="3" :rules="[{ required: true, message: '不能为空', trigger: 'change' },{ min:1, max: 60, message: '长度在1到60个字符', trigger: 'change' }]" prop="packageName">
             <el-input v-model="formName.packageName"></el-input>
-            <p style="line-height:22px;">注意！修改Package Name将更新License Key，原License Key仍能对旧Package Name有效，但对新Package Name失效。请谨慎操作</p>
+            <p style="line-height:22px;">注意！修改Package Name将更新License Key，原License Key仍能对旧Package Name有效，但对新Package Name失效。请谨慎操作！</p>
           </el-form-item>
           </el-form>
           
@@ -199,7 +199,9 @@ import {licenseInfo,licenseEditName,licenseEdit} from "../../http/request";
   }
   }
 </script>
+<style >
 
+</style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ml20{margin-left: 20px;}
