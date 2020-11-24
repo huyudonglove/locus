@@ -1,8 +1,8 @@
 <template>
-  <div class="h-div">
-    <div class="h-login">
-      <div class="h-head" v-if="$route.name=='setPassword'">设置密码</div>
-      <div class="h-head" v-if="$route.name=='resetPassword'">重置密码</div>
+  <div class="x-div">
+    <div class="x-login">
+      <div class="x-head" v-if="$route.name=='setPassword'">设置密码</div>
+      <div class="x-head" v-if="$route.name=='resetPassword'">重置密码</div>
       <el-form
         :model="pswForm"
         status-icon
@@ -17,7 +17,7 @@
           <span>{{$route.query.userName}}</span>
         </el-form-item>
         <el-form-item label="输入密码：" prop="password" required>
-          <input type="password" class="is-hidden" />
+          <input type="password" class="x-is-hidden" />
           <el-input
             type="password"
             v-model="pswForm.password"
@@ -26,7 +26,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item label="确认密码：" prop="confirmPassword" required>
-          <input type="password" class="is-hidden" />
+          <input type="password" class="x-is-hidden" />
           <el-input
             type="password"
             v-model="pswForm.confirmPassword"
@@ -35,7 +35,7 @@
           ></el-input>
         </el-form-item> 
       </el-form>
-      <div class="btnDiv">
+      <div class="x-btnDiv">
           <input
             type="button"
             class="currentBtn"
@@ -127,15 +127,15 @@ export default {
 };
 </script>
 
-<style scoped>
-.h-div {
+<style>
+.x-div {
   background: url("../../assets/bg.png") no-repeat center center;
   background-size: 100% 100%;
   width: 100%;
   height: 100%;
   position: absolute;
 }
-.h-login {
+.x-login {
   position: relative;
   width: 440px;
   padding-bottom: 60px;
@@ -147,7 +147,7 @@ export default {
   border-radius: 10px;
 }
 
-.h-head {
+.x-head {
   text-align: center;
   border-bottom: 2px dashed #8488D1;
   width: 360px;
@@ -157,7 +157,7 @@ export default {
   font-size: 26px;
   font-weight: bold;
 }
-.btnDiv input[type="button"] {
+.x-btnDiv input[type="button"] {
   width: 360px;
   height: 40px;
   background: rgba(223, 220, 220, 1);
@@ -167,16 +167,16 @@ export default {
   border: 0px none;
   cursor: pointer;
 }
-.h-login .el-input {
+.x-login .el-input {
   width: 266px;
 }
-.btnDiv input.currentBtn {
+.x-btnDiv input.currentBtn {
   background: #8488D1;
   border: 2px solid #8488D1;
   box-shadow: 0px 4px 10px 0px #8488D1;
   color: #fff;
 }
-.code {
+.x-code {
   width: 68px;
   text-align: center;
   /* color:#fff; */
@@ -191,23 +191,23 @@ export default {
   cursor: pointer;
   /* border: 1px solid #ff644e */
 }
-.posR {
+.x-posR {
   position: relative;
 }
-.btnDiv {
+.x-btnDiv {
   clear: both;
   padding-left: 40px;
 }
-::-webkit-input-placeholder {
+.x-div ::-webkit-input-placeholder {
   color: #dfdcdc;
 } /* 使用webkit内核的浏览器 */
-:-moz-placeholder {
+.x-div :-moz-placeholder {
   color: #dfdcdc;
 } /* Firefox版本4-18 */
-::-moz-placeholder {
+.x-div ::-moz-placeholder {
   color: #dfdcdc;
 } /* Firefox版本19+ */
-:-ms-input-placeholder {
+.x-div :-ms-input-placeholder {
   color: #dfdcdc;
 } /* IE浏览器 */
 /* .el-form-item__label{
@@ -219,9 +219,16 @@ export default {
     -webkit-box-sizing: border-box;
     box-sizing: border-box
 	} */
-.is-hidden {
+.x-is-hidden {
   position: absolute;
   left: -10000px;
   top: -10000px;
+}
+.x-div .el-form-item__label{
+  color: #0F0D32 !important;
+  font-weight: normal !important;
+}
+.x-div .el-form-item__content{
+  color: #0F0D32 !important;
 }
 </style>
