@@ -50,7 +50,7 @@
 
 <script>
   import {updateMake} from "../http/request";
-
+  import {selfCode,selfCookie} from "../self";
   export default {
         name: "up",
         props:['mapKey','mapVisible'],
@@ -67,7 +67,7 @@
             upBreak:false,
             msg:{},
             header:{
-              Authorization:this.$cookies.get('locationMiddlegroundToken')
+              Authorization:localStorage.getItem(selfCookie)
             },
             fileArray:[],
             mapVisibleUp:false,

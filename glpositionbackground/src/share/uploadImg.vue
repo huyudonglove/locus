@@ -15,6 +15,7 @@
 </template>
 
 <script>
+  import {selfCode,selfCookie} from "../self";
     export default {
       name: "uploadImg",
       props:['size','type','id'],
@@ -25,7 +26,7 @@
             limit:5
           },
           header:{
-            Authorization:this.$cookies.get('backgroundToken')
+            Authorization:localStorage.getItem(selfCookie)
           }
         };
       },
