@@ -47,6 +47,7 @@
        <el-form-item label="底⾯边⻓："  v-if="type ==3">
         {{formSize.identifiedImageBottomSideLength}}米
       </el-form-item>
+      <showImgScore @showDialogClose="showDialogClose" :id="formSize.id" :types="formSize.type" ></showImgScore>
     </el-form>
     </el-col>
     <el-col :span="12">
@@ -132,13 +133,15 @@ import {mapState} from 'vuex';
 import {identifiedImageDelete,updateRemark,identifiedImageUpdate} from '../../http/request'
 import showImgDialog from './showImgDialog'
 import upDialog from './upDialog'
+import showImgScore from './showImgScore'
 import { Base64 } from 'js-base64'
 export default {
   name:'recognitionMsg',
   inject:['replace','reload'],
   components:{
     showImgDialog,
-    upDialog
+    upDialog,
+    showImgScore
   },
   data(){
     return{

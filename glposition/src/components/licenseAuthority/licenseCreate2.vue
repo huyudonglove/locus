@@ -2,7 +2,7 @@
   <div>
     <div v-if="$route.name=='licenseCreate2'">
        <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-        <span style="font-size:18px;font-weight:500;color:#614a4d;">SDK授权管理 > 新建License许可证密钥</span>
+        <span style="font-size:18px;font-weight:500;color:#614a4d;">License授权管理 > 新建License许可证密钥</span>
       </div>
       <div  style="margin-top:50px;width:800px" class="step">
         <div style="color:#8488D1;font-size:14px;margin-bottom:50px;margin-left:60px"><span style="color:#8488d1;"><i class="mr5 i2">1</i>新建密钥</span><span style="color:#8488d1;margin:0px 15px ">————————————</span><span><i class="mr5 ">2</i>创建地图库</span><span style="margin:0px 15px ">————————————</span><span><i class="mr5 i2">3</i>新建成功</span>
@@ -10,7 +10,7 @@
         
         <el-form ref="formSize" :model="formSize" label-width="120px" width="100%" style="font-size:16px;" :rules="rules" >
           <el-form-item label="地图库名称：" prop="mapDatabaseName">
-            <el-input v-model="formSize.mapDatabaseName" placeholder="请地图库名称"></el-input>
+            <el-input v-model="formSize.mapDatabaseName" placeholder="输入请地图库名称"></el-input>
           </el-form-item>
         </el-form>
         <div style="text-align:right;">

@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <el-dialog title="识别图上传" :visible.sync="dialogVisible" @close="close" width="700px" :close-on-click-modal="false" :show-close="false">
+  <div id="imgUpXu">
+    <el-dialog title="识别图上传" :visible.sync="dialogVisible" @close="close" width="500px" :close-on-click-modal="false" :show-close="false">
       <div v-if="isShowOne">
         <div class="myInput">
-          <el-form ref="formOne" :model="formOne" :rules="ruleOne" label-width="140px">
+          <el-form ref="formOne" :model="formOne" :rules="ruleOne">
             <el-form-item label="类型：">
               <div>
                 <div v-for="(item,idx) in typeList" :key="idx" style="float:left;margin-right:10px;cursor:pointer;">
@@ -13,24 +13,23 @@
               </div>
             </el-form-item>
             <el-form-item label="识别图名称：" prop="imgName">
-              <el-input v-model="formOne.imgName" style="width:200px;" placeholder="请输入识别图名称" maxlength="30"></el-input>
+              <el-input v-model="formOne.imgName" placeholder="请输入识别图名称" maxlength="30"></el-input>
             </el-form-item>
             <el-form-item v-if="formOne.type==2||formOne.type==4" label="长度：" prop="imgLength">
-              <el-input v-model="formOne.imgLength" style="width:200px;" placeholder="请输入长度" maxlength="10"></el-input><span>米</span>
+              <el-input v-model="formOne.imgLength" style="width:96%;" placeholder="请输入长度" maxlength="10"></el-input><span> 米</span>
             </el-form-item>
             <el-form-item v-if="formOne.type!==3" label="宽度：" prop="imgWidth">
-              <el-input v-model="formOne.imgWidth" style="width:200px;" placeholder="请输入宽度" maxlength="10"></el-input><span>米</span>
+              <el-input v-model="formOne.imgWidth" style="width:96%;" placeholder="请输入宽度" maxlength="10"></el-input><span> 米</span>
               <p v-if="formOne.type==1" style="margin:0;color:#C0C4CC;font-size:10px;line-height:12px;">识别图的高度将由系统根据您上传的图片自动计算</p>
             </el-form-item>
             <el-form-item v-if="formOne.type==3||formOne.type==4" label="高度：" prop="imgHeight">
-              <el-input v-model="formOne.imgHeight" style="width:200px;" placeholder="请输入高度" maxlength="10"></el-input><span>米</span>
+              <el-input v-model="formOne.imgHeight" style="width:96%;" placeholder="请输入高度" maxlength="10"></el-input><span> 米</span>
             </el-form-item>
             <el-form-item v-if="formOne.type==3" label="底面边长：" prop="imgBottomSideLength">
-              <el-input v-model="formOne.imgBottomSideLength" style="width:200px;" placeholder="请输入底面边长" maxlength="10"></el-input><span>米</span>
+              <el-input v-model="formOne.imgBottomSideLength" style="width:96%;" placeholder="请输入底面边长" maxlength="10"></el-input><span> 米</span>
             </el-form-item>
             <el-form-item label="备注：">
               <el-input
-                style="width:400px;"
                 type="textarea"
                 :autosize="{ minRows: 3}"
                 show-word-limit
@@ -42,15 +41,15 @@
           </el-form>
         </div>
       </div>
-      <el-form v-if="!isShowOne" ref="formSecond" :model="formSecond" :rules="ruleSecond" label-width="140px">
+      <el-form v-if="!isShowOne" ref="formSecond" :model="formSecond" :rules="ruleSecond">
         <el-form-item label="类型：">
-          <div style="width:400px;" id="myImageEchart">
+          <div style="float:left;width:100%;" id="myImageEchart">
             <div  v-if="formOne.type==1" :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:200px;height:200px;border:#606266 solid 1px;margin:0 auto;background-size:100% 100%;background-repeat:no-repeat;"></div>
             <div v-if="formOne.type==2">
               <div :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:150px;height:150px;border:#606266 solid 1px;float:left;margin-right:10px;text-align:center;line-height:150px;background-size:100% 100%;background-repeat:no-repeat;"><span :style="{'opacity':frontImgUrl?0:1}">正面</span></div>
               <div :style="{'background-image':backImgUrl?`url(/static/${backImgUrl})`:''}" style="width:150px;height:150px;border:#606266 solid 1px;float:left;text-align:center;line-height:150px;background-size:100% 100%;background-repeat:no-repeat;"><span :style="{'opacity':backImgUrl?0:1}">背面</span></div>
-              <div style="position:absolute;left:-15px;top:-30px;word-wrap:break-word;width:10px;height:122px;line-height:70px;">↑宽↓</div>
-              <div style="position:absolute;left:0px;bottom:-30px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:4px;top:95px;word-wrap:break-word;width:10px;height:122px;line-height:70px;">↑宽↓</div>
+              <div style="position:absolute;left:20px;top:266px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
             </div>
             <div v-if="formOne.type==3">
               <div class="topSanlengzhu"><div class="topSanlengzhu2" ></div></div>
@@ -59,8 +58,8 @@
                 <div class="sanlengzhu" :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="border-right:none;"><span :style="{'opacity':frontImgUrl?0:1}">正面</span></div>
                 <div class="sanlengzhu" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}"><span :style="{'opacity':rightImgUrl?0:1}">右面</span></div>
               </div>
-              <div style="position:absolute;left:20px;top:35px;word-wrap:break-word;width:10px;height:122px;line-height:50px;">↑高↓</div>
-              <div style="position:absolute;left:50px;bottom:0;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:83px;top:162px;word-wrap:break-word;width:10px;height:122px;line-height:50px;">↑高↓</div>
+              <div style="position:absolute;left:102px;top:284px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
               <div class="bottomSanlengzhu" ><div class="bottomSanlengzhu2" ></div></div>
             </div>
             <div v-if="formOne.type==4">
@@ -71,9 +70,9 @@
                 <div class="cub" :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="border-right:none;"><span :style="{'opacity':frontImgUrl?0:1}">正面</span></div>
                 <div class="cub" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}"><span :style="{'opacity':rightImgUrl?0:1}">右面</span></div>
               </div>
-              <div style="position:absolute;left:20px;top:80px;word-wrap:break-word;width:10px;height:122px;line-height:30px;">↑高↓</div>
-              <div style="position:absolute;left:115px;bottom:-30px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
-              <div style="position:absolute;left:200px;bottom:-30px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:72px;top:200px;word-wrap:break-word;width:10px;height:122px;line-height:30px;">↑高↓</div>
+              <div style="position:absolute;left:167px;top:278px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:250px;top:360px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
               <div class="cubSide"></div>
             </div>
           </div>
@@ -365,6 +364,10 @@ export default {
   width:80px;
   height:80px;
   border:#606266 solid 1px;
-  margin-left:199px;
+  margin-left:229px;
+}
+#imgUpXu .el-form-item__label{
+  width: 100% !important;
+  display: block !important;
 }
 </style>

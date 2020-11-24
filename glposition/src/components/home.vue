@@ -14,8 +14,9 @@
             :default-active="$route.path"
             :default-openeds='openeds'
             @close="handleClose"
+            :collapse-transition="false"
             >
-            <navMenu :menus="menus"></navMenu>
+            <navMenu :menus="menus" ref="menus"></navMenu>
             </el-menu>
           </el-col>
         </el-row>
@@ -96,8 +97,13 @@ export default {
       // console.log(this.openeds,'openeds')
       }
     },
-    handleClose(){
-      console.log(11,222)
+    handleClose(key, keyPath) {
+    //  let x=document.getElementsByClassName('el-menu')
+    //  let i;
+    //  for (i = 0; i < x.length; i++) {
+    //    x[i].style.display = "block";
+    // }
+    //   console.log(key, keyPath);
     }
 	},
    components: {
@@ -134,7 +140,7 @@ export default {
       background-color: #f0f3fa !important;
       bottom:0;
       overflow:auto;
-      border-left: 1px solid #eeeeee;
+      /* border-left: 1px solid #eeeeee; */
       padding: 30px 30px 30px 30px;
       }
   .pa_body .body-content>.el-main{

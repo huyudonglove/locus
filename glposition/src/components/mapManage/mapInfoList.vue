@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="$route.name=='mapInfoList'">
+    <div v-if="$route.name=='mapInfoList'" id="mapInfoList">
       <div style="height:50px;border-bottom:1px solid #DFDCDC;">
          <el-page-header @back="goTo()" content="地图库信息" style="font-size:20px;font-weight:bold;color:#000;">
         </el-page-header>
@@ -94,16 +94,17 @@
            <el-table-column  label="操作" width="240" align="center" >
             <template slot-scope="scope">
               <el-button type="danger" size="mini" v-if="scope.row.status==1||scope.row.status==5" @click="stopMap(scope.row.mapKey)">停止</el-button>
-               <el-button
-                type="success"
+               
+              <el-button type="success"
+                         @click="isShowChart=true;mapCode=scope.row.mapCode;mapKey=scope.row.mapKey;mapStatus=scope.row.runState"
+                         size="mini" v-if="scope.row.status==-10||scope.row.status==-5||scope.row.status==9||scope.row.status==15"
+                         :disabled="scope.row.status==-10||scope.row.status==-5||scope.row.status==9">更新</el-button>
+              <el-button
+                type="primary"
                 size="mini"
                 @click="$router.push({path:'/mapManageList/mapInfoList/mapInfo',query:{id:scope.row.id,oldQuery:JSON.stringify($route.query)}})"
               v-if="scope.row.status==-10||scope.row.status==-5||scope.row.status==9||scope.row.status==15"
               >管理</el-button>
-              <el-button type="primary"
-                         @click="isShowChart=true;mapCode=scope.row.mapCode;mapKey=scope.row.mapKey;mapStatus=scope.row.runState"
-                         size="mini" v-if="scope.row.status==-10||scope.row.status==-5||scope.row.status==9||scope.row.status==15"
-                         :disabled="scope.row.status==-10||scope.row.status==-5||scope.row.status==9">更新</el-button>
               <el-button
                 type="danger"
                 size="mini"
@@ -266,7 +267,6 @@ import upMe from '../up'
         }).then(u=>{
         this.loading=this.$loading({
         lock: true,
-      
         text: '数据获取中...',
         spinner: 'el-icon-loading',
         background: 'rgba(0, 0, 0, 0.7)'
