@@ -13,7 +13,7 @@
       :before-upload="beforeCallback"
       :on-progress="progress"
       :on-success="successCallback">   
-      <el-button style="width:150px;">选择</el-button>
+      <el-button type="primary" plain style="width:150px;">选择</el-button>
     </el-upload>
     <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
       <el-progress :stroke-width="26" :percentage="percent"></el-progress>
