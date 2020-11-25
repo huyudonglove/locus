@@ -10,7 +10,7 @@
         
         <el-form ref="formSize" :model="formSize" label-width="120px" width="100%" style="font-size:16px;" :rules="rules" >
           <el-form-item label="地图库名称：" prop="mapDatabaseName">
-            <el-input v-model="formSize.mapDatabaseName" placeholder="输入请地图库名称"></el-input>
+            <el-input v-model="formSize.mapDatabaseName" placeholder="请输入地图库名称"></el-input>
           </el-form-item>
         </el-form>
         <div style="text-align:right;">

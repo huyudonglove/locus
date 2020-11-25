@@ -15,8 +15,9 @@
             :default-openeds='openeds'
             @close="handleClose"
             :collapse-transition="false"
+             ref="menus"
             >
-            <navMenu :menus="menus" ref="menus"></navMenu>
+            <navMenu :menus="menus"></navMenu>
             </el-menu>
           </el-col>
         </el-row>
@@ -98,12 +99,7 @@ export default {
       }
     },
     handleClose(key, keyPath) {
-    //  let x=document.getElementsByClassName('el-menu')
-    //  let i;
-    //  for (i = 0; i < x.length; i++) {
-    //    x[i].style.display = "block";
-    // }
-    //   console.log(key, keyPath);
+      this.$refs.menus.open(keyPath);
     }
 	},
    components: {

@@ -64,7 +64,7 @@
               <div class="cubSide"></div>
               <div style="position:absolute;left:70px;top:199px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
               <div style="position:absolute;left:225px;bottom:280px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
-              <div style="position:absolute;left:340px;bottom:162px">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:340px;bottom:162px"><span style="margin-right:41px">←</span><span style="margin-right:41px">长</span><span>→</span></div>
               <div style="clear:both;padding-top:30px;width:220px;margin:0px auto">
                 <div class="pb10">正⾯识别度：
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+120" /> 

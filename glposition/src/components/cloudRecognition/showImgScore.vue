@@ -138,6 +138,7 @@ export default {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: #606266;
+  font-weight: bold;
 }
 .imgDiv{
   width:200px;
