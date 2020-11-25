@@ -16,7 +16,7 @@
               <div style="position:absolute;left:17px;top:57px;word-wrap:break-word;width:10px;height:150px;line-height:90px;">↑宽↓</div>
               <div style="position:absolute;left:50px;bottom:56px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
             <div style="clear:both;padding-top:20px;">
-              <div>正⾯识别度：
+              <div class="pb10">正⾯识别度：
               <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+20" /> 
               <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score1"  :key="index+30"/>
               <span style="padding-left:30px;">背⾯识别度:</span>
@@ -35,18 +35,18 @@
               <div class="bottomSanlengzhu" ><div class="bottomSanlengzhu2" ></div>
               </div>
                <div style="position:absolute;left:87px;top:122px;word-wrap:break-word;width:10px;height:150px;line-height:82px;">↑高↓</div>
-              <div style="position:absolute;left:124px;bottom:165px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:124px;bottom:175px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
               <div style="clear:both;padding-top:10px;width:220px;margin:0px auto">
-                <div>正⾯识别度：
+                <div class="pb10">正⾯识别度：
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+60" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score1"  :key="index+70"/>
                 </div>
-                <div>
+                <div class="pb10">
                   <span style="">左面识别度：</span>
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score2" :key="index+80" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score2"  :key="index+90"/>
                 </div>
-                <div>
+                <div class="pb10">
                   <span style="">右面识别度：</span>
                   <img  src="../../assets/starton.png" v-for="(item,index) in formSize.score3" :key="index+100" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score3"  :key="index+110"/>
@@ -63,24 +63,24 @@
               </div>
               <div class="cubSide"></div>
               <div style="position:absolute;left:70px;top:199px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
-              <div style="position:absolute;left:225px;bottom:140px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
-              <div style="position:absolute;left:340px;bottom:140px">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:225px;bottom:280px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:340px;bottom:162px">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
               <div style="clear:both;padding-top:30px;width:220px;margin:0px auto">
-                <div>正⾯识别度：
+                <div class="pb10">正⾯识别度：
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+120" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score1"  :key="index+130"/>
                 </div>
-                <div>
+                <div class="pb10">
                   <span style="">左面识别度：</span>
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score2" :key="index+140" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score2"  :key="index+150"/>
                 </div>
-                <div>
+                <div class="pb10">
                   <span style="">右面识别度：</span>
                   <img  src="../../assets/starton.png" v-for="(item,index) in formSize.score3" :key="index+160" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score3"  :key="index+170"/>
                 </div>
-                <div>
+                <div class="pb10">
                   <span style="">背⾯识别度：</span>
                   <img  src="../../assets/starton.png" v-for="(item,index) in formSize.score4" :key="index+160" /> 
                   <img  src="../../assets/startonOther.png" v-for="(item,index) in 5-formSize.score4"  :key="index+170"/>
@@ -225,5 +225,8 @@ export default {
   height:120px;
   border:#606266 solid 1px;
   margin-left:322px
+}
+.pb10{
+  padding-top: 10px;
 }
 </style>

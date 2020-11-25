@@ -39,7 +39,8 @@ export default {
       rules:{
         userName:[
           {required: true, message: '请输入用户名称', trigger: ['change','blur']},
-          {pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{2,20}$/, message: '限制只能输入20位数字和英文的组合', trigger: 'blur'}
+          // {pattern: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{2,20}$/, message: '限制只能输入20位数字和英文的组合', trigger: 'blur'},
+          {pattern: /^[0-9a-zA-Z]{1,16}$/, message: '限制只能输入20位数字或英文的组合', trigger: 'blur'}
         ],
         phone:[
           {required: true, message: '请输入手机号', trigger: ['change','blur']},
