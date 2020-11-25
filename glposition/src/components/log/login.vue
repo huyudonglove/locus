@@ -14,9 +14,9 @@
         <input type="password" placeholder="请输入密码" v-model="password"> -->
       </div>
       <div style="position: relative" v-if="count>4">
-        <el-input type="text" style="width: 180px" placeholder="请输入验证码" v-model="code">
+        <el-input type="text" style="width: 240px" placeholder="请输入验证码" v-model="code">
         </el-input>
-        <codeM type="online" style="display: inline-block;position: absolute;top:5px;left: 200px" ref="codeM"></codeM>
+        <codeM type="online" style="display: inline-block;position: absolute;top:5px;left: 260px" ref="codeM"></codeM>
       </div>
       <div style="display: flex;justify-content: space-between;padding-left: 0px;padding-right: 20px;">
         <div class="h-size">
@@ -64,6 +64,7 @@
       register,
       forgot
     },
+    inject:['replace'],
     data(){
       return{
         loginName:'',
@@ -71,7 +72,8 @@
         checked:false,
         count:0,
         type:1,
-        code:''
+        code:'',
+        time:''
       }
     },
     methods:{
@@ -92,6 +94,7 @@
           this.$cookies.remove('checked');
         })();
         var next=true;
+
         if(this.count>4&&this.$refs.codeM.code){
             this.$refs.codeM.code.toLowerCase()==this.code.toLowerCase()?(()=>{
               next=true;
@@ -114,6 +117,10 @@
           if(res.code){
             this.$message.error(res.msg);
             this.count++;
+            this.time=new Date().getTime()
+            this.replace('time',this.time);
+            this.replace('count',this.count);
+
           }else {
             //this.$cookies.set('locationMiddlegroundToken',res.data.token)
             localStorage.setItem('locationMiddlegroundToken',res.data.token)
@@ -134,6 +141,16 @@
         this.password=this.$cookies.get('password');
         this.checked=Boolean(this.$cookies.get('checked'));
       })();
+      console.log(this.$route);
+      let nowTime=new Date().getTime();
+      let oldTime=this.$route.query.time||0;
+      if(nowTime-oldTime>3600000){
+        console.log(111111111)
+        this.count=0;
+      }else {
+        this.count=this.$route.query.count;
+      }
+      this.time=this.$route.query.time||0;
     }
   }
 </script>

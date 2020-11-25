@@ -2,7 +2,7 @@
     <div>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
         <el-form-item :label="label" prop="email" v-if="type=='email'">
-          <el-input v-model="ruleForm.email" placeholder="请输入你的邮箱" clearable style="ime-mode:disabled" maxlength='30'></el-input>
+          <el-input v-model="ruleForm.email" placeholder="请输入你的邮箱" clearable style="ime-mode:disabled" maxlength='30' ></el-input>
         </el-form-item>
         <el-form-item :label="label" prop="name" v-if="type=='name'">
           <el-input v-model="ruleForm.name" placeholder="请输入你的用户名" clearable onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" maxlength='20'></el-input>
@@ -11,7 +11,7 @@
           <el-input v-model="ruleForm.phone" placeholder="请输入你的手机号码" clearable onkeyup="this.value=this.value.replace(/\D/g,'')" maxlength='11'></el-input>
         </el-form-item>
         <el-form-item :label="label" prop="code" v-if="type=='code'">
-          <el-input v-model="ruleForm.code" placeholder="请输入验证码" clearable style="width: 200px"></el-input>
+          <el-input v-model="ruleForm.code" placeholder="请输入验证码" clearable style="width: 240px"></el-input>
           <codeM ref="code" type="online" style="display: inline-block;position: absolute;padding-left: 10px"></codeM>
         </el-form-item>
       </el-form>
