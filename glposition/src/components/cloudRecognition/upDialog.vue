@@ -116,7 +116,8 @@ export default {
           lock: true,
           text: `数据保存中...`,
           spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
+          background: 'rgba(0, 0, 0, 0.3)',
+          customClass: 'loading_xu',
         });    
           identifiedImageUpdate({...this.form,"identifiedImageHeight":this.countHeight?Number(this.countHeight):this.form.identifiedImageHeight,
             "url1":this.formSecond.frontImgFileId?this.formSecond.frontImgFileId:this.$route.query.frontImgFileId?this.$route.query.frontImgFileId:this.form.url1,

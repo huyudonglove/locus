@@ -56,7 +56,8 @@ export default {
                 lock: true,
                 text: '上传中',
                 spinner: 'el-icon-loading',
-                background: 'rgba(0, 0, 0, 0.7)'
+                background: 'rgba(0, 0, 0, 0.3)',
+                customClass: 'loading_xu',
               });
               const form = new FormData();
               // 将选中文件追加到虚拟表单中
@@ -84,7 +85,8 @@ export default {
               lock: true,
               text: '上传中',
               spinner: 'el-icon-loading',
-              background: 'rgba(0, 0, 0, 0.7)'
+              background: 'rgba(0, 0, 0, 0.3)',
+              customClass: 'loading_xu',
             });
             const form = new FormData();
             // 将选中文件追加到虚拟表单中
@@ -112,7 +114,8 @@ export default {
               lock: true,
               text: '上传中',
               spinner: 'el-icon-loading',
-              background: 'rgba(0, 0, 0, 0.7)'
+              background: 'rgba(0, 0, 0, 0.3)',
+              customClass: 'loading_xu',
             });
             const form = new FormData();
             // 将选中文件追加到虚拟表单中
@@ -140,7 +143,8 @@ export default {
             lock: true,
             text: '上传中',
             spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.7)'
+            background: 'rgba(0, 0, 0, 0.3)',
+            customClass: 'loading_xu',
           });
           const form = new FormData();
           // 将选中文件追加到虚拟表单中
@@ -164,7 +168,8 @@ export default {
               lock: true,
               text: '上传中',
               spinner: 'el-icon-loading',
-              background: 'rgba(0, 0, 0, 0.7)'
+              background: 'rgba(0, 0, 0, 0.3)',
+              customClass: 'loading_xu',
             });
             const form = new FormData();
             // 将选中文件追加到虚拟表单中

@@ -194,7 +194,8 @@ export default {
           lock: true,
           text: `数据保存中...`,
           spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
+          background: 'rgba(0, 0, 0, 0.3)',
+          customClass: 'loading_xu',
         });
         addIdentifiedImage({name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName}).then(res=>{
             if(res.code){
@@ -223,7 +224,8 @@ export default {
           lock: true,
           text: `数据保存中...`,
           spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
+          background: 'rgba(0, 0, 0, 0.3)',
+          customClass: 'loading_xu',
         });
       identifiedImageUpdate({id:JSON.parse(this.$route.query.row).id,name:this.formSize.name,identifiedImageDatabaseName:this.formSize.identifiedImageDatabaseName,type:5,resourceFileId:this.formSize.resourceFileId,fileList:fileList,remark:this.formSize.remark,identifiedImageDatabaseId:this.formSize.identifiedImageDatabaseId,size:this.formSize.size,mapTypeId:this.formSize.mapTypeId,mapName:this.formSize.mapName,identifiedImageId:this.formSize.identifiedImageId}).then(res=>{
           if(res.code){

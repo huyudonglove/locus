@@ -2,18 +2,18 @@
     <div>
       <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传地图包" :close-on-click-modal="false" @close="visB()" :show-close="false">
         <div>
-          <p><i style="color:red;padding:5px;">*</i>地图名称：</p>
+          <p style="font-weight:bold;"><i style="color:red;padding:5px;">*</i>地图名称：</p>
           <el-input v-model="name" placeholder="请输入名称"  maxlength="20"></el-input>
         </div>
         <div>
-          <p>地图类型:</p>
+          <p style="font-weight:bold;">地图类型:</p>
           <p>
             <el-radio v-model="sceneId" :label="1">普通室内场景</el-radio>
             <el-radio v-model="sceneId" :label="2">多植物场景</el-radio>
           </p>
         </div>
         <div>
-          <p>备注：</p>
+          <p style="font-weight:bold;">备注：</p>
           <el-input v-model="description" type="textarea" maxlength="500" show-word-limit></el-input>
         </div>
         <div style="text-align: center">

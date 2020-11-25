@@ -269,7 +269,8 @@ import upMe from '../up'
         lock: true,
         text: '数据获取中...',
         spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+        background: 'rgba(0, 0, 0, 0.3)',
+        customClass: 'loading_xu',
         });
         autoStartMap({'mapId':mapKey,'number':1}).then(res=>{
           if(res.code){
@@ -292,16 +293,18 @@ import upMe from '../up'
         resetStatus = 1;
         this.$confirm(<div style='font-size:20px;font-weight:bold;margin-bottom:20px;'>{notice}</div>,{
         showClose:false,
-        closeOnClickModal:false}).then(u=>{
+        closeOnClickModal:false,
+        'confirmButtonClass':'confirmButtonXu',
+        'cancelButtonClass':'cancelButtonXu'
+        }).then(u=>{
         this.loading=this.$loading({
         lock: true,
         showClose:false,
         closeOnClickModal:false,
-        'confirmButtonClass':'confirmButtonXu',
-        'cancelButtonClass':'cancelButtonXu',
         text: '数据获取中...',
         spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+        background: 'rgba(0, 0, 0, 0.3)',
+        customClass: 'loading_xu',
         });
         autoStopMap({'mapId':mapKey}).then(res=>{
           if(res.code){
