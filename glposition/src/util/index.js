@@ -11,7 +11,8 @@ export function loadRequest(url,params,name,http,style){
         lock: true,
         text: `${name}中...`,
         spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
+        background: 'rgba(0, 0, 0, 0.3)',
+        customClass: 'loading_xu',
       });
       http[style](url,params).then(res=>{
         load.close();

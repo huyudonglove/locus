@@ -280,8 +280,10 @@ export default {
           lock: true,
           text: `数据加载中...`,
           spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)'
+          background: 'rgba(0, 0, 0, 0.3)',
+          customClass: 'loading_xu',
         });
+        return
         getMapUpdate({"mapId":this.$route.query.id}).then(result=>{
           if(result.code){
             this.loading.close();

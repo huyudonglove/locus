@@ -1,7 +1,7 @@
 <template>
     <div>
       <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传误差评估视频" @close="visB()" :close-on-click-modal="false" :show-close="false">
-        <div style="text-align: center">
+        <div style="text-align: center;margin-bottom:20px;">
           <el-upload
               ref="upload"
               class="upload-demo"
@@ -26,7 +26,7 @@
               <div class="el-upload__tip" slot="tip">只能上传zip文件</div>
             </el-upload>
         </div>
-        <div>
+        <div style="text-align: right">
           <el-button @click="mapVisibleUp=false" class="cancelButtonXu">返回</el-button>
           <el-button @click="submitUpload"  type="primary" class="confirmButtonXu">上传</el-button>
         </div>
