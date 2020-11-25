@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input v-model="imgName" disabled style="width:400px;color:#8488D1;"></el-input>
+    <el-input v-model="imgName" disabled style="width:305px;color:#8488D1;"></el-input>
     <el-upload
       ref="imgUpload"
       style="display:inline-block;"
@@ -13,7 +13,7 @@
       :before-upload="beforeCallback"
       :on-progress="progress"
       :on-success="successCallback">  
-      <el-button type="primary">选择</el-button>
+      <el-button type="primary"  plain style="width:150px;">选择</el-button>
       </el-upload>
       <el-dialog :title="fileName+'上传中'" :visible.sync="isUpload" width="30%" :append-to-body="true" :close-on-click-modal="false" :show-close="false">
         <el-progress :text-inside="false" :stroke-width="26" :percentage="percent"></el-progress>

@@ -89,7 +89,7 @@
               <div class="cubSide"></div>
               <div style="position:absolute;left:-20px;top:108px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
               <div style="position:absolute;left:130px;bottom:95px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
-              <div style="position:absolute;left:240px;bottom:-20px">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:240px;bottom:-20px"><span style="margin-right:39px">←</span><span style="margin-right:38px">长</span><span>→</span></div>
             </div>
           </div>
       </div>

@@ -18,7 +18,7 @@
         <el-form-item label="">
           <div>请上传适合比例的.jpg 或 .png <span style="color:#8488D1;">（最大2M）</span></div>
         </el-form-item>
-        <div  style="text-align:right;width:615px">
+        <div  style="text-align:right;width:600px">
         <el-button  type=""  @click="dialogVisible=false;" class="btnW">取消</el-button>
         <el-button  type="primary" @click="add('formSize')" class="btnW">保存</el-button>
       </div>
