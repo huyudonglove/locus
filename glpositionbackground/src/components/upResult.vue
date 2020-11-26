@@ -63,6 +63,7 @@
 
 <script>
   import {upResult} from "../http/request";
+  import {selfCookie} from "../self";
   import upLoad from "../share/upLoad";
   export default {
         name: "upResult",
@@ -83,7 +84,7 @@
 
             },
             header:{
-              Authorization:this.$cookies.get('locationBackgroundToken')
+              Authorization:localStorage.getItem(selfCookie)
             },
             fileArray:[],
             mapVisibleUp:true,
