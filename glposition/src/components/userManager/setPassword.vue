@@ -59,7 +59,7 @@ export default {
         callback(new Error("请输入密码"));
         // !/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,30}$/.test(value)
       } else if (/[\u4e00-\u9fa5]{1,16}/.test(value)) {
-        callback(new Error("只能输入非中文字符区且分大小写,最多16位"));
+        callback(new Error("只能输入非中文字符且区分大小写,最多16位"));
       } else {
         if (this.pswForm.confirmPassword !== "") {
           this.$refs.pswForm.validateField("confirmPassword");
