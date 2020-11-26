@@ -39,6 +39,7 @@
 
 <script>
 // import {updateMake} from "../http/request";
+import {selfCookie} from "../../self";
 
 export default {
   name: "up",
@@ -50,7 +51,7 @@ export default {
         moduleCode: "locus_position_map"
       },
       header: {
-        Authorization: this.$cookies.get("locationMiddlegroundToken")
+        Authorization: localStorage.getItem(selfCookie)
       },
       isUpload: false,
       percent: 0,
@@ -138,7 +139,7 @@ export default {
     mapVisible() {
       this.mapVisibleUp = true;
     },
-    
+
   }
 };
 </script>

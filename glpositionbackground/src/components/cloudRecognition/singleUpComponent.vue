@@ -23,6 +23,8 @@
 </template>
 <script>
 import {checkImgIsRepeat} from '../../http/request'
+import {selfCookie} from "../../self";
+
 export default {
   name:'upComponent',
   props:['imgType','length','width','height','bottom','direction'],
@@ -33,7 +35,7 @@ export default {
         moduleCode:'locus_position_identifiedImage'
       },
       header:{
-        Authorization:this.$cookies.get('locationMiddlegroundToken')
+        Authorization:localStorage.getItem(selfCookie)
       },
       isUpload:false,
       percent:0,

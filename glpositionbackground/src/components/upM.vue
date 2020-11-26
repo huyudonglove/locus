@@ -90,6 +90,8 @@
 <script>
   import {upMap} from "../http/request";
   import upLoad from "../share/upLoad";
+  import {selfCookie} from "../self";
+
   export default {
         name: "up",
         props:['formSize','visible'],
@@ -111,7 +113,7 @@
 
             },
             header:{
-              Authorization:this.$cookies.get('locationMiddlegroundToken')
+              Authorization:localStorage.setItem(selfCookie)
             },
             fileArray:[],
             fileArr:[],//偏差数组列表
