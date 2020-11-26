@@ -8,7 +8,7 @@
           <img src="../../assets/dui.png" alt="" width="66px" style="display: inline-block;vertical-align:middle">
           <img src="../../assets/User.png" alt="" style="margin-left: 50px;;display: inline-block;vertical-align:middle">
         </div>
-        <div style="position: absolute;left:50%;transform:translateX(-50%);min-width: 500px">
+        <div style="position: absolute;left:50%;transform:translateX(-50%);min-width: 300px">
           <p style="line-height: 24px" v-if="visible">验证邮件已经发送到您的邮箱（{{this.$refs.email.ruleForm.email}}）中。</p>
           <p style="line-height: 24px">请去邮箱完成重置流程。</p>
           <div style="text-align: center">
