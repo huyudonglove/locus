@@ -170,6 +170,7 @@ export default {
 .upDialog .el-form-item__label{
   display: block ;
   float: none !important;
+  text-align: left !important;
 }
 .upDialog .el-form-item__content{
   margin-left: 0px !important;
