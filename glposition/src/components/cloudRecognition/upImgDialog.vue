@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="imgup_xu">
     <el-dialog title="识别图上传" :visible.sync="dialogVisible" @close="close" width="500px" :close-on-click-modal="false" :show-close="false">
       <div v-if="isShowOne">
         <div class="myInput">
@@ -90,7 +90,7 @@
           <upComponent @getImgId="getImgId" :imgType="formOne.type" :width="formOne.imgWidth" :length="formOne.imgLength" :height="formOne.imgHeight" :bottom="formOne.imgBottomSideLength" :direction="'back'"></upComponent>
         </el-form-item>
         <el-form-item label="">
-          <div>请上传适合⽐例的.jpg 或 .png <span style="color:#8488D1;">（最大2M）</span></div>
+          <div style="line-height:16px;">请上传适合⽐例的.jpg 或 .png <span style="color:#8488D1;">（最大2M）</span></div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -365,5 +365,8 @@ export default {
   height:80px;
   border:#606266 solid 1px;
   margin-left:229px;
+}
+#imgup_xu .el-form--label-top .el-form-item__label{
+  padding: 0;
 }
 </style>
