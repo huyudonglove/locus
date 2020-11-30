@@ -107,8 +107,7 @@
             },
             deleteSdk(id){
               deleteSdk(id).then(res=>{
-                res.code&&this.$message.error(res.msg)&&this.getSdk();
-                !res.code&&this.$message.success(res.msg)&&this.getSdk();
+                this.getSdk();
               })
             },
           downFile(row,myProperty,fileName){
