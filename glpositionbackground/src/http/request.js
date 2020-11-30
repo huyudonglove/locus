@@ -121,7 +121,7 @@ export function mapInfoList(params){
 }
 /**地图库管理 -  指定服务停止任务,自动分配   停止 w*/
 export function autoStopMap(params) {
-  return http.get('/api/location/map/info/autoStopMap',params)
+  return loadRequest('/api/location/map/info/autoStopMap',params,'停止运行',http,'get')
 }
 /** 账号管理-账号信息 Author:minggui*/
 export function userInfo(){
