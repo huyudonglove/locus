@@ -88,6 +88,7 @@ export default {
     };
   },
   mounted() {
+    localStorage.removeItem('locationMiddlegroundToken')
     setPassword({code:this.$route.query.code}).then(res=>{
       if(res.code&&res.msg=='链接已过期'){
         this.$router.push('/losePage');
