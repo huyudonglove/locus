@@ -7,7 +7,7 @@
       <el-tab-pane label="地图转换" name="地图转换"></el-tab-pane>
       <el-tab-pane label="误差评估" name="误差评估"></el-tab-pane>
       <el-tab-pane label="激光扫描" name="激光扫描"></el-tab-pane>
-      <el-tab-pane label="空间多图" name="空间多图"></el-tab-pane>
+      <!-- <el-tab-pane label="空间多图" name="空间多图"></el-tab-pane> -->
     </el-tabs>
     <el-button style="position:absolute;right:65px;top:45px" type="primary" @click="$router.push({path:'/mapManageList'})" class="btnIcon"><img  src="../../assets/mapIconList.png"/><span class="btnIconSpan">地图库管理</span></el-button>
     <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">

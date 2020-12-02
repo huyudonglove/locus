@@ -1,7 +1,7 @@
 <template>
   <div >
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="识别图详情" style="font-size:24px;font-weight:bold;color:#614a4d;"></el-page-header>
+      <el-page-header @back="$router.push({path:'/recognitionInfo',query:JSON.parse($route.query.msg)})" content="识别图详情" style="font-size:20px;font-weight:bold;color:#000;"></el-page-header>
     </div>
     <el-row :gutter="20" style="margin-top:20px;">
     <el-col :span="6">
@@ -17,7 +17,7 @@
           <span v-if="formSize.status==0">待生效</span>
           <span v-if="formSize.status==2">异常</span>
           <span v-if="formSize.status==3">更新</span>
-          <span v-if="formSize.status==4">已停止</span>
+          <span v-if="formSize.status==4">停止</span>
         </el-form-item>
         <el-form-item label="类型：" >
           <span v-if="formSize.type==1">单张图片</span>
@@ -34,7 +34,7 @@
       </el-form>
     </el-col>
     <el-col :span="6">
-      <el-form  :model="formSize" label-width="120px" style="margin-left:100px;margin-top:70px">
+      <el-form  :model="formSize" label-width="120px" :style="{'margin-left':'90px','margin-top':type==4?'0px':'70px'}">
       <el-form-item label="长度：" v-if="type ==2||type ==4">
         {{formSize.identifiedImageLength}}米
       </el-form-item>
@@ -47,13 +47,13 @@
        <el-form-item label="底⾯边⻓："  v-if="type ==3">
         {{formSize.identifiedImageBottomSideLength}}米
       </el-form-item>
-      <showImgScore @showDialogClose="showDialogClose" :id="formSize.id" :types="formSize.type" ></showImgScore>
+    <showImgScore @showDialogClose="showDialogClose" :id="formSize.id" :types="formSize.type" ></showImgScore>
     </el-form>
     </el-col>
     <el-col :span="12">
       <div>
-        <!-- <el-button type="danger" @click="del(formSize.id,formSize.name)">删除</el-button> -->
         <el-button type="primary" @click="isShowUp=true;">查看识别度和识别点</el-button>
+        <el-button type="danger" @click="del(formSize.id,formSize.name)">删除</el-button>
       </div>
       <div style="margin-top:20px;position:relative">
          <div  id="myImageEchart2" style="overflow:hidden">
@@ -88,17 +88,17 @@
               </div>
               <div class="cubSide"></div>
               <div style="position:absolute;left:-20px;top:108px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
-              <div style="position:absolute;left:130px;bottom:-20px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
-              <div style="position:absolute;left:240px;bottom:-20px">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:130px;bottom:95px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:240px;bottom:-20px"><span style="margin-right:39px">←</span><span style="margin-right:38px">长</span><span>→</span></div>
             </div>
           </div>
       </div>
-      <!-- <div style="margin-top:30px;">
+      <div style="margin-top:30px;">
          <el-button v-if="type==3||type==4" @click="save('left');isShow=true;">更换左⾯识别图</el-button>
          <el-button @click="save('front');isShow=true">更换正面识别图</el-button>
          <el-button v-if="type==3||type==4" @click="save('right');isShow=true">更换右⾯识别图</el-button>
          <el-button v-if="type==2||type==4" @click="save('back');isShow=true">更换背面识别图</el-button>
-      </div> -->
+      </div>
       <div v-if="isShowUp">
        <showImgDialog @showDialogClose="showDialogClose" :id="formSize.id" :types="formSize.type" ></showImgDialog>
       </div>
@@ -107,7 +107,7 @@
       </div>
     </el-col>
   </el-row>
-  <el-form style="width:50%;position: absolute;top:450px;" label-width="120px">
+  <el-form :style="{'width':'50%','position': 'absolute','top':type==4?'490px':'450px'}" label-width="120px">
      <el-form-item label="备注：" >
           <div class="myInput">
           <el-input
@@ -118,22 +118,22 @@
           show-word-limit
           maxlength="500"
           style="width:80%"
-          :disabled="true"
           >
           </el-input>
-          <!-- <el-button type="text" @click="edit()">修改</el-button>   -->
+          <el-button type="text" @click="edit()">修改</el-button>  
           </div>
         
         </el-form-item>
   </el-form>
+  
   </div>
 </template>
 <script>
 import {mapState} from 'vuex';
 import {identifiedImageDelete,updateRemark,identifiedImageUpdate} from '../../http/request'
 import showImgDialog from './showImgDialog'
-import upDialog from './upDialog'
 import showImgScore from './showImgScore'
+import upDialog from './upDialog'
 import { Base64 } from 'js-base64'
 export default {
   name:'recognitionMsg',
