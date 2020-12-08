@@ -60,7 +60,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="uploadTime" label="上传时间" align="center" sortable></el-table-column>
-      <el-table-column label="操作" fixed="right" width="100" align="center">
+      <el-table-column label="操作" width="100" align="center">
         <template slot-scope="scope">
           <el-button v-if="scope.row.status===6||scope.row.status===5||scope.row.status===1||scope.row.status===2" type="danger" size="mini" @click="stop(scope.row.id)">停止</el-button>
           <span v-else>--</span>
