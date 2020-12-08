@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input v-model="imgName" disabled style="width:305px;color:#8488D1;"></el-input>
+    <el-input v-model="imgName" disabled style="width:300px;color:#8488D1;"></el-input>
     <el-upload
       ref="imgUpload"
       style="display:inline-block;"
