@@ -12,7 +12,7 @@
             prop="id" label="id "  align="center" width="80"
             >
           </el-table-column>
-          <el-table-column prop="applicationName" label="应⽤名称"  align="center">
+          <el-table-column prop="applicationName" label="应用名称"  align="center">
           </el-table-column>
           <el-table-column prop="type" label="SDK类型" width="180" align="center">
              <template slot-scope="scope">
