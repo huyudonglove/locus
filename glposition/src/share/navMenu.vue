@@ -94,6 +94,7 @@ export default {
 
 .el-menu>.el-menu-item>span{
   color: #8488D1 !important;
+  font-weight: bold;
 }
 
 .el-menu>.is-active>span{
