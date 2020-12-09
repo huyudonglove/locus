@@ -31,11 +31,11 @@
     </el-form>
     <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入识别图名称/ID"></el-input>
-      <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg">下载识别图</el-button>
+      <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg(null)">下载识别图</el-button>
       <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button>
       <!-- <el-button style="float:right;margin-right:15px" type="primary" @click="showSomeUp=true;">上传空间多图</el-button> -->
     </el-row>
-    <el-table ref="imageRef" :data="imageTable" style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+    <el-table ref="imageRef" :data="imageTable" style="width: 100%;margin-bottom:32px;" class="mt15 mb15" :max-height="tableHeight" @selection-change="handleSelectionChange" row-key="id" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
       <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true" :selectable="(row)=>row.status ==1 &&row.type!==5||row.status ==11 &&row.type==5"></el-table-column>
       <el-table-column prop="identifiedImageId" label="ID" align="center"></el-table-column>
       <el-table-column prop="name" label="识别图名称" align="center"></el-table-column>
@@ -61,9 +61,11 @@
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="160" align="center"></el-table-column>
       <el-table-column prop="updateTime" label="修改时间" width="160" align="center"></el-table-column>
-      <el-table-column label="操作" width="150" align="center">
+      <el-table-column label="操作" width="220" align="center">
         <template slot-scope="scope">
+          <el-button type="primary" size="mini" :disabled="!(scope.row.status ==1 &&scope.row.type!==5||scope.row.status ==11 &&scope.row.type==5)" v-if="$route.query.databaseId==1" @click="downloadImg(scope.row.identifiedImageId)">下载</el-button>
           <el-button type="primary" size="mini" @click="scope.row.type==5?$router.push({path:'/recognitionSomeMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}}):$router.push({path:'/recognitionMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}})">管理</el-button>
+          <el-button type="danger" size="mini" @click="del(scope.row.id,scope.row.name)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -88,7 +90,7 @@
 </template>
 <script>
 import {mapState} from 'vuex';
-import {getImageList,downloadIdentifiedImage,getStatusList} from '../../http/request'
+import {getImageList,downloadIdentifiedImage,getStatusList,identifiedImageDelete} from '../../http/request'
 import pagination from '../../share/pagination'
 import upImgDialog from './upImgDialog'
 import upSomeDialog from './upSomeDialog'
@@ -118,7 +120,8 @@ export default {
       imageTable:[],
       showPagination:false,
       isShowUp:false,
-      statusList:[]
+      statusList:[],
+      tableHeight:200
     }
   },
   computed:{
@@ -161,10 +164,11 @@ export default {
     handleSelectionChange(val) {
       this.imgIdList=val.map(v=>v.identifiedImageId)
     },
-    downloadImg(){
+    downloadImg(identifiedImageId){
         let aTag = document.createElement('a');
         // aTag.download = '识别图包.zip';
-        aTag.href = `/api/location/middleground/IdentifiedImage/Database/download?databaseID=${this.formData.secret}&ids=${this.imgIdList.join(',')}`;
+        let ids=identifiedImageId?identifiedImageId+'':this.imgIdList.join(',');
+        aTag.href = `/api/location/middleground/IdentifiedImage/Database/download?databaseID=${this.formData.secret}&ids=${ids}`;
         aTag.click();
     },
     getState(){
@@ -191,7 +195,12 @@ export default {
       this.showSomeUp=false
       this.upEnd=true
       this.listData();
-    }
+    },
+    del(id,name){
+      identifiedImageDelete({id,name}).then(res=>{
+        this.listData();
+      })
+    },
   },
   created(){
     this.getState();
@@ -211,7 +220,14 @@ export default {
       this.$store.commit('pagination/setLimitPage',limitRecord);
       this.showPagination = true;//加载分页组件
     })
-  }
+  },
+  updated(){
+    if(this.$route.name=='recognitionInfo'){
+      this.$nextTick(()=>{
+        this.tableHeight = window.innerHeight - this.$refs.imageRef.$el.offsetTop - 130;
+      })
+    }
+  },
 }
 </script>
 <style scoped>
