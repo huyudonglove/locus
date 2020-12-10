@@ -4,7 +4,6 @@
     
     <template v-for="item in menus"  >
       <el-submenu v-if="item.childs && item.childs.length" :index="item.url" :key="item.url"  ref="myMenu" id="first"  >
-        <!-- <div class="blur" :disabled="true" @mousedown ="aa()"></div> -->
         <template slot="title">
           <span >{{item.menuName}}</span>
         </template>
@@ -59,9 +58,6 @@ export default {
     };
   },
   methods: {
-    aa(e){
-         e.preventDefault()
-    }
   },
   created(){
     
@@ -84,7 +80,7 @@ export default {
     background-color: #343261 !important;
 }
 .el-menu-item,.el-submenu__title{
-  font-size: 16px;
+  font-size: 16px ;
 }
 
 
@@ -94,7 +90,7 @@ export default {
 
 .el-menu>.el-menu-item>span{
   color: #8488D1 !important;
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 .el-menu>.is-active>span{
