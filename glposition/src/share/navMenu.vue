@@ -4,7 +4,6 @@
     
     <template v-for="item in menus"  >
       <el-submenu v-if="item.childs && item.childs.length" :index="item.url" :key="item.url"  ref="myMenu" id="first"  >
-        <!-- <div class="blur" :disabled="true" @mousedown ="aa()"></div> -->
         <template slot="title">
           <span >{{item.menuName}}</span>
         </template>
@@ -59,9 +58,6 @@ export default {
     };
   },
   methods: {
-    aa(e){
-         e.preventDefault()
-    }
   },
   created(){
     

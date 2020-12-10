@@ -55,36 +55,54 @@
         <el-button type="primary" @click="isShowUp=true;">查看识别度和识别点</el-button>
         <el-button type="danger" @click="del(formSize.id,formSize.name)">删除</el-button>
       </div>
-      <div style="margin-top:20px;position:relative">
+       <div style="margin-top:20px;position:relative">
          <div  id="myImageEchart2" style="overflow:hidden">
             <div v-if="type==1">
             <div   :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:250px;height:250px;border:#606266 solid 1px;background-size:100% 100%;background-repeat:no-repeat;">
              </div>
             </div>
             <div v-if="type==2">
-              <div :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:200px;height:200px;border:#606266 solid 1px;float:left;margin-right:10px;text-align:center;line-height:200px;background-size:100% 100%;background-repeat:no-repeat;"></div>
-              <div :style="{'background-image':backImgUrl?`url(/static/${backImgUrl})`:''}" style="width:200px;height:200px;border:#606266 solid 1px;float:left;text-align:center;line-height:200px;background-size:100% 100%;background-repeat:no-repeat;"></div>
+              <div :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:200px;height:200px;border:#606266 solid 1px;float:left;margin-right:10px;text-align:center;line-height:200px;background-size:100% 100%;background-repeat:no-repeat;" class="infoPicD">
+               <span class="infoPicSpan">正</span>
+              </div>
+              <div :style="{'background-image':backImgUrl?`url(/static/${backImgUrl})`:''}" style="width:200px;height:200px;border:#606266 solid 1px;float:left;text-align:center;line-height:200px;background-size:100% 100%;background-repeat:no-repeat;" class="infoPicD">
+               <span class="infoPicSpan">背</span>
+              </div>
               <div style="position:absolute;left:-20px;top:-33px;word-wrap:break-word;width:10px;height:150px;line-height:90px;">↑宽↓</div>
               <div style="position:absolute;left:0px;bottom:-22px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
             </div>
             <div v-if="type==3" style="width:454px;">
               <div class="topSanlengzhu"><div class="topSanlengzhu2" ></div></div>
               <div style="width:454px;font-size:0;">
-                <div class="sanlengzhu" :style="{'background-image':leftImgUrl?`url(/static/${leftImgUrl})`:''}" style="border-right:none;"></div>
-                <div class="sanlengzhu" :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="border-right:none;"></div>
-                <div class="sanlengzhu" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}"></div>
+                <div class="sanlengzhu infoPicD" :style="{'background-image':leftImgUrl?`url(/static/${leftImgUrl})`:''}" style="border-right:none;">
+                <span class="infoPicSpan">左</span>
+                </div>
+                <div class="sanlengzhu infoPicD" :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="border-right:none;">
+                <span class="infoPicSpan">正</span>
+                </div>
+                <div class="sanlengzhu infoPicD" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}">
+                <span class="infoPicSpan">右</span>
+                </div>
               </div>
                <div style="position:absolute;left:-20px;top:50px;word-wrap:break-word;width:10px;height:170px;line-height:76px;">↑高↓</div>
               <div style="position:absolute;left:0px;bottom:45px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
               <div class="bottomSanlengzhu" ><div class="bottomSanlengzhu2" ></div></div>
             </div>
-            <div v-if="type==4">
+            <div v-if="type==4" class="">
               <div class="cubSide"></div>
               <div style="width:500px;font-size:0;">
-                <div class="cub" :style="{'background-image':backImgUrl?`url(/static/${backImgUrl})`:''}" style="border-right:none;"></div>
-                <div class="cub" :style="{'background-image':leftImgUrl?`url(/static/${leftImgUrl})`:''}" style="border-right:none;"></div>
-                <div class="cub" :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="border-right:none;"></div>
-                <div class="cub" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}"></div>
+                <div class="cub infoPicD" :style="{'background-image':backImgUrl?`url(/static/${backImgUrl})`:''}" style="border-right:none;">
+                <span class="infoPicSpan">背</span>
+                </div>
+                <div class="cub infoPicD" :style="{'background-image':leftImgUrl?`url(/static/${leftImgUrl})`:''}" style="border-right:none;">
+                 <span class="infoPicSpan">左</span>
+                </div>
+                <div class="cub infoPicD" :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="border-right:none;">
+                 <span class="infoPicSpan">正</span>
+                </div>
+                <div class="cub infoPicD" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}">
+                 <span class="infoPicSpan">右</span>
+                </div>
               </div>
               <div class="cubSide"></div>
               <div style="position:absolute;left:-20px;top:108px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
@@ -308,5 +326,17 @@ export default {
 .myInput .el-input__count{
   line-height:14px;
   bottom: -14px;
+}
+.infoPicD{
+  position: relative;
+}
+.infoPicSpan{
+  position: absolute;
+  font-size: 50px;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  transform:translate(-50%,-50%);
+  z-index: 99;
 }
 </style>

@@ -26,7 +26,7 @@ const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
-export default new Router({
+const router=new Router({
   routes: [
     {
       path: '/',
@@ -200,3 +200,12 @@ export default new Router({
     }
   ]
 })
+export default router
+router.onError((error) => { 
+  const pattern = /Loading chunk (\d)+ failed/g; 
+  const isChunkLoadFailed = error.message.match(pattern); 
+  const targetPath = router.history.pending.fullPath; 
+  if (isChunkLoadFailed) { 
+    router.replace(targetPath); 
+  } 
+  }); 
