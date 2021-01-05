@@ -49,7 +49,7 @@
       this.$refs.formSize.validate((valid) => {
         if(valid){
           addRecognition({"identifiedType":parseInt(this.$route.query.databaseId),"name":this.formSize.name,"type":this.formSize.limit}).then(res=>{
-            this.$router.go(-1);
+            this.$router.push({path:'/recognitionInfo',query:{databaseId:this.$route.query.databaseId,myData:JSON.stringify(res.data),oldQuery:JSON.stringify({})}})
           })
         }else {
           console.log('error submit!!');
