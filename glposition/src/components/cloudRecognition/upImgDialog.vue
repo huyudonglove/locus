@@ -13,7 +13,7 @@
               </div>
             </el-form-item>
             <el-form-item label="识别图名称：" prop="imgName">
-              <el-input v-model="formOne.imgName" placeholder="请输入识别图名称" maxlength="30"></el-input>
+              <el-input v-model="formOne.imgName" placeholder="请输入识别图名称" maxlength="64"></el-input>
             </el-form-item>
             <el-form-item v-if="formOne.type==2||formOne.type==4" label="长度：" prop="imgLength">
               <el-input v-model="formOne.imgLength" style="width:96%;" placeholder="请输入长度" maxlength="10"></el-input><span> 米</span>
