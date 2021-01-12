@@ -4,6 +4,15 @@
       <span style="font-size:24px;font-weight:bold;color:#614a4d;">用户详情</span>
     </div>
     <div>
+      <el-form :inline="true" label-width="120px" :model="form">
+        <el-form-item label="ID：" prop="id" required>
+          <span>{{form.id}}</span>
+        </el-form-item>
+        <el-form-item label="状态：" prop="isActive" required>
+          <span v-if="form.isActive==1">已激活</span>
+          <span v-if="form.isActive==2">未激活</span>
+        </el-form-item>
+      </el-form>
       <el-form ref="form" label-width="120px" :model="form">
         <el-form-item label="ID：" prop="id" required>
           <span>{{form.id}}</span>
@@ -28,7 +37,7 @@
         </el-form-item>
         <el-form-item label="License数量：" prop="licenseCount" required>
           <span>{{form.licenseCount}}</span>
-           <!-- <el-button type="text" size="mini" @click="$router.push({path:'/licenseManager',query:{saasCode:userCode}})">查看</el-button> -->
+           <el-button type="text" size="mini" @click="$router.push({path:'/licenseManager',query:{saasCode:userCode}})">查看</el-button>
         </el-form-item>
         <el-form-item label="API KEY数量：" prop="apiKeyCount" required>
           <span>{{form.apiKeyCount}}</span> <el-button type="text" size="mini" @click="$router.push({path:'/service/apikeyList',query:{userCode}})">查看</el-button>
@@ -68,7 +77,8 @@ export default {
         createTime:'',
         updateTime:'',
         licenseCount:'',
-        apiKeyCount:''
+        apiKeyCount:'',
+        isActive:''
       },
       userCode:'',
       isShow:false,
@@ -113,6 +123,7 @@ export default {
           this.form.email = res.data.email;
           this.form.licenseCount = res.data.licenseCount;
           this.form.apiKeyCount = res.data.apiKeyCount;
+          this.form.isActive = res.data.isActive;
           this.userCode=res.data.userCode;
         }
         this.loading.close();
