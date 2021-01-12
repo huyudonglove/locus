@@ -328,6 +328,10 @@ export function getUserInfo(params){
 export function delUser(params){
   return loadRequest('/api/location/middleground/admin/delete',params,'删除',http,'get')
 }
+/** 用户管理-重发邮件 Author:minggui*/
+export function setEmailAgain(params){
+  return loadRequest('/api/location/access/reSendRegisterEmail',params,'重新发送邮件',http,'post')
+}
 // /** 用户管理-设置、重置密码 Author:minggui*/
 // export function setPassword(params){
 //   return http.post('/api/location/access/setPassword',params)

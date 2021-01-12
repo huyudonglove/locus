@@ -235,7 +235,7 @@ export function getRecognitionList(params){
 }
 /** 图像本地、云识别管理-创建图库 Author:minggui*/
 export function addRecognition(params){
-  return loadRequest('/api/location/middleground/IdentifiedImage/Database/add',params,'创建识别图库'+params.name,http,'post')
+  return http.post('/api/location/middleground/IdentifiedImage/Database/add',params)
 }
 /** 图像本地、云识别管理-识别图列表 Author:minggui*/
 export function getImageList(params){

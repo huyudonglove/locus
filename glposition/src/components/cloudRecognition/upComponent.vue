@@ -9,7 +9,6 @@
       :data="params"
       :headers="header"
       :show-file-list="false"
-      :limit="3"
       :before-upload="beforeCallback"
       :on-progress="progress"
       :on-success="successCallback">   

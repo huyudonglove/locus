@@ -9,6 +9,8 @@ import VueCookies from 'vue-cookies';
 import '../theme/index.css'
 import store from './store'
 import imgDirective from 'imgbig'
+import VueLazyload from 'vue-lazyload'
+
 Vue.config.productionTip = false;
 Vue.prototype.$isNumber=(val)=>{
   var regNeg = /^\+?[1-9][0-9]*$/; // 负整数
@@ -21,6 +23,7 @@ Vue.prototype.$isNumber=(val)=>{
 Vue.use(ElementUI);
 Vue.use(VueCookies)
 Vue.use(imgDirective);
+Vue.use(VueLazyload)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

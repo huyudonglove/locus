@@ -48,6 +48,11 @@
            <span v-if="scope.row.type==5">空间多图</span>
         </template>
       </el-table-column>
+      <el-table-column label="预览" width="280" align="center">
+        <template slot-scope="scope">
+          <img style="width:50px;" v-for="(decodeUrl,i) in scope.row.decodeUrlList" :key="i" v-lazy="`/static/${decodeUrl}`" >
+        </template>
+      </el-table-column>
       <el-table-column prop="status" label="状态" width="160" align="center">
         <template slot-scope="scope">
           <span v-if="scope.row.type!=5&&scope.row.status==1">正常</span>
@@ -95,6 +100,7 @@ import pagination from '../../share/pagination'
 import upImgDialog from './upImgDialog'
 import upSomeDialog from './upSomeDialog'
 import VueCookies from 'vue-cookies'
+import { Base64 } from 'js-base64'
 export default {
   name:'recognitionInfo',
   inject:['replace','reload','cellStyle','headerCellStyle'],
@@ -183,7 +189,20 @@ export default {
     },
     listData(){
       getImageList({"identifiedImageDatabaseId":this.formData.secret,...this.$route.query}).then(res=>{
-        this.imageTable=res.data.items;
+        this.imageTable=res.data.items.map(v=>{
+          if(v.type==5){
+            v.decodeUrlList=v.fileList?v.fileList.map(u=>{
+              return Base64.decode(u.fileId)
+            }):[]
+          }else{
+            v.decodeUrlList = [];
+            v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null;
+            v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
+            v.url3?v.decodeUrlList.push(Base64.decode(v.url3)):null;
+            v.url4?v.decodeUrlList.push(Base64.decode(v.url4)):null;
+          }
+          return v
+        });
         this.$store.commit('pagination/setTotal', res.data.total);
       })
     },
