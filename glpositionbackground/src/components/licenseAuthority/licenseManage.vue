@@ -3,11 +3,19 @@
     <div v-if="$route.name=='licenseManage'">
       <div style="height:50px;border-bottom:1px solid #DFDCDC;">
         <span style="font-size:20px;font-weight:bold;color:#000;">License授权管理</span>
-        <el-button style="float:right;margin-left:15px" type="primary" @click="$router.push({path:'/licenseManage/licenseCreate/1'})">新建License许可证密钥
-      </el-button>	
+        <!-- <el-button style="float:right;margin-left:15px" type="primary" @click="$router.push({path:'/licenseManage/licenseCreate/1'})">新建License许可证密钥
+      </el-button>	 -->
       </div>
+        <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
+        <span class="myWords">
+          <el-input v-model="name" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入名称" @change="replace('page',1);"></el-input>
+        </span>
+        <span class="myWords">
+          <el-input v-model="createBy" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入创建者" @change="replace('page',1);"></el-input>
+        </span>
+      </el-row>
          <!-- 数据展示 -->
-        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+        <el-table :data="tableData" ref="multipleTable" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight" border>
           <el-table-column
             prop="id" label="id "  align="center" width="80"
             >
@@ -50,13 +58,15 @@ import pagination from '../../share/pagination'
 import {licenseList} from "../../http/request";
   export default {
   name: 'licenseManage',
-  inject:['replace','reload','cellStyle','headerCellStyle'],
+  inject:['replace','reload'],
   data () {
     return {
       showPagination:true,
       tableData:[],
       tableHeight:200,
-      total:0
+      total:0,
+      name:'',
+      createBy:''
     }
   },
   async created(){
@@ -76,6 +86,12 @@ import {licenseList} from "../../http/request";
       },
     limit(){
       this.replace('limit',this.limit);
+    },
+    name(){
+      this.replace("name",this.name);
+      },
+    createBy(){
+      this.replace('createBy',this.createBy);
     },
     $route(){//判断路由query变化执行请求
       if(this.$route.name=='licenseManage'){

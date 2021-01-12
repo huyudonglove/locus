@@ -7,7 +7,8 @@
       </div>
       <el-form ref="formSize" :model="formSize" label-width="150px" style="margin-top:20px;">
        <el-form-item label="应用名称：">
-        {{formSize.applicationName}}<el-button type="text" class="ml20" @click="edit(1)">修改</el-button>
+        {{formSize.applicationName}}
+        <!-- <el-button type="text" class="ml20" @click="edit(1)">修改</el-button> -->
       </el-form-item>
       <el-form-item label="SDK类型：">
           <span  v-if="formSize.type=='1'">终极版</span>
@@ -16,10 +17,12 @@
         <div style="width:85%;word-wrap:break-word">{{formSize.licenseKey}}<el-button type="text" class="ml20" @click="copyUrl2(formSize.licenseKey)">复制License Key</el-button></div>
       </el-form-item>
       <el-form-item label="Bundle ID：">
-        {{formSize.bundleId}}<el-button type="text" class="ml20" @click="edit(2)">修改</el-button>
+        {{formSize.bundleId}}
+        <!-- <el-button type="text" class="ml20" @click="edit(2)">修改</el-button> -->
       </el-form-item>
        <el-form-item label="Package Name ：">
-        {{formSize.packageName}}<el-button type="text" class="ml20" @click="edit(3)">修改</el-button>
+        {{formSize.packageName}}
+        <!-- <el-button type="text" class="ml20" @click="edit(3)">修改</el-button> -->
       </el-form-item>
       </el-form>
        <!-- 修改-->
