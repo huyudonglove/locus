@@ -166,8 +166,9 @@ export function getApikeyList(params){
   let pageSize = params.pageSize||20;
   let name = params.name||'';
   let userCode = params.userCode||'';
+  let createBy = params.createBy||'';
   return new Promise((resolve,reject)=>{
-    http.post('/api/location/background/apiKey/list/page',{pageNum,pageSize,name,userCode}).then(res=>{
+    http.post('/api/location/background/apiKey/list/page',{pageNum,pageSize,name,userCode,createBy}).then(res=>{
       if(res.code){
         Message.error(res.msg);
     }else{
