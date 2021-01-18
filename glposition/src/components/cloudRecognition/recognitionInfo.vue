@@ -195,11 +195,20 @@ export default {
               return Base64.decode(u.fileId)
             }):[]
           }else{
-            v.decodeUrlList = [];
-            v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null;
-            v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
-            v.url3?v.decodeUrlList.push(Base64.decode(v.url3)):null;
-            v.url4?v.decodeUrlList.push(Base64.decode(v.url4)):null;
+            v.decodeUrlList = []; 
+            if(v.type==1||v.type==2){
+              v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null; 
+              v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
+            }else if(v.type==3){
+              v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
+              v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null; 
+              v.url3?v.decodeUrlList.push(Base64.decode(v.url3)):null;
+            }else if(v.type==4){
+              v.url4?v.decodeUrlList.push(Base64.decode(v.url4)):null;
+              v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
+              v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null; 
+              v.url3?v.decodeUrlList.push(Base64.decode(v.url3)):null;
+            }
           }
           return v
         });

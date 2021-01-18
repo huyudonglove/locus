@@ -14,9 +14,6 @@
         </el-form-item>
       </el-form>
       <el-form ref="form" label-width="120px" :model="form">
-        <el-form-item label="ID：" prop="id" required>
-          <span>{{form.id}}</span>
-        </el-form-item>
         <el-form-item label="用户名：" prop="userName" required>
           <span>{{form.userName}}</span>
         </el-form-item>
@@ -37,7 +34,7 @@
         </el-form-item>
         <el-form-item label="License数量：" prop="licenseCount" required>
           <span>{{form.licenseCount}}</span>
-           <el-button type="text" size="mini" @click="$router.push({path:'/licenseManager',query:{saasCode:userCode}})">查看</el-button>
+           <el-button type="text" size="mini" @click="$router.push({path:'/licenseManage',query:{saasCode:userCode}})">查看</el-button>
         </el-form-item>
         <el-form-item label="API KEY数量：" prop="apiKeyCount" required>
           <span>{{form.apiKeyCount}}</span> <el-button type="text" size="mini" @click="$router.push({path:'/service/apikeyList',query:{userCode}})">查看</el-button>

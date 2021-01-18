@@ -67,7 +67,11 @@ export default {
       this.replace('inputX',this.inputX);
     },
     $route(from,to){//判断路由query变化执行请求
-      if(from.name!=to.name){this.$store.commit('pagination/setTotal', 0);}
+      if(from.name!=to.name){
+        this.$store.commit('pagination/setClickPage',1);
+        this.$store.commit('pagination/setLimitPage',20);
+        this.$store.commit('pagination/setTotal', 0);
+      }
       this.listData();
     }
   },
