@@ -247,7 +247,13 @@ import upMe from '../up'
     },
     del(id,name,runState){
       if(runState==1){
-        this.$message.error('当前地图正在运行中，不能删除');
+        // this.$message.error('当前地图正在运行中，不能删除');
+        this.$alert('当前地图正在运行中，不能删除', '', {
+          confirmButtonText: '确定',
+          showClose:false,
+          closeOnClickModal:false,
+          'confirmButtonClass':'confirmButtonXu',
+        });
         return;
       }
       mapInfoDel({'id':JSON.stringify(id),name}).then(res=>{
