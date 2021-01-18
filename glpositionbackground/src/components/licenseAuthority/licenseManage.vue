@@ -27,6 +27,8 @@
                <span  v-if="scope.row.type==1">终极版</span>
             </template>
           </el-table-column>
+          <el-table-column prop="createBy" label="创建者" width="" align="center">
+          </el-table-column>
           <el-table-column prop="createTime" label="创建时间"  align="center">
           </el-table-column>
 		      <el-table-column prop="updateTime" label="修改时间"  align="center">
@@ -70,7 +72,10 @@ import {licenseList} from "../../http/request";
     }
   },
   async created(){
+    
      let query=this.$route.query
+     this.name=query.name||''
+     this.createBy=query.createBy||''
      let pageRecord = query.page||1;//记录上一次页码操作
      let limitRecord = query.limit||20;//记录上一次limit操作
     await this.dataTable({...this.$route.query})
@@ -98,6 +103,8 @@ import {licenseList} from "../../http/request";
         let query=this.$route.query
         let pageRecord = query.page||1;//记录上一次页码操作
         let limitRecord = query.limit||20;//记录上一次limit操作
+        this.name=query.name||''
+        this.createBy=query.createBy||''
         this.dataTable({...this.$route.query});
         this.$nextTick(()=>{
         this.$store.commit('pagination/setClickPage',pageRecord);
