@@ -67,8 +67,9 @@ export default {
       this.$store.commit('pagination/setClickPage',1);//重置第1页
       this.replace('inputX',this.inputX);
     },
-    $route(from,to){//判断路由query变化执行请求
-      if(from.name!=to.name){
+    $route(to,from){//判断路由query变化执行请求
+      if(JSON.stringify(to.query) == "{}"){
+        this.inputX='';
         this.$store.commit('pagination/setClickPage',1);
         this.$store.commit('pagination/setLimitPage',20);
         this.$store.commit('pagination/setTotal', 0);

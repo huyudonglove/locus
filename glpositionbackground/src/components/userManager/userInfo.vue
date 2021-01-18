@@ -34,10 +34,10 @@
         </el-form-item>
         <el-form-item label="License数量：" prop="licenseCount" required>
           <span>{{form.licenseCount}}</span>
-           <el-button type="text" size="mini" @click="$router.push({path:'/licenseManage',query:{saasCode:userCode}})">查看</el-button>
+           <el-button type="text" size="mini" @click="$router.push({path:'/licenseManage',query:{createBy:form.userName}})">查看</el-button>
         </el-form-item>
         <el-form-item label="API KEY数量：" prop="apiKeyCount" required>
-          <span>{{form.apiKeyCount}}</span> <el-button type="text" size="mini" @click="$router.push({path:'/service/apikeyList',query:{userCode}})">查看</el-button>
+          <span>{{form.apiKeyCount}}</span> <el-button type="text" size="mini" @click="$router.push({path:'/service/apikeyList',query:{createBy:form.userName}})">查看</el-button>
         </el-form-item>
         <el-form-item>
           <el-button @click="$router.go(-1)">返回</el-button>

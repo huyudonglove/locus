@@ -70,8 +70,15 @@ export default {
       this.$store.commit('pagination/setClickPage',1);//重置第1页
       this.replace('createBy',this.createBy);
     },
-    $route(){//判断路由query变化执行请求
+    $route(to){//判断路由query变化执行请求
       if(this.$route.name=='apikeyList'){
+        if(JSON.stringify(to.query) == "{}"){
+          this.inputX='';
+          this.createBy='';
+          this.$store.commit('pagination/setClickPage',1);
+          this.$store.commit('pagination/setLimitPage',20);
+          this.$store.commit('pagination/setTotal', 0);
+        }
         this.listData();
       }
     }

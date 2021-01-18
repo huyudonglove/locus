@@ -65,8 +65,12 @@ export default {
     email(){
       this.replace('email',this.email);
     },
-    $route(){//判断路由query变化执行请求
+    $route(to){//判断路由query变化执行请求
       if(this.$route.name=='userList'){
+        if(JSON.stringify(to.query) == "{}"){
+          this.inputX='';
+          this.email='';
+        }
         this.listData();
       }
     }

@@ -50,7 +50,12 @@ export default {
     limit(){
       this.replace('limit',this.limit);
     },
-    $route(){//判断路由query变化执行请求
+    $route(to){//判断路由query变化执行请求
+    if(!to.query.page&&!to.query.limit){
+      this.$store.commit('pagination/setClickPage',1);
+      this.$store.commit('pagination/setLimitPage',20);
+      this.$store.commit('pagination/setTotal', 0);
+    }
       this.listData();
     }
   },
