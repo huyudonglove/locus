@@ -10,14 +10,14 @@
         <el-input v-model="createBy" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入创建者"></el-input>
       </el-row>
       <el-table ref="apikeyRef" :data="table" border style="width: 100%" class="mt15 mb15" :max-height="tableHeight">
-        <el-table-column prop="id" label="ID" width="100" align="center"></el-table-column>
+        <el-table-column prop="id" label="ID" width="60" align="center"></el-table-column>
         <el-table-column prop="name" label="名称" align="center"></el-table-column>
         <el-table-column prop="apiKey" label="API KEY" align="center"></el-table-column>
         <el-table-column prop="apiSecret" label="API Secret" align="center"></el-table-column>
         <el-table-column prop="createBy" label="创建者" align="center"></el-table-column>
-        <el-table-column prop="createTime" label="创建时间" width="200" align="center"></el-table-column>
-        <el-table-column prop="updateTime" label="修改时间" width="200" align="center"></el-table-column>
-        <el-table-column label="操作" fixed="right" width="200" align="center">
+        <el-table-column prop="createTime" label="创建时间" width="160" align="center"></el-table-column>
+        <el-table-column prop="updateTime" label="修改时间" width="160" align="center"></el-table-column>
+        <el-table-column label="操作" fixed="right" width="80" align="center">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="$router.push({path:'/service/apikeyInfo',query:{apiInfo:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">详情</el-button>
             <!-- <el-button type="danger" size="mini" @click="del(scope.row.id)">删除</el-button> -->
