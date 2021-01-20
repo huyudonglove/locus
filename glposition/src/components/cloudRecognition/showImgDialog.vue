@@ -14,7 +14,7 @@
               <div :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:200px;height:200px;border:#606266 solid 1px;float:left;margin-right:10px;text-align:center;line-height:200px;background-size:100% 100%;background-repeat:no-repeat;"></div>
               <div :style="{'background-image':backImgUrl?`url(/static/${backImgUrl})`:''}" style="width:200px;height:200px;border:#606266 solid 1px;float:left;text-align:center;line-height:200px;background-size:100% 100%;background-repeat:no-repeat;"></div>
               <div style="position:absolute;left:17px;top:57px;word-wrap:break-word;width:10px;height:150px;line-height:90px;">↑宽↓</div>
-              <div style="position:absolute;left:50px;bottom:56px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:50px;bottom:56px;">←<span style="padding-left:80px;padding-right:80px">长</span>→</div>
             <div style="clear:both;padding-top:20px;">
               <div class="pb10">正⾯识别度：
               <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+20" /> 
@@ -35,7 +35,7 @@
               <div class="bottomSanlengzhu" ><div class="bottomSanlengzhu2" ></div>
               </div>
                <div style="position:absolute;left:87px;top:122px;word-wrap:break-word;width:10px;height:150px;line-height:82px;">↑高↓</div>
-              <div style="position:absolute;left:124px;bottom:175px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:124px;bottom:175px;">←<span style="padding-left:46px;padding-right:46px">边长</span>→</div>
               <div style="clear:both;padding-top:10px;width:220px;margin:0px auto">
                 <div class="pb10">正⾯识别度：
                   <img   src="../../assets/starton.png" v-for="(item,index) in formSize.score1" :key="index+60" /> 
@@ -63,7 +63,7 @@
               </div>
               <div class="cubSide"></div>
               <div style="position:absolute;left:70px;top:199px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
-              <div style="position:absolute;left:225px;bottom:280px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:220px;bottom:280px;">←<span style="padding-left:39px;padding-right:39px">宽</span>→</div>
               <div style="position:absolute;left:340px;bottom:162px"><span style="margin-right:41px">←</span><span style="margin-right:41px">长</span><span>→</span></div>
               <div style="clear:both;padding-top:30px;width:220px;margin:0px auto">
                 <div class="pb10">正⾯识别度：

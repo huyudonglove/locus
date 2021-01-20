@@ -112,6 +112,7 @@ export default {
     return {
       tableData: [
       ],
+      loading:null,
       tableHeight: 250,
       total: 0,
       showPagination:false
@@ -150,11 +151,21 @@ export default {
   },
   methods: {
     listData() {
+      this.loading=this.$loading({
+        lock: true,
+        text: '数据获取中...',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
       mapState2({...this.$route.query}).then(res => {
         this.tableData =res.items
         this.total = res.total;
         this.$store.commit('pagination/setTotal',this.total);
-      });
+        this.showPagination = true;//加载分页组件 
+        this.loading.close();
+        }).catch(err=>{
+          this.loading.close();
+        })
     },
     del(id) {
       autoStopMap({'mapId':id}).then(res => {
@@ -174,7 +185,6 @@ export default {
      this.$nextTick(()=>{
       this.$store.commit('pagination/setClickPage',pageRecord);
       this.$store.commit('pagination/setLimitPage',limitRecord);
-      this.showPagination = true;//加载分页组件 
      })
   },
   updated() {
