@@ -69,7 +69,7 @@
                <span class="infoPicSpan">背</span>
               </div>
               <div style="position:absolute;left:-20px;top:-33px;word-wrap:break-word;width:10px;height:150px;line-height:90px;">↑宽↓</div>
-              <div style="position:absolute;left:0px;bottom:-22px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:0px;bottom:-22px;">←<span style="padding-left:77px;padding-right:77px">长</span>→</div>
             </div>
             <div v-if="type==3" style="width:454px;">
               <div class="topSanlengzhu"><div class="topSanlengzhu2" ></div></div>
@@ -85,7 +85,7 @@
                 </div>
               </div>
                <div style="position:absolute;left:-20px;top:50px;word-wrap:break-word;width:10px;height:170px;line-height:76px;">↑高↓</div>
-              <div style="position:absolute;left:0px;bottom:45px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:0px;bottom:45px;">←<span style="padding-left:43px;padding-right:43px">边长</span>→</div>
               <div class="bottomSanlengzhu" ><div class="bottomSanlengzhu2" ></div></div>
             </div>
             <div v-if="type==4" class="">
@@ -106,7 +106,7 @@
               </div>
               <div class="cubSide"></div>
               <div style="position:absolute;left:-20px;top:108px;word-wrap:break-word;width:10px;height:150px;line-height:50px;">↑高↓</div>
-              <div style="position:absolute;left:130px;bottom:95px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:120px;bottom:95px;">←<span style="padding-left:36px;padding-right:36px">宽</span>→</div>
               <div style="position:absolute;left:240px;bottom:-20px"><span style="margin-right:39px">←</span><span style="margin-right:38px">长</span><span>→</span></div>
             </div>
           </div>

@@ -97,6 +97,7 @@ export default {
     return {
       tableData: [
       ],
+      loading:null,
       tableHeight: 250,
       total: 0,
       showPagination:false
@@ -136,14 +137,24 @@ export default {
   },
   methods: {
     listData() {
+      this.loading=this.$loading({
+        lock: true,
+        text: '数据获取中...',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
       serverList({...this.$route.query}).then(res => {
         this.tableData = res.items;
         this.total = res.total;
         this.$store.commit('pagination/setTotal',this.total);
-      });
+        this.showPagination = true;//加载分页组件 
+        this.loading.close();
+        }).catch(err=>{
+          this.loading.close();
+        })
     },
   },
-  created() {
+   created() {
      let query=this.$route.query
      let pageRecord = query.page||1;//记录上一次页码操作
      let limitRecord = query.limit||20;//记录上一次limit操作
@@ -151,7 +162,6 @@ export default {
      this.$nextTick(()=>{
       this.$store.commit('pagination/setClickPage',pageRecord);
       this.$store.commit('pagination/setLimitPage',limitRecord);
-      this.showPagination = true;//加载分页组件 
      })
     
   },
