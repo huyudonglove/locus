@@ -31,11 +31,11 @@
     </el-form>
     <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
       <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入识别图名称/ID"></el-input>
-      <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg">下载识别图</el-button>
+      <el-button :disabled="!imgIdList.length" v-if="$route.query.databaseId==1" style="float:right;margin-right:15px" type="success" @click="downloadImg(null)">下载识别图</el-button>
       <el-button style="float:right;margin-right:15px" type="primary" @click="isShowUp=true;">上传识别图</el-button>
       <!-- <el-button style="float:right;margin-right:15px" type="primary" @click="showSomeUp=true;">上传空间多图</el-button> -->
     </el-row>
-    <el-table ref="imageRef" :data="imageTable" style="width: 100%;margin-bottom:32px;" class="mt15 mb15" @selection-change="handleSelectionChange" row-key="id" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
+    <el-table ref="imageRef" :data="imageTable" style="width: 100%;margin-bottom:32px;" class="mt15 mb15" :max-height="tableHeight" @selection-change="handleSelectionChange" row-key="id" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
       <el-table-column type="selection" v-if="$route.query.databaseId==1" width="50" :reserve-selection="true" :selectable="(row)=>row.status ==1 &&row.type!==5||row.status ==11 &&row.type==5"></el-table-column>
       <el-table-column prop="identifiedImageId" label="ID" align="center"></el-table-column>
       <el-table-column prop="name" label="识别图名称" align="center"></el-table-column>
@@ -46,6 +46,11 @@
           <span v-if="scope.row.type==3">正三棱柱</span>
           <span v-if="scope.row.type==4">长方体</span>
            <span v-if="scope.row.type==5">空间多图</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="预览" width="280" align="center">
+        <template slot-scope="scope">
+          <img style="width:50px;" v-for="(decodeUrl,i) in scope.row.decodeUrlList" :key="i" v-lazy="`/static/${decodeUrl}`" >
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" width="160" align="center">
@@ -61,9 +66,11 @@
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间" width="160" align="center"></el-table-column>
       <el-table-column prop="updateTime" label="修改时间" width="160" align="center"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="150" align="center">
+      <el-table-column label="操作" width="220" align="center">
         <template slot-scope="scope">
+          <el-button type="primary" size="mini" :disabled="!(scope.row.status ==1 &&scope.row.type!==5||scope.row.status ==11 &&scope.row.type==5)" v-if="$route.query.databaseId==1" @click="downloadImg(scope.row.identifiedImageId)">下载</el-button>
           <el-button type="primary" size="mini" @click="scope.row.type==5?$router.push({path:'/recognitionSomeMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}}):$router.push({path:'/recognitionMsg',query:{msg:JSON.stringify({...$route.query}),row:JSON.stringify(scope.row)}})">管理</el-button>
+          <el-button type="danger" size="mini" @click="del(scope.row.id,scope.row.name)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -88,11 +95,12 @@
 </template>
 <script>
 import {mapState} from 'vuex';
-import {getImageList,downloadIdentifiedImage,getStatusList} from '../../http/request'
+import {getImageList,downloadIdentifiedImage,getStatusList,identifiedImageDelete} from '../../http/request'
 import pagination from '../../share/pagination'
 import upImgDialog from './upImgDialog'
 import upSomeDialog from './upSomeDialog'
 import VueCookies from 'vue-cookies'
+import { Base64 } from 'js-base64'
 export default {
   name:'recognitionInfo',
   inject:['replace','reload','cellStyle','headerCellStyle'],
@@ -118,7 +126,8 @@ export default {
       imageTable:[],
       showPagination:false,
       isShowUp:false,
-      statusList:[]
+      statusList:[],
+      tableHeight:200
     }
   },
   computed:{
@@ -161,10 +170,11 @@ export default {
     handleSelectionChange(val) {
       this.imgIdList=val.map(v=>v.identifiedImageId)
     },
-    downloadImg(){
+    downloadImg(identifiedImageId){
         let aTag = document.createElement('a');
         // aTag.download = '识别图包.zip';
-        aTag.href = `/api/location/middleground/IdentifiedImage/Database/download?databaseID=${this.formData.secret}&ids=${this.imgIdList.join(',')}`;
+        let ids=identifiedImageId?identifiedImageId+'':this.imgIdList.join(',');
+        aTag.href = `/api/location/middleground/IdentifiedImage/Database/download?databaseID=${this.formData.secret}&ids=${ids}`;
         aTag.click();
     },
     getState(){
@@ -179,7 +189,29 @@ export default {
     },
     listData(){
       getImageList({"identifiedImageDatabaseId":this.formData.secret,...this.$route.query}).then(res=>{
-        this.imageTable=res.data.items;
+        this.imageTable=res.data.items.map(v=>{
+          if(v.type==5){
+            v.decodeUrlList=v.fileList?v.fileList.map(u=>{
+              return Base64.decode(u.fileId)
+            }):[]
+          }else{
+            v.decodeUrlList = []; 
+            if(v.type==1||v.type==2){
+              v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null; 
+              v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
+            }else if(v.type==3){
+              v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
+              v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null; 
+              v.url3?v.decodeUrlList.push(Base64.decode(v.url3)):null;
+            }else if(v.type==4){
+              v.url4?v.decodeUrlList.push(Base64.decode(v.url4)):null;
+              v.url2?v.decodeUrlList.push(Base64.decode(v.url2)):null;
+              v.url1?v.decodeUrlList.push(Base64.decode(v.url1)):null; 
+              v.url3?v.decodeUrlList.push(Base64.decode(v.url3)):null;
+            }
+          }
+          return v
+        });
         this.$store.commit('pagination/setTotal', res.data.total);
       })
     },
@@ -191,7 +223,12 @@ export default {
       this.showSomeUp=false
       this.upEnd=true
       this.listData();
-    }
+    },
+    del(id,name){
+      identifiedImageDelete({id,name}).then(res=>{
+        this.listData();
+      })
+    },
   },
   created(){
     this.getState();
@@ -211,7 +248,14 @@ export default {
       this.$store.commit('pagination/setLimitPage',limitRecord);
       this.showPagination = true;//加载分页组件
     })
-  }
+  },
+  updated(){
+    if(this.$route.name=='recognitionInfo'){
+      this.$nextTick(()=>{
+        this.tableHeight = window.innerHeight - this.$refs.imageRef.$el.offsetTop - 130;
+      })
+    }
+  },
 }
 </script>
 <style scoped>
