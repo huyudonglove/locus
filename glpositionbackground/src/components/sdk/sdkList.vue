@@ -130,6 +130,8 @@
         },
         watch:{
           $route(){
+            this.name=this.$route.query.name||'';
+            this.version=this.$route.query.version||'';
             this.getSdk();
           },
           name(){
@@ -140,7 +142,9 @@
           }
         },
         created() {
-            this.getSdk()
+            this.getSdk();
+            this.name=this.$route.query.name||'';
+            this.version=this.$route.query.version||'';
         }
   }
 </script>
