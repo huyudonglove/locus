@@ -49,7 +49,7 @@
               <div :style="{'background-image':frontImgUrl?`url(/static/${frontImgUrl})`:''}" style="width:150px;height:150px;border:#606266 solid 1px;float:left;margin-right:10px;text-align:center;line-height:150px;background-size:100% 100%;background-repeat:no-repeat;"><span :style="{'opacity':frontImgUrl?0:1}">正面</span></div>
               <div :style="{'background-image':backImgUrl?`url(/static/${backImgUrl})`:''}" style="width:150px;height:150px;border:#606266 solid 1px;float:left;text-align:center;line-height:150px;background-size:100% 100%;background-repeat:no-repeat;"><span :style="{'opacity':backImgUrl?0:1}">背面</span></div>
               <div style="position:absolute;left:61px;top:-28px;word-wrap:break-word;width:10px;height:122px;line-height:70px;">↑宽↓</div>
-              <div style="position:absolute;left:75px;top:140px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:75px;top:140px;width:152px;display:flex;justify-content:space-between;"><span>←</span>长<span>→</span></div>
             </div>
             <div v-if="formOne.type==3">
               <div class="topSanlengzhu"><div class="topSanlengzhu2" ></div></div>
@@ -59,7 +59,7 @@
                 <div class="sanlengzhu" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}"><span :style="{'opacity':rightImgUrl?0:1}">右面</span></div>
               </div>
               <div style="position:absolute;left:64px;top:32px;word-wrap:break-word;width:10px;height:122px;line-height:50px;">↑高↓</div>
-              <div style="position:absolute;left:78px;top:160px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;边长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:78px;top:160px;width:102px;display:flex;justify-content:space-between;"><span>←</span>边长<span>→</span></div>
               <div class="bottomSanlengzhu" ><div class="bottomSanlengzhu2" ></div></div>
             </div>
             <div v-if="formOne.type==4">
@@ -71,8 +71,8 @@
                 <div class="cub" :style="{'background-image':rightImgUrl?`url(/static/${rightImgUrl})`:''}"><span :style="{'opacity':rightImgUrl?0:1}">右面</span></div>
               </div>
               <div style="position:absolute;left:52px;top:77px;word-wrap:break-word;width:10px;height:122px;line-height:30px;">↑高↓</div>
-              <div style="position:absolute;left:147px;bottom:54px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
-              <div style="position:absolute;left:228px;bottom:-26px;">←&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</div>
+              <div style="position:absolute;left:147px;bottom:54px;width:82px;display:flex;justify-content:space-between;"><span>←</span>宽<span>→</span></div>
+              <div style="position:absolute;left:228px;bottom:-26px;width:82px;display:flex;justify-content:space-between;"><span>←</span>长<span>→</span></div>
               <div class="cubSide"></div>
             </div>
           </div>

@@ -66,6 +66,7 @@ export default {
     $route(to){//判断路由query变化执行请求
       if(this.$route.name=='apikeyList'){
         if(JSON.stringify(to.query) == "{}"){
+          this.inputX='';
           this.$store.commit('pagination/setClickPage',1);
           this.$store.commit('pagination/setLimitPage',20);
           this.$store.commit('pagination/setTotal', 0);
