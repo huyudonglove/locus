@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input v-model="imgName" disabled style="width:335px;color:#8488D1;"></el-input>
+    <el-input v-model="imgName" disabled style="width:330px;color:#8488D1;"></el-input>
     <el-upload
       ref="imgUpload"
       style="display:inline-block;"
@@ -9,7 +9,6 @@
       :data="params"
       :headers="header"
       :show-file-list="false"
-      :limit="3"
       :before-upload="beforeCallback"
       :on-progress="progress"
       :on-success="successCallback">  

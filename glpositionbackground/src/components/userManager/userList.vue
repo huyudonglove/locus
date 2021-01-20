@@ -18,12 +18,19 @@
       <el-table-column prop="email" label="邮箱" align="center"></el-table-column>
       <el-table-column prop="phone" label="手机" align="center"></el-table-column>
       <el-table-column prop="createBy" label="创建者" align="center"></el-table-column>
+      <el-table-column prop="isActive" label="状态" align="center">
+        <template slot-scope="scope">
+          <span v-if="scope.row.isActive==1">已激活</span>
+          <span v-if="scope.row.isActive==2">未激活</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
       <el-table-column prop="updateTime" label="修改时间" align="center"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="200" align="center">
+      <el-table-column label="操作" fixed="right" width="280" align="left">
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="del(scope.row.id)">删除</el-button>
           <el-button type="primary" size="mini" @click="$router.push({path:'/userInfo',query:{id:scope.row.id}})">详情</el-button>
+          <el-button type="primary" size="mini" v-if="scope.row.isActive==2" @click="setEmail(scope.row)">重发邮件</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -35,7 +42,7 @@
 
 <script>
 import pagination from '../../share/page'
-import {getUserList,delUser} from '../../http/request'
+import {getUserList,delUser,setEmailAgain} from '../../http/request'
 export default {
   name:'userList',
   inject:['replace','reload'],
@@ -58,8 +65,12 @@ export default {
     email(){
       this.replace('email',this.email);
     },
-    $route(){//判断路由query变化执行请求
+    $route(to){//判断路由query变化执行请求
       if(this.$route.name=='userList'){
+        if(JSON.stringify(to.query) == "{}"){
+          this.inputX='';
+          this.email='';
+        }
         this.listData();
       }
     }
@@ -68,6 +79,11 @@ export default {
     del(id){
       delUser({id}).then(res=>{
         this.listData();
+      })
+    },
+    setEmail(data){
+      setEmailAgain({"id":data.id,"host":location.origin,"userName":data.userName,"email":data.email}).then(res=>{
+
       })
     },
     listData(){

@@ -1,7 +1,7 @@
 import {Message,Loading,MessageBox} from 'element-ui'
 export function loadRequest(url,params,name,http,style){
   return new Promise((resolve, reject)=>{
-    MessageBox.confirm(`<div style='font-size:20px;font-weight:bold;margin-bottom:20px;'>确认${name}吗</div>`,
+    MessageBox.confirm(`<div style='font-size:20px;font-weight:bold;margin-bottom:20px;word-break:break-all;'>确认${name}吗</div>`,
     {'dangerouslyUseHTMLString':true,
     'closeOnClickModal':false,
     'showClose':false,

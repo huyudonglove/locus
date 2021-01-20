@@ -9,6 +9,11 @@ import logout from '../components/log/logout'
 import mapManageList from '@/components/mapManage/mapManageList'
 import mapInfoList from '@/components/mapManage/mapInfoList'
 import mapInfo from '@/components/mapManage/mapInfo'
+import licenseManage from '@/components/licenseAuthority/licenseManage'
+import licenseCreate1 from '@/components/licenseAuthority/licenseCreate1'
+import licenseCreate2 from '@/components/licenseAuthority/licenseCreate2'
+import licenseCreate3 from '@/components/licenseAuthority/licenseCreate3'
+import licenseInfo from '@/components/licenseAuthority/licenseInfo'
 Vue.use(Router)
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -22,6 +27,33 @@ export default new Router({
       name: 'home',
       component: home,
       children:[
+        {
+          path: '/licenseManage',
+          name: 'licenseManage',
+          component: licenseManage,
+          children:[
+            {
+              path: '/licenseManage/licenseCreate/1',
+              name: 'licenseCreate1',
+              component: licenseCreate1,
+            },
+            {
+              path: '/licenseManage/licenseCreate/2',
+              name: 'licenseCreate2',
+              component: licenseCreate2,
+            },
+            {
+              path: '/licenseManage/licenseCreate/3',
+              name: 'licenseCreate3',
+              component: licenseCreate3,
+            },
+            {
+              path: '/licenseManage/licenseInfo',
+              name: 'licenseInfo',
+              component: licenseInfo,
+            }
+          ]
+        },
         {
           path:'/firstPage',
           name:'firstPage',

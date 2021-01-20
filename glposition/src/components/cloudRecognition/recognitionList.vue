@@ -21,7 +21,7 @@
       <el-table-column prop="identifiedImageCount" label="图片个数" align="center"></el-table-column>
       <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
       <el-table-column prop="updateTime" label="修改时间" align="center"></el-table-column>
-      <el-table-column label="操作" fixed="right" width="150" align="center">
+      <el-table-column label="操作" width="150" align="center">
         <template slot-scope="scope">
           <el-button v-if="$route.name=='localRecognitionList'" type="primary" size="mini" @click="$router.push({path:'/recognitionInfo',query:{databaseId:1,myData:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">管理</el-button>
           <el-button v-if="$route.name=='cloudRecognitionList'" type="primary" size="mini" @click="$router.push({path:'/recognitionInfo',query:{databaseId:2,myData:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">管理</el-button>
@@ -66,8 +66,13 @@ export default {
       this.$store.commit('pagination/setClickPage',1);//重置第1页
       this.replace('inputX',this.inputX);
     },
-    $route(from,to){//判断路由query变化执行请求
-      if(from.name!=to.name){this.$store.commit('pagination/setTotal', 0);}
+    $route(to,from){//判断路由query变化执行请求
+      if(JSON.stringify(to.query) == "{}"){
+        this.inputX='';
+        this.$store.commit('pagination/setClickPage',1);
+        this.$store.commit('pagination/setLimitPage',20);
+        this.$store.commit('pagination/setTotal', 0);
+      }
       this.listData();
     }
   },

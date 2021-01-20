@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="height:50px;border-bottom:1px solid #DFDCDC;">
-      <span style="font-size:20px;font-weight:bold;color:#000;">SDK下载</span>
+      <span style="font-size:20px;font-weight:bold;color:#000;">开发者工具下载</span>
     </div>
     <el-table ref="sdkRef" :data="sdkTable" tooltip-effect="dark" :max-height="tableHeight" :header-cell-style="headerCellStyle" :cell-style="cellStyle">
       <el-table-column label="名称" prop="name" align="center"></el-table-column>
@@ -50,7 +50,12 @@ export default {
     limit(){
       this.replace('limit',this.limit);
     },
-    $route(){//判断路由query变化执行请求
+    $route(to){//判断路由query变化执行请求
+    if(!to.query.page&&!to.query.limit){
+      this.$store.commit('pagination/setClickPage',1);
+      this.$store.commit('pagination/setLimitPage',20);
+      this.$store.commit('pagination/setTotal', 0);
+    }
       this.listData();
     }
   },

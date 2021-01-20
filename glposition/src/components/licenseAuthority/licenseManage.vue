@@ -12,7 +12,7 @@
             prop="id" label="id "  align="center" width="80"
             >
           </el-table-column>
-          <el-table-column prop="applicationName" label="应⽤名称"  align="center">
+          <el-table-column prop="applicationName" label="应用名称"  align="center">
           </el-table-column>
           <el-table-column prop="type" label="SDK类型" width="180" align="center">
              <template slot-scope="scope">
@@ -79,7 +79,15 @@ import {licenseList} from "../../http/request";
     },
     $route(){//判断路由query变化执行请求
       if(this.$route.name=='licenseManage'){
+        let query=this.$route.query
+        let pageRecord = query.page||1;//记录上一次页码操作
+        let limitRecord = query.limit||20;//记录上一次limit操作
         this.dataTable({...this.$route.query});
+        this.$nextTick(()=>{
+        this.$store.commit('pagination/setClickPage',pageRecord);
+        this.$store.commit('pagination/setLimitPage',limitRecord);
+        this.showPagination = true;//加载分页组件 
+     })
       }
     }
   },

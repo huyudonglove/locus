@@ -52,6 +52,41 @@ export function serverList(params) {
     })
   })
 }
+/** 授权管理 License -  列表 w*/
+export function licenseList(params){
+  let pageNum = parseInt(params.page)||1;
+  let pageSize = parseInt(params.limit)||20;
+  let createBy = params.createBy||'';
+  let name =params.name||'';
+  return new Promise((resolve,reject)=>{
+    http.post('/api/location/background/license/key/list/page',{pageNum,pageSize,name,createBy}).then(res=>{
+      if(res.code){
+        Message.error(res.msg);
+      }else{
+        resolve(res);
+      }
+    }).catch(err=>{
+      reject(err);
+    })
+  })
+}
+
+/** 授权管理 License -  详情 w*/
+export function licenseInfo(params) {
+  return http.get(`/api/location/license/key/queryByLicenseAuthId`, params)
+}
+/** 授权管理 License -  新增保存 w*/
+export function licenseSave(params) {
+  return http.post(`/api/location/license/auth/add`, params)
+}
+ /** 授权管理 License -  修改应用名 w*/
+ export function licenseEditName(params) {
+  return http.post(`/api/location/license/auth/update`, params)
+}
+/** 授权管理 License -  Bundle ID 或者Package Name w*/
+export function licenseEdit(params) {
+  return http.post(`/api/location/license/key/add`, params)
+}
 
 /**服务器资源管理 -  分页获取地图运行状态 w*/
 export function mapState2(params) {
@@ -166,8 +201,9 @@ export function getApikeyList(params){
   let pageSize = params.pageSize||20;
   let name = params.name||'';
   let userCode = params.userCode||'';
+  let createBy = params.createBy||'';
   return new Promise((resolve,reject)=>{
-    http.post('/api/location/background/apiKey/list/page',{pageNum,pageSize,name,userCode}).then(res=>{
+    http.post('/api/location/background/apiKey/list/page',{pageNum,pageSize,name,userCode,createBy}).then(res=>{
       if(res.code){
         Message.error(res.msg);
     }else{
@@ -327,6 +363,10 @@ export function getUserInfo(params){
 /** 用户管理-删除用户 Author:minggui*/
 export function delUser(params){
   return loadRequest('/api/location/middleground/admin/delete',params,'删除',http,'get')
+}
+/** 用户管理-重发邮件 Author:minggui*/
+export function setEmailAgain(params){
+  return loadRequest('/api/location/access/reSendRegisterEmail',params,'重新发送邮件',http,'post')
 }
 // /** 用户管理-设置、重置密码 Author:minggui*/
 // export function setPassword(params){

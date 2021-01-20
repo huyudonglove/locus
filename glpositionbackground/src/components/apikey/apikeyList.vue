@@ -7,12 +7,14 @@
       </div>
       <el-row class="tac" style="border-bottom:1px solid #eeeeee; padding:15px 0;">
         <el-input v-model="inputX" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入名称"></el-input>
+        <el-input v-model="createBy" style="width: 250px" suffix-icon="el-icon-search" maxlength="50" placeholder="请输入创建者"></el-input>
       </el-row>
       <el-table ref="apikeyRef" :data="table" border style="width: 100%" class="mt15 mb15" :max-height="tableHeight">
         <el-table-column prop="id" label="ID" width="100" align="center"></el-table-column>
         <el-table-column prop="name" label="名称" align="center"></el-table-column>
         <el-table-column prop="apiKey" label="API KEY" align="center"></el-table-column>
         <el-table-column prop="apiSecret" label="API Secret" align="center"></el-table-column>
+        <el-table-column prop="createBy" label="创建者" align="center"></el-table-column>
         <el-table-column prop="createTime" label="创建时间" width="200" align="center"></el-table-column>
         <el-table-column prop="updateTime" label="修改时间" width="200" align="center"></el-table-column>
         <el-table-column label="操作" fixed="right" width="200" align="center">
@@ -44,6 +46,7 @@ export default {
   data(){
     return{
       inputX:'',
+      createBy:'',
       table:[],
       showPagination:false,
       tableHeight:0,
@@ -63,8 +66,19 @@ export default {
       this.$store.commit('pagination/setClickPage',1);//重置第1页
       this.replace('name',this.inputX);
     },
-    $route(){//判断路由query变化执行请求
+    createBy(){
+      this.$store.commit('pagination/setClickPage',1);//重置第1页
+      this.replace('createBy',this.createBy);
+    },
+    $route(to){//判断路由query变化执行请求
       if(this.$route.name=='apikeyList'){
+        if(JSON.stringify(to.query) == "{}"){
+          this.inputX='';
+          this.createBy='';
+          this.$store.commit('pagination/setClickPage',1);
+          this.$store.commit('pagination/setLimitPage',20);
+          this.$store.commit('pagination/setTotal', 0);
+        }
         this.listData();
       }
     }
@@ -88,6 +102,7 @@ export default {
     let pageRecord = this.$route.query.pageNum||1;//记录上一次页码操作
     let limitRecord = this.$route.query.pageSize||20;//记录上一次limit操作
     this.inputX = this.$route.query.name||'';
+    this.createBy = this.$route.query.createBy||'';
     this.$nextTick(()=>{
       this.$store.commit('pagination/setClickPage',pageRecord);
       this.$store.commit('pagination/setLimitPage',limitRecord);

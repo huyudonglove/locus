@@ -38,7 +38,8 @@
           {required: true, message: '请输入识别图库名称', trigger: 'blur'},
           {pattern: /^[\_\-0-9A-Za-z]+$/, message: '识别图库名称必须是英文、数字0-9、下划线或中划线', trigger: 'blur'},
         ]
-      }
+      },
+      loading:null
     }
   },
   created(){
@@ -48,9 +49,38 @@
     create(){
       this.$refs.formSize.validate((valid) => {
         if(valid){
-          addRecognition({"identifiedType":parseInt(this.$route.query.databaseId),"name":this.formSize.name,"type":this.formSize.limit}).then(res=>{
-            this.$router.go(-1);
-          })
+          this.$confirm(`<div style='font-size:20px;font-weight:bold;margin-bottom:20px;word-break:break-all;'>确认创建识别图库${this.formSize.name}吗</div>`,
+            {'dangerouslyUseHTMLString':true,
+            'closeOnClickModal':false,
+            'showClose':false,
+            'confirmButtonClass':'confirmButtonXu',
+            'cancelButtonClass':'cancelButtonXu'}).then(y=>{
+              this.loading = this.$loading({
+                lock: true,
+                showClose:false,
+                closeOnClickModal:false,
+                text: `创建识别图库${this.formSize.name}中...`,
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.3)',
+                customClass: 'loading_xu',
+              });
+              addRecognition({"identifiedType":parseInt(this.$route.query.databaseId),"name":this.formSize.name,"type":this.formSize.limit}).then(res=>{
+                if(res.code){
+                  this.$message.error(res.msg);
+                  this.loading.close();
+                }else{
+                  this.loading.close();
+                  this.$message({
+                    message: `图库“${this.formSize.name}”新建成功`,
+                    center: true,
+                    type: 'success'
+                  })
+                  this.$router.push({path:'/recognitionInfo',query:{databaseId:this.$route.query.databaseId,myData:JSON.stringify(res.data),oldQuery:JSON.stringify({})}})
+                }
+              }).catch(()=>{
+                this.loading.close();
+              })
+            })
         }else {
           console.log('error submit!!');
           return false;

@@ -15,7 +15,7 @@
         <el-table-column prop="apiSecret" label="API Secret" align="center"></el-table-column>
         <el-table-column prop="createTime" label="创建时间" width="200" align="center"></el-table-column>
         <el-table-column prop="updateTime" label="修改时间" width="200" align="center"></el-table-column>
-        <el-table-column label="操作" fixed="right" width="200" align="center">
+        <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope">
             <el-button type="warning" size="mini" @click="$router.push({path:'/service/apikeyInfo',query:{apiInfo:JSON.stringify(scope.row),oldQuery:JSON.stringify($route.query)}})">详情</el-button>
             <el-button type="danger" size="mini" @click="del(scope.row.id)">删除</el-button>
@@ -63,8 +63,13 @@ export default {
       this.$store.commit('pagination/setClickPage',1);//重置第1页
       this.replace('name',this.inputX);
     },
-    $route(){//判断路由query变化执行请求
+    $route(to){//判断路由query变化执行请求
       if(this.$route.name=='apikeyList'){
+        if(JSON.stringify(to.query) == "{}"){
+          this.$store.commit('pagination/setClickPage',1);
+          this.$store.commit('pagination/setLimitPage',20);
+          this.$store.commit('pagination/setTotal', 0);
+        }
         this.listData();
       }
     }

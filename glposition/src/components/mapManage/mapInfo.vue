@@ -175,7 +175,7 @@ import lineChartDialog from './lineChartDialog'
 import upM from '../upM'
 import upResult from '../upResult'
 import {getMapVersion,getMapLine,checkMapEnableUpdate,getMapUpdate,getMapScale,updateMapScale} from "../../http/request";
-let scene,camera,controls,scene2,camera2,controls2;
+let scene,camera,controls,scene2,camera2,controls2,renderer,renderer2;
 
 export default {
   name:'mapInfo',
@@ -206,10 +206,8 @@ export default {
       newGps:'',
       newDecription:'',
       title:'',
-      renderer:'',
       clock:'',
       delta:'',
-      renderer2:'',
       clock2:'',
       delta2:'',
       mapVisible:false,
@@ -229,6 +227,7 @@ export default {
       enableUpdateMap:false,
       enableUpdateLine:false,
       isUpResult:false,
+      rafId:null
     }
   },
   watch:{
@@ -420,14 +419,14 @@ export default {
     },
     initRender(){
        //创建渲染器
-      this.renderer=new THREE.WebGLRenderer();
-      this.renderer.setSize(680,550);
-      this.renderer.setClearColor(0x000000, 1.0);
-      this.renderer2=new THREE.WebGLRenderer();
-      this.renderer2.setSize(680,550);
-      this.renderer2.setClearColor(0x000000, 1.0);
-      document.getElementById('webglId').appendChild(this.renderer.domElement);
-      document.getElementById('webglId2').appendChild(this.renderer2.domElement);
+      renderer=new THREE.WebGLRenderer();
+      renderer.setSize(680,550);
+      renderer.setClearColor(0x000000, 1.0);
+      renderer2=new THREE.WebGLRenderer();
+      renderer2.setSize(680,550);
+      renderer2.setClearColor(0x000000, 1.0);
+      document.getElementById('webglId').appendChild(renderer.domElement);
+      document.getElementById('webglId2').appendChild(renderer2.domElement);
     },
     initScene(){
       //创造场景
@@ -469,7 +468,7 @@ export default {
           geometry.center();
           //创建纹理，并将模型添加到场景道中
           var material = new THREE.PointsMaterial( {size: 0.05,transparent: true,vertexColors:THREE.VertexColors,alphaTest: 0.5} );
-          var mesh = new THREE.Points( geometry, material );
+          var mesh  = new THREE.Points( geometry, material );
 
 					mesh.castShadow = true;
           mesh.receiveShadow = true;
@@ -494,7 +493,7 @@ export default {
           geometry.center();
           //创建纹理，并将模型添加到场景道中
           var material = new THREE.PointsMaterial( {size: 0.05,transparent: true,vertexColors:THREE.VertexColors,alphaTest: 0.5} );
-          var mesh = new THREE.Points( geometry, material );
+          var mesh  = new THREE.Points( geometry, material );
 
 					mesh.castShadow = true;
           mesh.receiveShadow = true;
@@ -509,7 +508,7 @@ export default {
       scene2.add(axes2);
     },
     initControls(){
-      controls = new THREE.TrackballControls(camera, this.renderer.domElement);
+      controls = new THREE.TrackballControls(camera, renderer.domElement);
       controls.rotateSpeed = 2.5;
       controls.zoomSpeed = 1.2;
       controls.panSpeed = 0.8;
@@ -518,7 +517,7 @@ export default {
       controls.staticMoving = true;
       controls.dynamicDampingFactor = 0.3;
       this.clock = new THREE.Clock();
-      controls2 = new THREE.TrackballControls(camera2, this.renderer2.domElement);
+      controls2 = new THREE.TrackballControls(camera2, renderer2.domElement);
       controls2.rotateSpeed = 2.5;
       controls2.zoomSpeed = 1.2;
       controls2.panSpeed = 0.8;
@@ -530,12 +529,12 @@ export default {
     },
     //渲染
     render(){
-      this.renderer.render(scene,camera);
-      this.renderer2.render(scene2,camera2);
+      renderer.render(scene,camera);
+      renderer2.render(scene2,camera2);
     },
     //动画执行
     animate() {
-      requestAnimationFrame(this.animate);
+      this.rafId = requestAnimationFrame(this.animate);
       this.render();
       this.delta = this.clock.getDelta();
       this.delta2 = this.clock2.getDelta();
@@ -661,7 +660,32 @@ export default {
         this.enableUpdateLine=res.data.enableUpdateLine;
         this.enableUpdateMap=res.data.enableUpdateMap;
       })
-    }
+    },
+    clearCache(object) {
+      let  mesh = object;
+      mesh.geometry.dispose();
+      mesh.material.dispose();
+    },
+    clearRenderer(){
+      renderer.dispose();
+      renderer.forceContextLoss();
+      renderer.context = null;
+      renderer.domElement = null;
+      renderer = null;
+      renderer2.dispose();
+      renderer2.forceContextLoss();
+      renderer2.context = null;
+      renderer2.domElement = null;
+      renderer2 = null;
+    },
+  },
+  beforeDestroy(){
+    cancelAnimationFrame(this.rafId)
+    // this.clearRenderer();
+    // scene = null
+    // camera = null
+    // scene2 = null
+    // camera2 = null
   },
   created(){
     console.log(JSON.parse(this.$route.query.oldQuery))
