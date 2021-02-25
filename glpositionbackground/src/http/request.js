@@ -445,6 +445,10 @@ export function getStatusList(params){
       })
     })
   }
+/*上传地图信息 w*/
+export function upMapResult(params){
+  return http.post('/api/location/background/map/upload/new',params)
+}
 export {
     login,
     getCode,

@@ -371,6 +371,8 @@ const register=(msg)=>{
 const resetPasswordEmail=(msg)=>{
   return http.post('/api/location/access/resetPasswordEmail',msg)
 }
+
+
 export {
     login,
     upMap,

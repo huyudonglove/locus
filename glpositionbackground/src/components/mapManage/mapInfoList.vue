@@ -42,6 +42,7 @@
           </span>
           <!-- <el-button style="float:right;margin-left:15px" type="primary" @click="mapLoad()">上传地图包
       </el-button> -->
+       <el-button type="primary" size="mini" @click="isUpResult=true" style="float:right;margin-left:15px">上传地图扫描结果</el-button>
         </el-row>
            <!-- 数据展示 -->
         <el-table :data="tableData2" ref="multipleTable2" tooltip-effect="dark" style="width: 100%" :max-height="tableHeight2"  border @sort-change="changeTableSort">
@@ -121,6 +122,9 @@
        <div v-if="isShowChart">
          <lineChartDialog :mapCode="mapCode" :mapKey='mapKey' :mapStatus='mapStatus'@lineChartDialogClose="lineChartDialogClose"></lineChartDialog>
        </div>
+        <div  v-if="isUpResult">
+        <upResult :formSize="formSize" @showUpResult="showUpResult"></upResult>
+      </div>
     </div>
      <router-view />
   </div>
@@ -132,6 +136,7 @@ import {mapInfoList,mapInfoDel,autoStartMap,autoStopMap,stopMap} from "../../htt
 import pagination from '../../share/pagination'
 import lineChartDialog from './lineChartDialog'
 import upMe from '../up'
+import upResult from '../upResult'
   export default {
   name: 'mapInfoList',
   inject:['replace','reload'],
@@ -148,6 +153,7 @@ import upMe from '../up'
       title:'上传地图包',
       type:1,
       mapVisible:false,
+      isUpResult:false,
       tableData2:[],
       tableHeight2:200,
       showPagination2:false,
@@ -307,6 +313,9 @@ import upMe from '../up'
       })
       }
     },
+    showUpResult(){
+      this.isUpResult = false;
+    },
     stopMap(id){
       stopMap(id).then(v=>{
         v.code&&this.$message.error(v.msg)&&this.reload();
@@ -384,7 +393,8 @@ import upMe from '../up'
   components: {
   pagination,
   upMe,
-  lineChartDialog
+  lineChartDialog,
+  upResult
 }
   }
 </script>

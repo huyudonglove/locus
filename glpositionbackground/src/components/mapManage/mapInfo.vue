@@ -655,7 +655,7 @@ export default {
     cancelAnimationFrame(this.rafId)
   },
   created(){
-    console.log(JSON.parse(this.$route.query.oldQuery))
+    // console.log(JSON.parse(this.$route.query.oldQuery))
   },
   async mounted(){
     await this.getInfo();

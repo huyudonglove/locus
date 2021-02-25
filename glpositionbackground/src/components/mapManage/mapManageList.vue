@@ -42,7 +42,7 @@
               <el-button
                 type="primary"
                 size="mini"
-                @click="$router.push({path:'/mapManageList/mapInfoList',query:{ids:scope.row.id,msg:JSON.stringify($route.query),params:JSON.stringify(scope.row)}})"
+                 @click="$router.push({path:'/mapManageList/mapInfoList',query:{ids:scope.row.id,msg:JSON.stringify($route.query),params:JSON.stringify(scope.row)}})"
                >管理</el-button>
             </template>
           </el-table-column>

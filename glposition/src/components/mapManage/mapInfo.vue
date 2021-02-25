@@ -13,13 +13,19 @@
             </el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <el-button type="primary" size="mini" @click="download(densePointCloudFileId,'稠密')">下载稠密点云数据</el-button>
+                <el-button type="primary" size="mini" @click="download(denseLeftPointCloudFileId,'unity稠密')" style="width:200px">Unity坐标系适用稠密点云数据</el-button>
               </el-dropdown-item>
               <el-dropdown-item>
-                <el-button type="primary" size="mini" @click="download(sparsePointCloudFileId,'稀疏')">下载稀疏点云数据</el-button>
+                <el-button type="primary" size="mini" @click="download(densePointCloudFileId,'稠密')" style="width:200px">其他坐标系稠密点云数据</el-button>
               </el-dropdown-item>
               <el-dropdown-item>
-                <el-button :disabled="!mapFileId" type="primary" size="mini" @click="download(mapFileId,'模型')">&nbsp;&nbsp;&nbsp;下载模型数据&nbsp;&nbsp;&nbsp;&nbsp;</el-button>
+                <el-button type="primary" size="mini" @click="download(sparseLeftPointCloudFileId,'unity稀疏')" style="width:200px">Unity坐标系适用稀疏点云数据</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button type="primary" size="mini" @click="download(sparsePointCloudFileId,'稀疏')" style="width:200px">其他坐标系稀疏点云数据</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button :disabled="!mapFileId" type="primary" size="mini" @click="download(mapFileId,'模型')" style="width:200px">&nbsp;&nbsp;&nbsp;下载模型数据&nbsp;&nbsp;&nbsp;&nbsp;</el-button>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -227,7 +233,9 @@ export default {
       enableUpdateMap:false,
       enableUpdateLine:false,
       isUpResult:false,
-      rafId:null
+      rafId:null,
+      denseLeftPointCloudFileId:'',//新增unity下载
+      sparseLeftPointCloudFileId:''
     }
   },
   watch:{
@@ -264,6 +272,7 @@ export default {
       this.isShowChart =false;
     },
     download(id,name){
+      //debugger
       let url=`/static/${Base64.decode(id)}`;
       let path = Base64.decode(id);
       let arr = path.split('/');
@@ -306,12 +315,16 @@ export default {
                 this.decription = res.data.description;
                 this.sparsePointCloudFileId = result.data.resource?result.data.resource.sparsePlyIdNew?result.data.resource.sparsePlyIdNew:res.data.sparsePointCloudFileId:res.data.sparsePointCloudFileId;//稀疏
                 this.densePointCloudFileId = result.data.resource?result.data.resource.densePlyIdNew?result.data.resource.densePlyIdNew:res.data.densePointCloudFileId:res.data.densePointCloudFileId;//稠密
+                 //新增unity
+                this.denseLeftPointCloudFileId = result.data.resource?result.data.resource.densePlyIdNew?result.data.resource.densePlyIdNew:res.data.denseLeftPointCloudFileId:res.data.denseLeftPointCloudFileId;
+                this.sparseLeftPointCloudFileId = result.data.resource?result.data.resource.densePlyIdNew?result.data.resource.densePlyIdNew:res.data.sparseLeftPointCloudFileId:res.data.sparseLeftPointCloudFileId;
                 this.mapFileId = result.data.resource?result.data.resource.modelIdNew?result.data.resource.modelIdNew:'':'';//模型
                 this.sparseMapPath = Base64.decode(this.sparsePointCloudFileId);
                 this.denseMapPath = Base64.decode(this.densePointCloudFileId);
                 this.mapKey=res.data.mapKey
                 this.mapCode=res.data.mapCode;
                 this.sceneId=res.data.sceneId;
+               
                 getMapScale({"mapKey":this.mapId}).then(scale=>{
                   this.scale = scale.data;
                 })
