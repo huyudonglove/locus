@@ -123,7 +123,7 @@
          <lineChartDialog :mapCode="mapCode" :mapKey='mapKey' :mapStatus='mapStatus'@lineChartDialogClose="lineChartDialogClose"></lineChartDialog>
        </div>
         <div  v-if="isUpResult">
-        <upResult :formSize="formSize" @showUpResult="showUpResult"></upResult>
+        <upMapResult :formSize="formSize" @showUpResult="showUpResult"></upMapResult>
       </div>
     </div>
      <router-view />
@@ -136,7 +136,7 @@ import {mapInfoList,mapInfoDel,autoStartMap,autoStopMap,stopMap} from "../../htt
 import pagination from '../../share/pagination'
 import lineChartDialog from './lineChartDialog'
 import upMe from '../up'
-import upResult from '../upResult'
+import upMapResult from '../upMapResult'
   export default {
   name: 'mapInfoList',
   inject:['replace','reload'],
@@ -394,7 +394,7 @@ import upResult from '../upResult'
   pagination,
   upMe,
   lineChartDialog,
-  upResult
+  upMapResult
 }
   }
 </script>

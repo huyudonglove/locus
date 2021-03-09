@@ -1,6 +1,14 @@
 <template>
     <div >
-      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传激光扫描结果" :close-on-click-modal="false" @close="visB()" :show-close="false">
+      <el-dialog  :visible.sync="mapVisibleUp" width="30%" title="上传地图扫描结果" @close="visB()">
+        <div>
+          <p><i style="color:red;padding:5px;">*</i>地图名称：</p>
+          <el-input v-model="name" placeholder="地图名称"  maxlength="20"></el-input>
+        </div>
+        <div>
+          <p>备注：</p>
+          <el-input v-model="description" type="textarea" maxlength="500"  show-word-limit></el-input>
+        </div>
         <div style="text-align: center">
           <p >
             <el-upload
@@ -23,39 +31,38 @@
               :file-list="fileArray"
               :multiple="auto">
               <i class="el-icon-upload"></i>
-              <div class="el-upload__text"><i style="color:red;padding:5px;">*</i>可选择将激光扫描结果拖拽到本区域，或<em>点击上传</em></div>
+              <div class="el-upload__text"><i style="color:red;padding:5px;">*</i>请将地图包拖拽到本区域，或<em>点击上传</em></div>
               <div class="el-upload__tip" slot="tip">只能上传zip文件</div>
             </el-upload>
           </p>
         </div>
-        <div style="text-align: right">
-          <el-button @click="mapVisibleUp=false" class="cancelButtonXu">返回</el-button>
-          <el-button @click="submitUpload"  type="primary" class="confirmButtonXu">上传</el-button>
+        <div style="text-align: center">
+          <el-button @click="submitUpload"  type="primary" >上传</el-button>
         </div>
       </el-dialog>
       <div>
-        <el-dialog title="上传中" :visible.sync="upLoad" width="30%" :close-on-click-modal="false" :show-close="false">
-          <el-progress :stroke-width="26" :percentage="percent"></el-progress>
-          <span>激光扫描结果正在上传中，请不要关闭页面及浏览器</span>
+        <el-dialog title="上传中" :visible.sync="upLoad" width="30%" :close-on-click-modal="false" :show-close="false">
+          <el-progress :text-inside="true" :stroke-width="26" :percentage="percent"></el-progress>
+          <span>地图包结果正在上传中，请不要关闭页面及浏览器</span>
           <span slot="footer" class="dialog-footer">
           </span>
         </el-dialog>
-        <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" :close-on-click-modal="false" :show-close="false" style="text-align: center">
+        <el-dialog title="上传成功" :visible.sync="upEnd" width="30%" @close="upEnd = false;reload();" style="text-align: center">
           <img src="../assets/ok.png" alt="" width="100" height="100">
-          <p>
+          <!-- <p>
             <span>上传成功，开始进行转换，你可以在<router-link :to="'/replaceList?type=2'">转换列表</router-link>或者地图库列表看到你的地图</span>
-          </p>
+          </p> -->
           <p>
             <span slot="footer" class="dialog-footer">
-             <el-button type="primary" @click="upEnd = false;reload();" class="confirmButtonXu">确 定</el-button>
+             <el-button type="primary" @click="upEnd = false;reload();">确 定</el-button>
           </span>
           </p>
         </el-dialog>
-        <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;" :close-on-click-modal="false" :show-close="false">
-          <span>激光扫描结果正在上传，离开页面将会终止上传，你确定离开吗？</span>
+        <el-dialog title="警告" :visible.sync="upBreak" width="30%" @close="upBreak = false;">
+          <span>地图包结果正在上传，离开页面将会终止上传，你确定离开吗？</span>
           <span slot="footer" class="dialog-footer">
-             <el-button type="primary" @click="upBreak = false;reload();abortFile();" class="confirmButtonXu">确 定</el-button>
-             <el-button @click="upBreak=false;" class="cancelButtonXu">取消</el-button>
+             <el-button type="primary" @click="upBreak = false;reload();abortFile();">确 定</el-button>
+             <el-button @click="upBreak=false;">取消</el-button>
           </span>
         </el-dialog>
       </div>
@@ -63,13 +70,16 @@
 </template>
 
 <script>
-  import {upResult} from "../http/request";
+  import {upMapResult} from "../http/request";
+  import {selfCookie} from "../self";
   import upLoad from "../share/upLoad";
   export default {
-        name: "upResult",
+        name: "upMapResult",
         props:['formSize'],
         data(){
           return{
+            name:'',
+            description:'',
             file:'',
             mapDatabaseId:'',
             mapDatabaseName:'',
@@ -79,12 +89,12 @@
             upEnd:false,
             upBreak:false,
             msg:{
-              mapKey:'',
-              testFileId:'',
+              // mapKey:'',
+              // testFileId:'',
 
             },
             header:{
-              Authorization:localStorage.getItem('locationMiddlegroundToken')
+              Authorization:localStorage.getItem(selfCookie)
             },
             fileArray:[],
             mapVisibleUp:true,
@@ -103,14 +113,20 @@
           submitUpload(){
             console.log(this.fileArray.length)
             this.fileArray.length?(()=>{
-              // this.msg.mapDatabaseId=this.formSize.mapDatabaseId;
-              // this.msg.mapDatabaseName=JSON.parse(JSON.parse(this.$route.query.oldQuery).params).name;
-              // this.msg.mapDatabaseKey=this.formSize.secret;
-              // this.msg.testFileId=this.msg.testFileId;
-              this.msg.mapKey=this.formSize.mapKey;
-              this.upLoad=true;
-              this.$refs.upload.submit();
-            })():this.$message.error('请选择上传激光扫描结果文件');
+              this.msg.description=this.description;
+              this.msg.mainMapId='';
+              this.msg.mapDatabaseId=this.formSize.id;
+              this.msg.mapDatabaseKey=this.formSize.secret;
+              this.msg.mapDatabaseName=this.formSize.name;
+              this.msg.name=this.name;
+              this.msg.sceneId=1
+              this.msg.scale='1.0'
+              this.name?(()=>{
+                this.upLoad=true;
+                this.$refs.upload.submit();
+               // this.mapVisibleUp=false
+              })():this.$message.error('地图名称不能为空')
+            })():this.$message.error('请选择上传地图包文件');
           },
           visB(){
             this.mapVisibleUp=false;
@@ -126,9 +142,9 @@
             console.log(response);
 
             !response.code?(()=>{
-              this.msg.testFileId=response.data.fileId;
-              // this.msg.size=response.data.size;
-               upResult(JSON.parse(JSON.stringify(this.msg))).then(v=>{
+              this.msg.mapFileId=response.data.fileId;
+              this.msg.size=response.data.size;
+               upMapResult(JSON.parse(JSON.stringify(this.msg))).then(v=>{
                 console.log(v,77777)
                 this.upLoad=false;
                   v.code&&this.$message.error(v.msg);
@@ -170,10 +186,10 @@
               this.$message.error('只能上传zip文件！')
               this.fileArray=[];
             })();
-            file.name=='map_resource.zip'?this.fileArray=list:(()=>{
-              this.$message.error('文件名必须是map_resource');
-              this.fileArray=[];
-            })();
+            // file.name=='map_resource.zip'?this.fileArray=list:(()=>{
+            //   this.$message.error('文件名必须是map_resource');
+            //   this.fileArray=[];
+            // })();
           },
           remove(file,list){
             console.log(file,list)
@@ -181,8 +197,8 @@
           }
         },
       mounted() {
-            console.log(this.formSize,77777);
-            console.log(JSON.parse(JSON.parse(this.$route.query.oldQuery).params).name,888888888)
+            console.log(this.formSize,777555577);
+            // console.log(JSON.parse(JSON.parse(this.$route.query.oldQuery).params).name,888888888)
             // this.name=this.formSize.name;
             // this.description=this.formSize.description;
       },
