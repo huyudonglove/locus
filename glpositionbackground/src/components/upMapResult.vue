@@ -13,23 +13,20 @@
           <p >
             <el-upload
               ref="upload"
+              action=""
               class="upload-demo"
               :drag="true"
-              :before-upload="beforeUploadFile"
-              action="/api/file/upload"
-              :auto-upload="auto"
+              :auto-upload="false"
               :limit="1"
               :on-exceed="limitAlert"
-              :data="upMsg"
               :on-progress="progress"
               :on-error="upError"
-              :on-success="upSuccess"
               :on-remove="remove"
               name="file"
               :headers="header"
               :on-change="changeFile"
               :file-list="fileArray"
-              :multiple="auto">
+              >
               <i class="el-icon-upload"></i>
               <div class="el-upload__text"><i style="color:red;padding:5px;">*</i>请将地图包拖拽到本区域，或<em>点击上传</em></div>
               <div class="el-upload__tip" slot="tip">只能上传zip文件</div>
@@ -70,9 +67,10 @@
 </template>
 
 <script>
-  import {upMapResult} from "../http/request";
+  import {upMapResult,upMapCheckFile,mapUpload} from "../http/request";
   import {selfCookie} from "../self";
   import upLoad from "../share/upLoad";
+  import SparkMD5 from "spark-md5";
   export default {
         name: "upMapResult",
         props:['formSize'],
@@ -103,6 +101,13 @@
               type:'file',
               moduleCode:'location_laser_result'
             },
+            bufferFile:'',
+            md5:'',
+            allChuck:'',
+            allSlice:[],
+            size:1024*1024,
+            fileCopy:'',
+            indexC:''
           }
         },
         inject:['reload'],
@@ -112,6 +117,7 @@
           },
           submitUpload(){
             console.log(this.fileArray.length)
+            this.startUp(this.indexC)
             this.fileArray.length?(()=>{
               this.msg.description=this.description;
               this.msg.mainMapId='';
@@ -171,8 +177,19 @@
           beforeUploadFile(file){
               console.log(file,999);
             !file&&(()=>{
-              return false
+              
             })();
+            if(file.size<=(1024*1024)){
+                console.log(file);
+                //axios.post('/api/')
+            
+            }else{
+              this.allChuck=Math.ceil(file.size/(1024*1024));
+               console.log(this.allChuck,7777)
+               this.checkMd5(file);
+               
+            }
+             return false
           },
           handleClose(){
             this.upBreak=true;
@@ -190,11 +207,77 @@
             //   this.$message.error('文件名必须是map_resource');
             //   this.fileArray=[];
             // })();
+            this.allSlice=[]; 
+            this.fileCopy=file.raw;
+            this.beforeUploadFile(this.fileCopy)
           },
           remove(file,list){
             console.log(file,list)
             this.fileArray=list;
-          }
+          },
+          async checkMd5(file){
+          var self=this;
+          const fileRead = new FileReader();
+          const sparkMD5 = new SparkMD5.ArrayBuffer()
+          await fileRead.readAsArrayBuffer(file);
+          await fileRead.addEventListener('load',function(e){
+              console.log(e,'eeeeeeeeee');
+              self.bufferFile=e.target.result;
+              for(let i=0;i<self.allChuck;i++){
+                console.log(i,89);
+                
+               self.allSlice.push(new Blob([self.bufferFile.slice(i,(i+1)*self.size)]));
+               
+              }
+              console.log(self.allSlice,9999)  
+          });
+          
+          
+          sparkMD5.append(this.bufferFile);
+          this.md5= sparkMD5.end();
+          console.log(this.md5);
+          await this.checkUp(this.md5);
+      },
+      //上传md5
+      checkUp(md5){
+          var self=this;
+          upMapCheckFile({fileMd5:md5}).then(res=>{
+              console.log(res);
+              self.indexC=res.data.currIndex;
+              //self.startUp(self.indexC)  
+          })
+      },
+      //开始切片并且上传
+       startUp(index){
+           console.log(index,'startup')
+           let current=index-1;
+           console.log(index,index-1,'index-1')
+           var self=this;
+           console.log(current,'current',this.allSlice.length,'this.allSlice.length')
+           if(current<this.allSlice.length){
+               console.log(111);
+               const formData = new FormData();
+               var fragmentDto={
+                   type:'file',
+                   moduleCode:'locus',
+                   originFileName:self.fileCopy.name,
+                   fileMd5:self.md5,
+                   fragmentNum:this.allSlice.length,
+                   currIndex:index,
+                   size:self.fileCopy.size
+               }
+               formData.append('file',this.allSlice[current]);
+               formData.append('fragmentDto',JSON.stringify(fragmentDto));
+               mapUpload(formData).then(res=>{
+                    self.indexC++;
+                    self.startUp(self.indexC)
+               }) 
+           }else{
+               this.upSuccess()
+               return
+           }
+
+       }    
         },
       mounted() {
             console.log(this.formSize,777555577);

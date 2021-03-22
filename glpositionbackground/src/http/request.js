@@ -449,6 +449,19 @@ export function getStatusList(params){
 export function upMapResult(params){
   return http.post('/api/location/background/map/upload/new',params)
 }
+
+/*/校验文件并获取分段索引 w*/
+export function upMapCheckFile(params){
+  return http.post('/api/file/fragment/checkFile',params)
+}
+
+/*//断点续传 w*/
+export function mapUpload(params){
+  console.log(params,'params')
+  return http.post('/api/file/fragment/upload',params)
+}
+
+
 export {
     login,
     getCode,

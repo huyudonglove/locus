@@ -12,7 +12,7 @@ axios.interceptors.request.use(
     //console.log(config)
 
     config.data = JSON.stringify(config.data);
-    if (config.url == '/api/file/upload' || config.url =='/api/xr/saas/identify/map/upload/image') {
+    if (config.url == '/api/file/upload' || config.url =='/api/xr/saas/identify/map/upload/image'||config.url =='/api/file/fragment/upload') {
       config.headers = {
         "Content-Type": "multipart/form-data"
       }
@@ -107,7 +107,7 @@ export default {
   post(url,data = {}){
     return new Promise((resolve,reject) => {
 
-      if (url == '/api/xr/saas/song/upload' || url == '/api/file/upload' || url == '/api/xr/saas/identify/map/upload/image'||url=='/api/utopa/ar/material/upload/video'||url=='/api/utopa/ar/material/upload/lrc'){
+      if (url == '/api/xr/saas/song/upload' || url == '/api/file/upload' || url == '/api/xr/saas/identify/map/upload/image'||url=='/api/utopa/ar/material/upload/video'||url=='/api/utopa/ar/material/upload/lrc'||url =='/api/file/fragment/upload'){
         const instance=axios.create({
           withCredentials: true
         })
